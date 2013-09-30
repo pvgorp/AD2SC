@@ -20,6 +20,6 @@
 
 new graph UML23AD "UML 2.3 Activity Diagram"
 
-include "input\Shipping-DAB-example.xml.gruml23"
+include "input\shipping-DAB.gruml23"
 
 include exec-main.grs

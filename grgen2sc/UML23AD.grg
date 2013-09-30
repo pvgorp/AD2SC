@@ -654,6 +654,13 @@ rule PNnext2prepost(pn:PetriNet) {
 				pn -:transitions-> t;
 			}
 		}
+		PrePostCombo2 {
+			from:Transition -:PNnext-> to:Transition;
+			replace {
+				from -:post-> p:Place -:pre-> to;
+				pn -:places-> p;
+			}
+		}
 	}
 	modify {}
 }
@@ -801,19 +808,8 @@ rule R3 {
 	}
 	// added since otherwise island Places (without pre/post) would match too
 	p -:pre-> .;
-	
-	/*
-	negative {
-		p;
-		pOther:Place;
-		:Place1PrecedesPlace2(p, pOther);
-	}*/
-	
-	/*negative { // extra PVG
-		topP:Place;
-		topOR:HSCorState;
-		:IsSuccessfulEndSituation(topP,topOR);
-	}*/
+	. -:post-> p;
+	// end added
 	
 	modify {
 		delete(p);	// << this was originally the only side-effect of T3
