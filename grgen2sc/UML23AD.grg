@@ -652,6 +652,9 @@ rule PNnext2prepost(pn:PetriNet) {
 			replace {
 				from -:pre-> t:Transition -:post-> to;
 				pn -:transitions-> t;
+				eval {
+					t.name= from.name + to.name;
+				}
 			}
 		}
 		PrePostCombo2 {
@@ -659,6 +662,9 @@ rule PNnext2prepost(pn:PetriNet) {
 			replace {
 				from -:post-> p:Place -:pre-> to;
 				pn -:places-> p;
+				eval {
+					p.name= from.name + to.name;
+				}
 			}
 		}
 	}
