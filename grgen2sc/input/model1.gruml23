@@ -1,0 +1,55 @@
+new :StateMachine($="5",name="Order",visibility=Visibility::public)
+new :Region($="6",name="OrderR1",visibility=Visibility::public)
+new @("5") - :ownedElement -> @("6")
+
+new :State ($="7",name="received",visibility=Visibility::public)
+new :State ($="8",name="waiting",visibility=Visibility::public)
+new :State ($="9",name="ready for authorizing",visibility=Visibility::public)
+new :State ($="10",name="authorized",visibility=Visibility::public)
+new :State ($="11",name="rejected",visibility=Visibility::public)
+new :State ($="12",name="acccepted",visibility=Visibility::public)
+new :State ($="13",name="billed",visibility=Visibility::public)
+new :State ($="14",name="dispatched",visibility=Visibility::public)
+new :State ($="15",name="line items collected",visibility=Visibility::public)
+
+new @("6") - :ownedElement -> @("7")
+new @("6") - :ownedElement -> @("8")
+new @("6") - :ownedElement -> @("9")
+new @("6") - :ownedElement -> @("10")
+new @("6") - :ownedElement -> @("11")
+new @("6") - :ownedElement -> @("12")
+new @("6") - :ownedElement -> @("13")
+new @("6") - :ownedElement -> @("14")
+new @("6") - :ownedElement -> @("15")
+
+
+
+new :Activity ($="01",name="ActivityDiagram1",visibility=Visibility::public)
+new :InitialNode($="02",name="",visibility=Visibility::public)
+new :CallBehaviorAction($="03",name="receive order",visibility=Visibility::public)
+new @("02") - :ControlFlow(visibility=Visibility::public) -> @("03")
+
+new :CallBehaviorAction($="05",name="distribute order",visibility=Visibility::public)
+new @("03") - :ControlFlow(visibility=Visibility::public) -> @("05")
+
+new :CentralBufferNode($="07",name="order",visibility=Visibility::public)
+new @("03") - :ObjectFlow(visibility=Visibility::public) -> @("07")
+new @("07") - :ObjectFlow(visibility=Visibility::public) -> @("05")
+new @("07") - :inState -> @("7")
+
+new :ForkNode($="08",name="",visibility=Visibility::public)
+new @("05") - :ControlFlow(visibility=Visibility::public) -> @("08")
+
+new :CallBehaviorAction($="09",name="collect goods",visibility=Visibility::public)
+new @("08") - :ControlFlow(visibility=Visibility::public) -> @("09")
+
+new :CallBehaviorAction($="010",name="authorize",visibility=Visibility::public)
+new @("08") - :ControlFlow(visibility=Visibility::public) -> @("010")
+
+new @("01") - :ownedElement -> @("02")
+new @("01") - :ownedElement -> @("03")
+new @("01") - :ownedElement -> @("05")
+new @("01") - :ownedElement -> @("07")
+new @("01") - :ownedElement -> @("08")
+new @("01") - :ownedElement -> @("09")
+new @("01") - :ownedElement -> @("010")

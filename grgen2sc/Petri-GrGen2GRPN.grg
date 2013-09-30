@@ -1,0 +1,105 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Transform a set of Petri-Nets in a GrGen Model (graph) to GRPN text
+*/
+rule pnModel2grpnText {
+	// no LHS => do not iterate over this one!
+	modify {
+		exec([addIDsWhereNotYetSet]);	
+		exec(pnPetriNet2grpnText*);	
+	}
+}
+
+/**
+* Transform a Petri-Net element to GRPN text
+*/
+rule pnPetriNet2grpnText {
+	pn:PetriNet;
+	if { !pn.visited[0]; }	
+	modify {
+		eval { pn.visited[0] = true; }
+		exec(pnPlace2grpnText(pn)*);
+		exec(pnTransition2grpnText(pn)*);
+		//exec(pnPre2grpnText(pn)*);
+		//exec(pnPost2grpnText(pn)*);
+	}
+}
+
+/**
+* Transform a Place element to GRPN text
+*/
+rule pnPlace2grpnText(pn:PetriNet) {
+	pn-:places->p:Place;
+	if { !p.visited[0]; }	
+	modify {
+		eval { p.visited[0] = true; }
+		emit("new "+p.name+": Place(name=\"" +p.name+ "\")\n");
+		exec(pnToken2grpnText(p));
+	}
+}
+
+rule pnToken2grpnText(p:Place) {
+	p-:tokens->;
+	modify {
+		emit("new tok: Token\n");
+		emit("new "+p.name+"-:tokens->tok\n");
+	}
+}
+
+/**
+* Transform a Transition element to GRPN text
+*/
+rule pnTransition2grpnText(pn:PetriNet) {
+	pn-:transitions->t:Transition;
+	if { !t.visited[0]; }	
+	modify {
+		eval { t.visited[0] = true; }
+		emit("new "+t.name+": Transition(name=\"" +t.name+ "\")\n");
+		exec(pnPreArcs2grpnText(t)*|pnPostArcs2grpnText(t)*);
+	}
+}
+
+/**
+* Transform PN arcs (from Place to Transition) to GRPN text
+*/
+rule pnPreArcs2grpnText(t:Transition) {
+	p:Place -oa:outArc-> t;
+	if { !oa.visited[0]; }	
+	modify {
+		eval { oa.visited[0] = true; }
+		emit("new "+p.name+"-:outArc->"+t.name+ "\n");
+	}
+}
+
+/**
+* Transform PN arcs (from Transition to Place) to GRPN text
+*/
+rule pnPostArcs2grpnText(t:Transition) {
+	t -ia:inArc-> p:Place;
+	if { !ia.visited[0]; }	
+	modify {
+		eval { ia.visited[0] = true; }
+		emit("new "+t.name+"-:inArc->"+p.name+"\n");
+	}
+}

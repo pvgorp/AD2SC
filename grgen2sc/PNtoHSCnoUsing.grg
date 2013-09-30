@@ -1,0 +1,251 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+#include "Petri.grg"
+#include "PetriNormalizer.grg" 
+#include "Petri-GrGen2PNML.grg" 
+#include "Petri-GrGen2GRPN.grg"
+#include "HSC-GrGen2EclipseUML2.grg"
+#include "HSC-GrGen2EugeniaXMI.grg"
+#include "HSC-Eliminate-HE-ForkJoins.grg"
+#include "PetriHelper.grg"
+// currenlty not used because irrelevant for comparison: #include "PNtoHSCextended.grg" 
+#include "PNtoHSC_beforeRules.grg"  // currently not used since they only slow things down in production mode...
+#include "PNtoHSC_cleanup.grg"
+
+
+#include "StateChartHelper.grg"
+
+rule trans_place {
+	p:Place;	
+	modify {
+		p-tracelink:PN2HSC->s:HSCBasicState;
+		p-tracelink2:PN2HSC->or:HSCorState-:HSCcontains->s;
+		eval {
+			s.name = p.name;
+		}		
+	}
+}
+
+rule trans_token {
+	p:Place -tracelink:PN2HSC->s:HSCBasicState <-:HSCcontains- or:HSCorState;
+	p -tks:tokens-> t:Token; 
+	modify {
+		or -:HSCcontains-> st:HSCStartState -:HSCsource-> e:HSCHyperEdge -:HSCtarget-> s;
+		or -:HSCcontains-> e;
+		// delete(t);
+	}
+}
+
+rule trans_transition {
+	t:Transition;
+	modify {				
+		t-tracelink:PN2HSC->e:HSCHyperEdge; 		
+		// NEW for XOR handling (breaks modularity a little)
+		t-tracelink2:PN2HSC->or:HSCorState-:HSCcontains->e;
+		// ENDNEW
+		eval {
+			e.name=t.name;
+		}
+	}
+}
+
+rule trans_pre { 
+	s:HSCBasicState<-:PN2HSC-prePl:Place-preLink:pre->t:Transition-tracelink:PN2HSC->e:HSCHyperEdge;
+	modify {
+		s-:HSCsource->e;
+	}
+}
+
+rule trans_post {
+	s:HSCBasicState<-:PN2HSC-postPl:Place<-:post-t:Transition-tracelink:PN2HSC->e:HSCHyperEdge;
+	modify {
+		e-:HSCtarget->s;
+	}
+}
+
+rule moveAllOrChildrenFromTo(or1:HSCorState, or2: HSCorState) {
+	modify {
+		exec([moveORchildFromTo(or1,or2)] | updateOriginatorIfAny(or1,or2));
+	}
+}
+
+rule updateOriginatorIfAny(s1:HSCState,s2:HSCState) {
+	alternative {
+		hasOriginator {
+			s1 <-old:PN2HSC- originator:NamedElement;
+			modify {
+				delete(old);
+				originator -:PN2HSC->s2;
+			}
+		} 
+		hasNone {
+			negative {
+				s1 <-:PN2HSC-;
+			}
+			modify {}
+		}
+	}
+	modify {}
+}
+
+pattern RoguePrePlace(t:Transition) {
+	s1:Place-:pre->t<-:pre-s2:Place;
+	alternative {
+		ViolatingArcIn {
+			t2:Transition-:post->s1;
+			negative {
+				t2-:post->s2;
+			}
+		}
+		ViolatingArcOut {
+			t2:Transition<-:pre-s1;
+			negative {
+				t2<-:pre-s2;
+			}
+		}
+	}
+}
+
+pattern RoguePostPlace(t:Transition) {
+	s1:Place<-:post-t-:post->s2:Place; 
+	alternative {
+		ViolatingArcIn {
+			t2:Transition-:post->s1;
+			negative {
+				t2-:post->s2;
+			}
+		}
+		ViolatingArcOut {
+			t2:Transition<-:pre-s1;
+			negative {
+				t2<-:pre-s2;
+			}
+		}
+	}
+}
+
+/*
+* RULE: reduction step 1a
+*/
+rule trans_AND_join {
+	-:pre->t:Transition<-:pre-; // at least two incoming arcs	
+	// no other transition should be rewritten before this one
+	:NoOtherTransitionBefore(t);	
+	// precondition for 1a (TODO: factor out commonality!)
+	negative {
+		:RoguePrePlace(t);
+	}
+	negative { // pre version of the other NAC
+		:RoguePostPlace(t);
+	} modify {		
+		p:Place -:pre->t; // completion of the folding
+		newParentInAORtree:HSCandState <-:HSCcontains- newGrandParentInAORtree:HSCorState <-:PN2HSC- p; // update tree and maintain trace		
+		eval {
+			p.name= "ANDJOIN_"+t.name;
+		}
+		exec([handlePrePlace_AND_join(t,p)] | [removeOutgoingBeforeLinks(t)] | [clearBeforeLink]);
+	}
+}
+
+/*
+* RULE: reduction step 1b
+*/
+rule trans_AND_split {
+	<-:post-t:Transition-:post->; // at least two outgoing arcs		
+	// no other transition should be rewritten before this one
+	:NoOtherTransitionBefore(t);
+	// precondition for 1b
+	negative {
+		:RoguePrePlace(t);
+	}
+	negative { // pre version of the other NAC
+		:RoguePostPlace(t);
+	}
+	modify {		
+		p:Place <-:post-t; // completion of the folding
+		newParentInAORtree:HSCandState <-:HSCcontains- newGrandParentInAORtree:HSCorState <-:PN2HSC- p; // update tree and maintain trace
+		eval {
+			p.name= "ANDSPLIT_"+t.name;
+		}
+		exec([handlePrePlace_AND_split(t,p)] | [removeOutgoingBeforeLinks(t)] | [clearBeforeLink]);
+	}
+}
+
+/** 
+* Step 3 (was 2 in paper Rik)
+*/
+rule transform_singleton_pre_post {
+  prePl:Place-pre1:pre->t:Transition-post1:post->postPl:Place;
+  prePl 	-tl1:PN2HSC-> or1:HSCorState;
+  postPl 	-tl2:PN2HSC-> or2:HSCorState;
+  // BEGIN1 PVG: THIS EXTENSION BREAKS MODULARITY concerning the extension for XOR on top of the AND basis
+  t 		-tl3:PN2HSC-> or3:HSCorState;
+  // END1
+  hom(prePl,postPl);
+  hom(or1,or2);
+  hom(tl1,tl2);
+  // no other transition should be rewritten before this one
+  :NoOtherTransitionBefore(t);	
+	// precondition for 2
+  negative {
+    i1:Place-:pre->t<-:pre-i2:Place; // must be singleton pre
+  }
+  negative {
+    o1:Place<-:post-t-:post->o2:Place; // must be singleton post
+  }
+  :NoForkJoinOnDifferentPlaces(prePl,postPl);
+  modify {
+    pNew:Place -:PN2HSC-> or4:HSCorState;	
+	delete(pre1);
+	delete(post1);
+	delete(t);
+	exec(	[move_incoming_arcs(prePl,pNew)]// redirect all edges to prePl, mind that singleton property does not nesessarily hold for otherTranss connected to prePl
+		| 	[move_outgoing_arcs(prePl,pNew)] 
+		|	[move_incoming_arcs(postPl,pNew)]
+		| 	[move_outgoing_arcs(postPl,pNew)]
+		|	moveAllOrChildrenFromTo(or1,or4)
+		|	moveAllOrChildrenFromTo(or2,or4) // mind use of '|': not '&&' since needs to work on begin and end too
+		|	moveAllOrChildrenFromTo(or3,or4)
+		| 	(cleanupP(prePl) | cleanupP(postPl))
+		|	(cleanupS(or1) | cleanupS(or2) | cleanupS(or3))
+		| 	[clearBeforeLink]
+	);
+  }
+}
+
+pattern NoForkJoinOnDifferentPlaces(prePl:Place,postPl:Place) {
+	alternative {
+		SelfLoopsUnconstrained {
+			hom(prePl,postPl);
+			if { prePl == postPl; }
+		}
+		ConstrainedOtherwise {
+			negative {
+				prePl-:pre->t2:Transition<-:pre-postPl;// no JOIN from the input/output places
+			}
+			negative {
+				prePl<-:post-t2:Transition-:post->postPl;// no FORK to the input/output places
+			}
+		}
+	}
+}

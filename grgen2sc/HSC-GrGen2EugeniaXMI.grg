@@ -1,0 +1,178 @@
+/**
+* Transform a set of Hierarchical Statecharts in a GrGen Model (graph) to XMI2 text based on PVG SC MM
+*/
+rule hscModel2eugeniaXMItext {
+		orRoot:HSCorState;
+	negative {
+		orRoot <-:HSCcontains- .;
+	}
+	if { !orRoot.visited[0]; }	
+
+	modify {
+		emit("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");		
+		emit("<schart:Statechart xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:schart=\"http://uam.es/StateCharts\">");
+		emit("<topState name=\"top\">");
+		emit("<contains xsi:type=\"schart:OR\" name=\""+orRoot.name+"\">");
+		exec(hscORchildren2eugeniaSC(orRoot));	
+		emit("</contains>");
+		emit("</topState>");
+		emit("</schart:Statechart>");
+		eval { orRoot.visited[0] = true; }
+	}
+}
+
+/**
+* Transform an OR node to UML XMI === Transform its OR children to Eugenia SC XMI (no other text pre/post is needed)
+*/
+rule hscORchildren2eugeniaSC(or:HSCorState) {				
+	modify {
+		exec(HSCStartState2EugeniaText(or)* | HSCfinalState2EugeniaText(or)* | HSCandState2EugeniaText(or)* | HSCHyperEdgeFJ2EugeniaText(or)* | HSCmergeNode2EugeniaText(or)* | HSCdecisionNode2EugeniaText(or)* | HSCbasicState2EugeniaText(or)* );
+	}	
+}
+
+/**
+* e.g., <contains xsi:type="schart:Start" next="bla4" xmi:id="bla0" />
+*/
+rule HSCStartState2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> sta:HSCStartState;
+	if { !sta.visited[0]; }	
+	modify {
+		emit("<contains xmi:type=\"schart:Start\" xmi:id=\""+nameof(sta)+"\" name=\""+sta.name+"\" ");
+		exec(hscNext2emfText(sta));
+		emit("/>");
+		eval { sta.visited[0] = true; }
+	}
+}
+rule hscNext2emfText(sce:HSCState) {
+	// no lhs
+	modify {
+		emit(" next=\"");
+		exec(_hscNext2emfText(sce));
+		emit("\" ");
+	}
+}
+	
+rule _hscNext2emfText(sce:HSCState) {
+	iterated {
+		sce -:HSCtarget-> to:HSCState;//\(HSCHyperEdge);
+		modify {
+			emit(" "+nameof(to));
+		}
+	}
+	modify {
+	}
+}
+
+rule hscRNext2emfText(sce:HSCState) {
+	// no lhs
+	modify {
+		emit(" rnext=\"");
+		exec(_hscRNext2emfText(sce));
+		emit("\" ");
+	}
+}
+
+rule _hscRNext2emfText(sce:HSCState) {
+	iterated {
+		from:HSCState;//\(HSCHyperEdge);
+		alternative {
+			c1 { // enables bypass where all HyperEdges have been pruned
+				from -:HSCtarget-> sce;
+				modify {}
+			}
+			c2 {
+				from -:HSCsource-> sce;
+				modify {}
+			}
+		} 
+		modify {
+			emit(" "+nameof(from));
+		}
+	}
+	modify {
+	}
+}
+	
+rule HSCandState2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> and:HSCandState;			
+	if { !and.visited[0]; }
+	modify {
+		emit("<contains xsi:type=\"schart:AND\" xmi:id=\""+nameof(and)+"\" name=\""+and.name+"\" ");
+		exec(hscNext2emfText(and));
+		exec(hscRNext2emfText(and));
+		emit(">");
+		exec(hscANDchildren2eugeniaSC(and)*);// NEEDS REGION FOR EACH CONTAINED ELEMENT
+		emit("</contains>");
+		eval { and.visited[0] = true; }
+	}
+}
+
+rule hscANDchildren2eugeniaSC(and:HSCandState) {
+	and -:HSCcontains-> or:HSCorState; // via iteration of hscORchildren2eugeniaSC, we will visit each node that is further contained in the node "or"
+	if { !or.visited[0]; }	
+	modify {
+		emit("<contains xsi:type=\"schart:OR\" xmi:id=\""+nameof(or)+"\" name=\""+or.name+"\">");
+		exec(hscORchildren2eugeniaSC(or));	
+		emit("</contains>");
+		eval { or.visited[0] = true; }
+	}
+}
+
+rule HSCbasicState2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> basic:HSCBasicState;
+	if { !basic.visited[0]; }	
+	modify {
+		emit("<contains xmi:type=\"schart:Basic\" xmi:id=\""+nameof(basic)+"\" name=\""+basic.name+"\" ");
+		exec(hscNext2emfText(basic));
+		exec(hscRNext2emfText(basic));
+		emit("/>");
+		eval { basic.visited[0] = true; }
+	}
+}
+
+rule HSCfinalState2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> final:HSCFinalState;			
+	if { !final.visited[0]; }
+	modify {
+		emit("<contains xmi:type=\"schart:Final\" xmi:id=\""+nameof(final)+"\" name=\""+final.name+"\" ");
+		exec(hscRNext2emfText(final));		
+		emit("/>");
+		eval { final.visited[0] = true; }
+	}
+}
+
+rule HSCdecisionNode2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> choice:HSCDecisionNode;			
+	if { !choice.visited[0]; }
+	modify {
+		emit("<contains xmi:type=\"schart:Decision\" xmi:id=\""+nameof(choice)+"\" name=\""+choice.name+"\" ");
+		exec(hscNext2emfText(choice));
+		exec(hscRNext2emfText(choice));		
+		emit("/>");
+		eval { choice.visited[0] = true; }
+	}
+}
+
+rule HSCmergeNode2EugeniaText(parent:HSCorState) {
+	parent -:HSCcontains-> junction:HSCMergeNode;			
+	if { !junction.visited[0]; }
+	modify {
+		emit("<contains xmi:type=\"schart:Merge\" xmi:id=\""+nameof(junction)+"\" name=\""+junction.name+"\" ");
+		exec(hscNext2emfText(junction));
+		exec(hscRNext2emfText(junction));		
+		emit("/>");
+		eval { junction.visited[0] = true; }
+	}
+}
+
+rule HSCHyperEdgeFJ2EugeniaText(parent:HSCorState) { 
+	parent -:HSCcontains-> he:HSCHyperEdge;
+	if { !he.visited[0]; }
+	modify {
+		emit("<contains xmi:type=\"schart:HyperEdge\" xmi:id=\""+nameof(he)+"\" name=\""+he.name+"\" ");
+		exec(hscNext2emfText(he));
+		exec(hscRNext2emfText(he));		
+		emit("/>");
+		eval { he.visited[0] = true; }
+	}
+}

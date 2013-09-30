@@ -1,0 +1,908 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+using UML23AD, UML23SM, PetriModel, StateChart, TraceModel, UML23ADtoHSC;
+#include "PNtoHSCnoUsing.grg"
+rule Init_inStateAttribute {
+	a:CentralBufferNode -:inState-> s:State;
+	modify {
+		eval {
+			a._inState= s.name;
+		}
+	}
+}
+
+rule Init_typeAttribute {
+	a:CentralBufferNode -:smType-> sm:Namespace;
+	modify {
+		eval {
+			a._type= sm.name;
+		}
+	}
+}
+
+
+rule RemoveAnyHSCelement {
+	alternative {
+		SM {
+			sm:StateMachine;
+			modify { delete(sm); }
+		}
+		R {
+			r:Region;
+			modify { delete(r); }
+		}
+		S {
+			s:State;
+			modify { delete(s); }
+		}
+	} 
+	modify { }
+}
+
+rule GetSrcActivity : (Activity) {
+	a:Activity;
+	negative {
+		. -:AN2AN-> a;
+	}
+	modify { return (a); }
+}
+
+rule GetSMTypeOnce : (Namespace) {
+	. -:smType-> c:Namespace;
+	if { !c.visited[0]; }	
+	modify { 
+		eval { c.visited[0] = true; }
+		return (c);
+	}	
+}
+
+/* rule GetActivityOf(c:UmlClass) {
+	a:Activity -:ownedElement-> c;
+	modify { return (a); }
+}*/
+
+/* preprocessing rules */
+
+
+
+
+rule changeSource(old:ActivityNode,new:ActivityNode){
+	alternative {
+		CFlow {
+			old-e:ControlFlow->n:ActivityNode;
+			modify{
+				delete(e);
+				new-:ControlFlow->n;
+			}
+		}		
+		OFlow {
+			old-e:ObjectFlow->n:ActivityNode;
+			modify{
+				delete(e);
+				new-:ObjectFlow->n;
+			}
+		}
+	}
+	modify {}	
+}
+
+
+rule changeTarget(old:ActivityNode,new:ActivityNode){
+	alternative {
+		CFlow {
+			n:ActivityNode-e:ControlFlow->old;
+			modify{
+				delete(e);
+				n-:ControlFlow->new;
+			}
+		}		
+		OFlow {
+			n:ActivityNode-e:ObjectFlow->old;
+			modify{
+				delete(e);
+				n-:ObjectFlow->new;
+			}
+		}
+	}
+	modify {}	
+}
+
+rule connectFromTo(a:ActivityNode,b:ActivityNode){
+	modify{
+		a-:ControlFlow->b;
+	}
+}
+/*
+*
+*/
+rule insertjoinbeforeCallAction(a:Activity) {
+	a -:ownedElement-> c:CallBehaviorAction;
+	:TwoInput(c);
+	
+	modify{		
+		a -:ownedElement-> j:JoinNode;
+		exec([changeTarget(c,j)]|connectFromTo(j,c));
+		
+	}
+
+}
+
+rule insertforkafterCallAction(a:Activity) {
+	a -:ownedElement-> c:CallBehaviorAction;
+	:TwoOutput(c);
+	modify{		
+		a -:ownedElement-> f:ForkNode;
+		exec([changeSource(c,f)]|connectFromTo(c,f));		
+	}
+
+}
+
+
+rule NoInputObjectNode(a:Activity) {
+	a -:ownedElement-> o:ObjectNode;
+	o-:ActivityEdge->c:CallBehaviorAction;
+	n:ActivityNode-e:ControlFlow->c;
+	negative{
+	  -:ActivityEdge->o;
+	  c;
+	  n;
+	}
+	negative{
+	  c;
+	  n;
+	  o;
+	  o2:ObjectNode-:ObjectFlow->c;
+	}
+	modify{
+		delete(e);
+	    exec([connectFromTo(n,o)]);	
+    }	
+}
+
+rule InsertForkForObjectNode(c:CallBehaviorAction,f:ActivityNode){
+	c <-:ObjectFlow- o:ObjectNode;
+	modify{
+		f -:ObjectFlow-> o;
+	}
+}
+
+rule RelayTarget(from:ActivityNode,newto:ActivityNode,oldto:ActivityNode){
+	from-e:ControlFlow->oldto;
+	modify{
+		delete(e);
+		from-:ControlFlow->newto;
+	}
+}
+
+rule NoOutputObjectNode(a:Activity) {
+	a -:ownedElement-> o:ObjectNode;
+	o <-:ActivityEdge- c:CallBehaviorAction;
+	n:ActivityNode <-e:ControlFlow- c;
+	negative{
+	  c;
+	  n;
+	  <-:ActivityEdge-o;
+	}
+	negative{
+	  c;
+	  n;
+	  o;
+	  o2:ObjectNode<-:ObjectFlow-c;
+	}
+	modify{
+		delete(e);
+	    exec([connectFromTo(o,n)]);	
+	}
+}
+
+rule RelaySource(oldsource:ActivityNode,target:ActivityNode,newsource:ActivityNode){
+	oldsource-e:ControlFlow->target;
+	modify{
+		delete(e);
+		newsource-:ControlFlow->target;
+	}
+}
+
+rule InsertJoinForObjectNode(c:CallBehaviorAction,j:ActivityNode){
+	c -:ObjectFlow-> o:ObjectNode;
+	modify{
+		j <-:ObjectFlow- o;
+	}
+}
+
+
+
+/* reduction rules */
+
+
+pattern TwoInput(n:ActivityNode) {
+	multiple{
+		-:ActivityEdge->n<-:ActivityEdge-; 
+	}
+}
+
+
+pattern TwoOutput(n:ActivityNode) {
+	multiple{
+		<-:ActivityEdge-n-:ActivityEdge->; 	
+	}
+}
+
+/*
+*  if node n has one input edge and one output edge, it can be deleted
+*/
+rule OneInputOutput(a:Activity) {
+	a -:ownedElement-> s1:ActivityNode-e1:ActivityEdge->n:ActivityNode\(ObjectNode+CentralBufferNode)-e2:ActivityEdge->s2:ActivityNode; 
+	hom(s1,s2);
+	negative {
+		:TwoInput(n);
+	}
+	negative {
+		:TwoOutput(n);
+	}
+	modify {	
+		delete(e1);
+		delete(e2);
+		delete(n);
+		s1-:ControlFlow->s2;
+	}
+}
+
+
+
+
+pattern DirectedPathBetween(from: Node, to: Node) {
+	alternative {
+		DirectPath {
+			from -:Edge-> to;
+		}
+		Recursion {
+			from -:Edge-> intermediate:Node;
+			:DirectedPathBetween(intermediate,to);
+		}
+	}
+}
+/*PVG BEGIN NEW FROM SOSYM*/
+
+/*
+* If there is an implicit AD cross-sync then make it explicit via a new (artificial) object node
+*/
+rule MakeCrossSyncExplicit(a:Activity) {
+	a -:ownedElement-> a1:ANDNode-e:ActivityEdge->a2:ANDNode;
+	src:CentralBufferNode -:ActivityEdge-> a1-:ActivityEdge->.;
+	.-:ActivityEdge-> a2 -:ActivityEdge-> trg:CentralBufferNode;
+		
+	modify {
+		delete(e);
+		a1 -:ObjectFlow-> oNew:CentralBufferNode -:ObjectFlow-> a2;
+		a -:ownedElement-> oNew;
+		eval {
+			oNew._inState= src._inState+"-sync-"+trg._inState;
+		}
+	}
+}
+
+/*
+* if there is an edge e from fork node node a1 to a final node f, then the edge and the final node are redundant and can be removed
+*/
+rule RemoveParallelFinal(a:Activity) {
+	a -:ownedElement-> a1:ANDNode-e:ActivityEdge->f:FinalNode;
+	a1-e2:ActivityEdge->;
+	modify {	
+		delete(e);
+		exec(RemoveDanglingFinal(a));
+	}
+}
+
+/*
+* if there is an edge e from fork node node a1 to a final node f, then the edge and the final node are redundant and can be removed
+*/
+rule RemoveDanglingFinal(a:Activity) {
+	a -:ownedElement-> f:FinalNode;
+	negative{
+	  -:ActivityEdge->f;
+	}	
+	modify {	
+		delete(f);
+	}
+}
+/*PVG END NEW FROM SOSYM*/
+
+/*
+* if there is an edge from AND node a1 to AND node a2 and also a directed path from a1 to a2, the edge is redundant and can be removed
+*/
+rule RemoveRedundantEdgeBetweenANDnodes(a:Activity) {
+	a -:ownedElement-> a1:ANDNode-e:ActivityEdge->a2:ANDNode;
+	:DirectedPathBetween(a1,a2);
+	modify {	
+		delete(e);
+	}
+}
+
+/*
+* if there is an edge from XOR node n1 to XOR node n2 and another edge from n1 to n2, then the edge can be removed
+*/
+rule RemoveDuplicateEdgeBetweenXORnodes(a:Activity) {
+	a -:ownedElement-> n1:XORNode-e1:ActivityEdge->n2:XORNode;
+	n1-e2:ActivityEdge->n2;
+	modify {	
+	   delete(e2);
+	}
+}
+
+
+/* rule T2 */ 
+rule removeXORsT2(a:Activity) {
+	a -:ownedElement-> n1:XORNode-e1:ActivityEdge->n2:XORNode;
+	n1-e2:ActivityEdge->;
+	n2-e3:ActivityEdge->;
+	negative{
+		n1-:ActivityEdge->n2;
+		-:ActivityEdge->n2;
+	}
+	modify {	
+		exec(
+			[changeSource(n2,n1)]|
+			deleteNode(n2)
+		);
+	}
+}
+
+
+/* inverse of rule T2 */
+rule removeXORsT2inverse(a:Activity) {
+	a -:ownedElement-> n1:XORNode-e1:ActivityEdge->n2:XORNode;
+	n1<-e2:ActivityEdge-;
+	n2<-e3:ActivityEdge-;
+	negative{
+		n1-:ActivityEdge->n2;
+		<-:ActivityEdge-n1;
+	}
+	modify {	
+		exec(
+			[changeTarget(n1,n2)]|
+			deleteNode(n1)
+		);
+	}
+}
+
+/* rule T2 */ 
+rule removeANDsT2(a:Activity) {
+	a -:ownedElement-> n1:ANDNode-e1:ActivityEdge->n2:ANDNode;
+	n1-e2:ActivityEdge->;
+	n2-e3:ActivityEdge->;
+	negative{
+		n1-:ActivityEdge->n2;
+		-:ActivityEdge->n2;
+	}
+	modify {	
+		exec(
+			[changeSource(n2,n1)]|
+			deleteNode(n2)
+		);
+	}
+}
+
+
+/* inverse of rule T2 */
+rule removeANDsT2inverse(a:Activity) {
+	a -:ownedElement-> n1:ANDNode-e1:ActivityEdge->n2:ANDNode;
+	n1<-e2:ActivityEdge-;
+	n2<-e3:ActivityEdge-;
+	negative{
+		n1-:ActivityEdge->n2;
+		n1-:ActivityEdge->;
+	}
+	modify {	
+		exec(
+			[changeTarget(n1,n2)]|
+			deleteNode(n1)
+		);
+	}
+}
+
+
+/*
+*  merge two AND nodes that are connected with an edge; there should be no directed path between the two AND nodes
+* REMOVED FOR SOSYM UPDATE
+rule mergeANDs(a:Activity) {
+	a -:ownedElement-> n1:ANDNode-e1:ControlFlow->n2:ANDNode;
+	negative{ // no path of 2 or more edge from n1 to n2 
+		n1-e3:ActivityEdge->n3:ActivityNode;
+		:DirectedPathBetween(n3,n2);
+	}
+	negative{ // no direct edge from n2 to n1 
+		n2-e2:ActivityEdge->n1;
+	}
+	negative{ // no path of 2 or more edge from n1 to n2 
+		n1<-e3:ActivityEdge-n3:ActivityNode;
+		:DirectedPathBetween(n2,n3);
+	}
+	modify {
+		a -:ownedElement-> n1n2:ForkNode;
+		exec(
+			[changeTarget(n1,n1n2)]|
+			[changeTarget(n2,n1n2)]|
+			[changeSource(n1,n1n2)]|
+			[changeSource(n2,n1n2)]|
+			deleteNode(n1)|
+			deleteNode(n2)
+			);
+	}
+}*/
+
+
+/*
+*  if there is a an edge from node n to itself, the edge can be removed. Only possible if n is a XOR node.
+*/
+
+rule RemoveSelfLoop(a:Activity) {
+	a -:ownedElement-> n:XORNode;
+	n-e:ActivityEdge->n;
+	modify{
+		delete(e);
+	}
+}
+
+
+pattern differentOutput(x:XORNode,o:ObjectNode){
+	independent{
+	x-:ActivityEdge->y:ActivityNode;
+		x;
+		y;
+		o-->y;
+	}
+}
+
+
+/*
+*
+* DISABLED FOR SOSYM UPDATE
+rule RemoveDecision(a:Activity) {
+	a -:ownedElement-> n1:ANDNode-e1:ActivityEdge->n2:XORNode;
+	n2-e2:ActivityEdge->n3:ANDNode;
+	n2-e3:ActivityEdge->n4:ANDNode;
+	n1-:ActivityEdge->n5:ObjectNode-:ActivityEdge->n3;
+	n5-:ActivityEdge->n4;
+	negative{
+		n1;
+		n2;
+		n3;
+		n4;
+		n5;
+		:differentOutput(n2,n5);
+	}
+	modify{
+		delete(e1);
+		delete(e2);
+		delete(e3);
+		delete(n2);
+	}
+}*/
+
+/* 
+edge from n1->n2 deleted implicitly
+*/
+rule deleteNodes(n1:ActivityNode,n2:ActivityNode){
+	modify{
+		delete(n1);
+		delete(n2);		
+	}
+}
+
+rule deleteNode(n1:ActivityNode){
+	modify{
+		delete(n1);
+	}
+}
+
+/* BEGIN REUSABLE FOR ANY MM */
+pattern CopySubgraph(root:Node, ref oldToNew:map<Node, Node>) {
+	iterated { // match spanning tree of graph from root on
+		root <-:Edge\(AN2AN+smType+inState)-> ch:Node; 
+		cs:CopySubgraph(ch, oldToNew);
+		modify {
+			cs();
+		}
+	}
+	modify {
+		newroot:copy<root>; // copy nodes
+		eval { oldToNew.add(root, newroot); }
+		exec( [CopyOutgoingEdge(root, oldToNew)] ); // deferred copy edges
+	}
+}
+
+rule CopyOutgoingEdge(n:Node, ref oldToNew:map<Node, Node>) {
+  n -e:Edge\(AN2AN)-> m:Node; // note: prohitibing deep re-cloning of previous clones when cloning one graph multiple times
+  hom(n,m); // reflexive edges
+  nn:Node{oldToNew[n]}; nm:Node{oldToNew[m]};
+  hom(nn,nm); // reflexive edges
+    
+  modify {
+    nn -ee:copy<e>-> nm;
+  }
+}
+/* END REUSABLE FOR ANY MM */
+
+rule CopyUML23AD(root:Node, ref oldToNew:map<Node, Node>) {
+	cs:CopySubgraph(root, oldToNew);
+	modify {
+		cs();
+		exec([MapToTraceLink(oldToNew)]);
+	}
+}
+
+rule MapToTraceLink(ref oldToNew:map<Node, Node>) {
+	src:Node;
+	trg:Node{oldToNew[src]};
+	modify {
+		src -:AN2AN-> trg;
+	}
+}
+
+rule CopyOf(n:Node, ref oldToNew:map<Node, Node>):(Node) {
+	nn:Node{oldToNew[n]};
+	modify {
+		return (nn);
+	}
+}
+
+rule RMOtherCentralBuffNodes(a:Activity,relevantType:Namespace) {
+	iterated {
+		a -:ownedElement-> irrelevantCBN:CentralBufferNode;
+		negative {			
+			if { relevantType.name== irrelevantCBN._type; }
+		}
+		modify {
+			delete(irrelevantCBN);
+		}
+	}
+}
+
+rule DeleteTargetsOfAN2AN {	
+	. -:AN2AN-> a:Activity;
+	iterated {
+		a -:ownedElement-> n:Node;
+		modify {			
+			delete(n);
+		}
+	}
+	modify { 
+		delete(a); 
+	}
+}
+
+// bridge to PN2HSC
+
+rule ActivityNode2Place(a:Activity,pn:PetriNet) {
+	a -:ownedElement-> src:ActivityNode\(CentralBufferNode+ANDNode);
+	modify {
+		src -:AN2PNE-> p:Place <-:places- pn;
+		eval {
+			p.name= src.name;
+		}
+	}
+}
+
+rule CentralBufferNode2Place(a:Activity,pn:PetriNet) {
+	a -:ownedElement-> src:CentralBufferNode;
+	modify {
+		src -:AN2PNE-> p:Place <-:places- pn;
+		eval {
+			p.name= src._inState;
+		}
+	}
+}
+
+rule ANDNode2Transition(a:Activity,pn:PetriNet) {
+	a -:ownedElement-> src:ANDNode;
+	modify {
+		src -:AN2PNE-> t:Transition  <-:transitions- pn;
+		eval {
+			t.name= src.name;
+		}
+	}
+}
+
+rule ActivityEdge2PNnext(a:Activity) { // PNnext will either have to be retyped or will have to be split up into an extra Trans => alternative clause @PN phase
+	a -:ownedElement-> from:ActivityNode -src:ActivityEdge-> to:ActivityNode;
+	from -:AN2PNE-> _from:NamedElement;
+	to -:AN2PNE-> _to:NamedElement;
+	modify {
+		_from -:PNnext-> _to;
+	}
+}
+
+rule PNnext2prepost(pn:PetriNet) {
+	alternative {
+		OrdinaryPre {
+			from:Place -:PNnext-> to:Transition;
+			replace {
+				from -:pre-> to;
+			}
+		}
+		OrdinaryPost {
+			from:Transition -:PNnext-> to:Place;
+			replace {
+				from -:post-> to;
+			}
+		}
+		PrePostCombo {
+			from:Place -:PNnext-> to:Place;
+			replace {
+				from -:pre-> t:Transition -:post-> to;
+				pn -:transitions-> t;
+			}
+		}
+	}
+	modify {}
+}
+
+/* some SC beautification rules that are specific to this mapping */
+rule AnyStateWithoutInflow2InitialState {
+	s:HSCBasicState;
+	negative {
+		-:HSCtarget-> s;
+	}
+	modify {
+		s_retyped:HSCStartState<s>;
+	}
+}
+
+rule normalizeDoubleFinalState {
+	preFinal:HSCBasicState -:HSCtarget-> s:HSCFinalState;
+	if {
+		preFinal.name=="";
+	}
+	negative {
+		<-:HSCtarget- preFinal -:HSCtarget->;
+	}
+	negative {
+		<-:HSCsource- preFinal -:HSCsource->;
+	}
+	modify {
+		_preFinal:HSCFinalState<preFinal>;
+		delete(s);
+	}
+}
+
+rule merge_tracelinks_AD_AD_PN_SC {
+	src:Node -:AN2AN-> . -:AN2PNE-> . -:PN2HSC-> trg:Node; // use of :Node is as generic as it gets...
+	modify {
+		src -:AN2SC-> trg;
+	}
+}
+
+rule AddTokenToInitialPlace(a:Activity) {
+	a -:ownedElement-> :InitialNode -:AN2PNE-> p:Place;
+
+	modify {
+		p -:tokens-> :Token;
+	}
+}
+
+
+pattern Place1PrecedesPlace2(p1:Place,p2:Place) {
+	alternative {
+		Case1 {
+			// pre(p1) strict subset of pre(p2) <=> not exists p elemOf pre(p1) which is not elemOf pre(p2), 
+			// also (to make it a strict subset): pre(p2) has an element that is not in pre(p1)
+			negative {
+				elemOfPreP1:Transition -:post-> p1;
+				negative {
+					elemOfPreP1 -:post-> p2;
+				}
+			}
+			elemOfPreP2:Transition -:post-> p2;
+			negative {
+				elemOfPreP2 -:post-> p1;
+			}
+			// here is the conjunction of the first term
+			negative {
+				elemOfPostP1:Transition <-:pre- p1;
+				negative {
+					elemOfPostP1 <-:pre- p2;
+				}
+			}
+		}
+		Case2 {
+			negative {
+				elemOfPreP1:Transition -:post-> p1;
+				negative {
+					elemOfPreP1 -:post-> p2;
+				}
+			}
+			// here is the conjunction of the second term
+			negative {
+				elemOfPostP1:Transition <-:pre- p1;
+				negative {
+					elemOfPostP1 <-:pre- p2;
+				}
+			}
+			elemOfPostP2:Transition <-:pre- p2;
+			negative {
+				elemOfPostP2 <-:pre- p1;
+			}
+		}
+	}	
+}
+/* vague AD specific requirement: Rule T2 is slightly extended: if the activity diagram only contains OR states
+and no edges, T2 will create an AND state of which the OR states are children */
+rule R2extra {
+	multiple {
+		o:HSCorState;
+		negative {
+			o <-:HSCcontains- .;
+		}
+		negative {
+			.-:pre->.;// PN edges completely reduced
+		}
+		modify {}
+	}
+	modify {
+		newRoot:HSCandState;// <-:HSCcontains- :HSCorState;
+		exec(moveAllORroots(newRoot));
+	}
+}
+
+rule moveAllORroots(newRoot:HSCandState) {
+	iterated {
+		o:HSCorState;
+		negative {
+			o <-:HSCcontains- .;
+		}
+		modify {
+			o <-:HSCcontains- newRoot;
+		}
+	}
+}
+
+rule R3 {
+	/*:ObjectNode -:AN2PNE-> */p:Place -:PN2HSC-> o:HSCorState;
+ 
+	negative {
+		t:Transition;
+		alternative {
+			pIsPreSingleton {
+				t <-:pre- p;
+				negative {	
+					p;
+					t <-:pre- pOther:Place;
+				}
+			}
+			pIsPostSingleton {
+				t -:post-> p;
+				negative {	
+					p;
+					t -:post-> pOther:Place;
+				}
+			}
+		}
+	}
+	// added since otherwise island Places (without pre/post) would match too
+	p -:pre-> .;
+	
+	/*
+	negative {
+		p;
+		pOther:Place;
+		:Place1PrecedesPlace2(p, pOther);
+	}*/
+	
+	/*negative { // extra PVG
+		topP:Place;
+		topOR:HSCorState;
+		:IsSuccessfulEndSituation(topP,topOR);
+	}*/
+	
+	modify {
+		delete(p);	// << this was originally the only side-effect of T3
+		// NEW cross-sync: a BASIC state init is created that becomes the default state of O.
+		s:HSCStartState -:HSCtarget-> initO:HSCBasicState <-:HSCcontains- o; 
+		o -:HSCcontains-> s;
+		exec(HandleCrossSync1(o,initO) ;> HandleCrossSync2(o,initO));
+	}
+}
+
+rule HandleCrossSync1(o:HSCorState, initO: HSCBasicState) {
+/* NEW for cross-sync refactoring:  For every statechart transition t, visualized as bar, that leaves a BASIC state outside O and enters a BASIC state b inside O, remove the edge from t to b, and let the incoming edge of t generate event e_t. */
+	iterated {
+		external:HSCBasicState -:HSCsource-> t:HSCHyperEdge -incoming:HSCtarget-> b:HSCBasicState <-:HSCcontains- o;
+		negative {
+			o -:HSCcontains-> external;
+		}
+		modify {
+			delete(incoming); 			
+			eval {
+				t.effect=external.name+ "-done (1)";
+			}
+			//  Next, add a statechart transition (PVG: t2) from init_O to b with trigger event e_t 
+			initO -:HSCsource-> t2:HSCHyperEdge -:HSCtarget-> b;
+			o -:HSCcontains-> t2;
+			eval {
+				t2.trigger= external.name+ "-done (1)";
+			}			
+		}
+	}
+}
+
+rule HandleCrossSync2(o:HSCorState, initO: HSCBasicState) {
+/* NEW too: for every statechart transition t (PVG: t_2), visualized as bar, that leaves a BASIC state b (PVG: b_2) inside O and enters a BASIC state outside O, remove the edge from b to t, and add guard condition [in(b)] to t. Let t generate event e_t.*/
+	iterated {
+		external_2:HSCBasicState <-:HSCtarget- t_2:HSCHyperEdge <-outgoing:HSCsource- b_2:HSCBasicState <-:HSCcontains- o;
+		negative {
+			o -:HSCcontains-> external_2;
+		}
+		modify {
+			delete(outgoing); 
+			
+			eval {
+				t_2.guard="[in("+b_2.name+ ")]";
+				t_2.effect=b_2.name+ "-done (2)"; // generate e_t
+			}		
+			// Add an edge from b to init_O with trigger event e_t 
+			initO <-:HSCtarget- t_2_2:HSCHyperEdge <-:HSCsource- b_2;
+			o -:HSCcontains-> t_2_2;
+			eval {
+				t_2_2.trigger= b_2.name+ "-done (2)";
+			}
+		}
+	}
+}
+
+rule PreprocessClonedADs {
+	if { !adCLONE.visited[0]; }	
+	. -:AN2AN-> adCLONE:Activity;
+	modify {
+		exec([NoInputObjectNode(adCLONE)]|[NoOutputObjectNode(adCLONE)]|[insertjoinbeforeCallAction(adCLONE)]|[insertforkafterCallAction(adCLONE)]);
+		eval { adCLONE.visited[0] = true; }
+	}
+}
+
+rule FilterClonedADs {
+	. -:AN2AN-> adCLONE:Activity;
+	if { !adCLONE.visited[0]; }	
+	modify {
+		exec((OneInputOutput(adCLONE)|RemoveRedundantEdgeBetweenANDnodes(adCLONE)|RemoveParallelFinal(adCLONE)|RemoveDuplicateEdgeBetweenXORnodes(adCLONE)|removeXORsT2(adCLONE)|removeXORsT2inverse(adCLONE)|removeANDsT2(adCLONE)|removeANDsT2inverse(adCLONE)|RemoveSelfLoop(adCLONE))*);
+		eval { adCLONE.visited[0] = true; }
+	}
+}
+
+rule MakeCrossSyncExplicitInClonedADs {
+	. -:AN2AN-> adCLONE:Activity;
+	if { !adCLONE.visited[0]; }	
+	modify {
+		exec(MakeCrossSyncExplicit(adCLONE)*);
+		eval { adCLONE.visited[0] = true; }
+	}
+}
+
+rule MapClonedADtoPNelements {
+	. -:AN2AN-> adCLONE:Activity;
+	if { !adCLONE.visited[0]; }	
+	modify {
+		pn:PetriNet;
+		eval { adCLONE.visited[0] = true; }
+		exec(([ActivityNode2Place(adCLONE,pn)]$|[CentralBufferNode2Place(adCLONE,pn)]$|[ANDNode2Transition(adCLONE,pn)]) | [ActivityEdge2PNnext(adCLONE)] | [PNnext2prepost(pn)]);	
+	}
+}

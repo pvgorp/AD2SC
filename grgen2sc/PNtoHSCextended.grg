@@ -1,0 +1,213 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/*
+* Extra: simple sequence rule (simpler than R3 since it also has singleton arcs for the pre/post places)
+* TODO: try to refactor the commonality with R3 out!
+*/
+rule trans_basicSequence {
+  prePl:Place-pre1:pre->t:Transition-post1:post->postPl:Place;
+  prePl 	-tl1:PN2HSC-> or1:HSCorState;
+  postPl 	-tl2:PN2HSC-> or2:HSCorState;
+  t 		-tl3:PN2HSC-> or3:HSCorState;
+  hom(or1,or2,or3); // ORs could be joined already
+  // no other transition should be rewritten before this one
+  negative {
+	-:before-> t;
+  }	
+  :singleton_pre_postP(prePl);
+  :singleton_pre_postP(postPl);
+  :singleton_pre_postT(t);
+  modify {
+    pNew:Place -:PN2HSC-> or4:HSCorState;	
+	delete(pre1);
+	delete(post1);
+	delete(t);
+	exec( // EXACTLY THE SAME AS R3!	
+		[move_incoming_arcs(prePl,pNew)]// redirect all edges to prePl, mind that singleton property does not nesessarily hold for otherTranss connected to prePl
+		| 	[move_outgoing_arcs(prePl,pNew)] 
+		|	[move_incoming_arcs(postPl,pNew)]
+		| 	[move_outgoing_arcs(postPl,pNew)]
+		|	moveAllOrChildrenFromTo(or1,or4)
+		|	moveAllOrChildrenFromTo(or2,or4) // mind use of '|': not '&&' since needs to work on begin and end too
+		|	moveAllOrChildrenFromTo(or3,or4)
+		//| 	[removeOutgoingBeforeLinks(t)] => not necessary since t is deleted
+		| 	(cleanupP(prePl) | cleanupP(postPl))
+		|	(cleanupS(or1) | cleanupS(or2) | cleanupS(or3))
+		| 	[clearBeforeLink]
+	);
+  }
+}
+
+/** 
+* Check whether a transition has singleton pre- and postsets
+*/
+pattern singleton_pre_postT(t:Transition) {
+  negative {
+    i1:Place-:pre->t<-:pre-i2:Place; // must be singleton pre
+  }
+  negative {
+    o1:Place<-:post-t-:post->o2:Place; // must be singleton post
+  }
+}
+
+/** 
+* Check whether a place has exactly one inarc and one outarc
+*/
+pattern singleton_pre_postP(p:Place) {
+  negative {
+    tA:Transition -postA:post-> p;
+	tB:Transition -postB:post-> p;
+	// DISABLED since multiple arcs from same transition count as one for the singleton property: hom(tA,tB);
+  }
+  negative {
+    p -preA:pre-> tA:Transition;
+	p -preB:pre-> tB:Transition;
+	// DISABLED since multiple arcs from same transition count as one for the singleton property:  hom(tA,tB);
+  }
+}
+
+/**
+* Step 1c
+*/
+rule fold_places_for_xor {
+	prePl:Place -:pre-> beforeT:Transition -:post-> p:Place -:pre-> afterT:Transition -:post-> postPl:Place;
+	hom(prePl,postPl);
+	:singleton_pre_postT(beforeT);
+	:singleton_pre_postT(afterT);	
+	beforeT 	-:PN2HSC-> or1:HSCorState;
+	afterT		-:PN2HSC-> or2:HSCorState;
+	p 			-:PN2HSC-> or3:HSCorState;
+	// no other arcs attached to the center place
+	:NoDecisionPatternOn(prePl); 
+	:NoDecisionPatternOn(postPl);
+	negative {
+		-:post-> p <-:post-;
+	}
+	negative {
+		<-:pre- p -:pre->;
+	}
+	modify {
+		prePl -:pre-> newT:Transition -:post-> postPl;
+		newT -:PN2HSC-> orNew:HSCorState;
+		// delete attached :pre and :post links implicitly
+		exec(moveAllOrChildrenFromTo(or1,orNew)|moveAllOrChildrenFromTo(or2,orNew)|moveAllOrChildrenFromTo(or3,orNew)|cleanupT(beforeT)|cleanupT(afterT)|cleanupP(p)|cleanupS(or1)|cleanupS(or2)|cleanupS(or3)|[clearBeforeLink]); // clearBeforeLink needed since there is a new		transition in the game!
+	}
+}
+
+/**
+* Step 2 (new): fold a set of XOR transitions in one transition
+*/
+rule trans_XOR_fold_transitions_intoOne {
+	prePl:Place -:pre-> t1:Transition -:post-> postPl:Place;
+	prePl       -:pre-> t2:Transition -:post-> postPl;
+	orOfPreState:HSCorState -:HSCcontains-> . <-:PN2HSC- prePl;
+	hom(prePl,postPl);
+	negative {
+		// at least one of the two still needs to be mapped to a XOR
+		t1 -:PN2HSC-> :HSCxorState;
+		t2 -:PN2HSC-> :HSCxorState;		
+	}
+	modify {
+		xorRootTrans:Transition -:PN2HSC-> newGrandParentInAORtree:HSCorState;// do not yet connect to prePl and postPl because the others (singletonTs) need to be identifiable on that property
+		xorRootTrans -:PN2HSC-> newParentInAORtree:HSCxorState <-:HSCcontains- newGrandParentInAORtree; // update tree and maintain trace
+		eval {
+			xorRootTrans.name= "XOR_"+prePl.name+"_x_"+postPl.name;
+		} 
+		exec([makeXORchild_for_SingletonTransitionsBetweenPlaces(newParentInAORtree,prePl,postPl)] | connectPre(prePl,xorRootTrans) | connectPost(xorRootTrans,postPl) | [clearBeforeLink]);// clearBeforeLink needed since there is a new transition in the game!
+	}
+}
+
+rule merge_XORs {
+	prePl:Place -:pre-> t1:Transition -:post-> postPl:Place;
+	prePl 		-:pre-> t2:Transition -:post-> postPl2:Place; // still need to match 2 to ensure we're looking at a decision pattern
+	hom(prePl,postPl);
+	hom(prePl,postPl2);//NOT: hom(postPl,postPl2) because at this point, we're particularly looking for decisions to different postplaces!
+	orOfPreState:HSCorState -:HSCcontains-> . <-:PN2HSC- prePl;
+	negative { // new: t1 and t2 should not yet be part of the same XOR parent
+		t1 -:PN2HSC-> :HSCorState <-:HSCcontains- sharedXORparent:HSCxorState;
+		t2 -:PN2HSC-> :HSCorState <-:HSCcontains- sharedXORparent;
+	}
+	modify {
+		orOfPreState -:HSCcontains-> additionalXOR:HSCxorState;
+		exec([moveXORnodeFromPrePlaceTo(prePl,additionalXOR)]|[removeSelfLoopOn(prePl)]);
+	}
+}
+
+rule moveXORnodeFromPrePlaceTo(prePl:Place,parentXOR:HSCxorState) {
+	alternative {
+		transitionInXOR {
+			prePl -:pre-> t:Transition -:PN2HSC-> childXOR:HSCxorState <-:HSCcontains- oldParent:HSCorState;
+			modify {
+				parentXOR -:HSCcontains-> oldParent;
+			}
+		}
+		transitionInOR { // occurs when only one transition goes to a particular output place
+			prePl -:pre-> t:Transition -:PN2HSC-> or:HSCorState ;
+			modify {
+				parentXOR -:HSCcontains-> or;
+			}
+		}
+	}
+	modify {}
+}
+
+/**
+* Helps to realize that once a decision place has been transformed, the resulting HSC pattern is not extended further later.  
+* This should make sense, since R1c has already higher priority than R2 and therefore R1c should already finish its processing on a particular node before R2 handles that node
+*/
+pattern NoDecisionPatternOn(p:Place) {
+	negative {
+		p -:PN2HSC-> :HSCBasicState -:HSCsource-> . <-:HSCcontains- :HSCorState <-:HSCcontains- :HSCxorState;
+	}
+}
+
+rule removeSelfLoopOn(pl:Place) {
+	pl -:pre-> t:Transition -:post-> pl;
+	replace {
+		pl;
+	}
+}
+
+/**
+* Helper that may be completely specific to this transformation (in constrast to reusable helpers such as connectPre/connectPost)
+*/
+rule makeXORchild_for_SingletonTransitionsBetweenPlaces(newParentInAORtree:HSCxorState, prePl:Place, postPl:Place) {
+	prePl -:pre-> t:Transition -:post-> postPl;
+	t -:PN2HSC-> orOfT:HSCorState;
+	hom(prePl,postPl);
+	negative { // not yet child of XOR node: the OR node of t has no parent yet?
+		-:HSCcontains-> orOfT;
+	}
+	replace {
+		prePl;
+		postPl;
+		newParentInAORtree -cNew:HSCcontains-> orOfT;
+	}
+}
+
+pattern HEnotInXOR(he:HSCHyperEdge) {
+	// not contained in XOR
+	negative {
+		he <-:HSCcontains- . <-:HSCcontains- :HSCxorState;
+	}
+}

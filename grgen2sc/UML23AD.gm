@@ -1,0 +1,71 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+enum Visibility {
+	public,private
+}
+
+node class UML23NamedElement {
+	name:string;
+	visibility: Visibility;
+}
+
+node class Namespace extends UML23NamedElement;
+
+// added 16/9/2013 for centralbuffernode type
+node class UmlClass extends Namespace;
+// end added
+node class Activity extends Namespace;
+
+node class ActivityNode extends UML23NamedElement;
+node class CallBehaviorAction extends ActivityNode;
+node class ControlNode extends ActivityNode;
+node class InitialNode extends ActivityNode;
+abstract node class FinalNode extends ControlNode;
+node class ActivityFinalNode extends FinalNode;
+node class FlowFinalNode extends FinalNode;
+node class ANDNode extends ControlNode;
+node class ForkNode extends ANDNode;
+node class JoinNode extends ANDNode;
+node class XORNode extends ControlNode;
+node class MergeNode extends XORNode;
+node class DecisionNode extends XORNode;
+node class ObjectNode extends ActivityNode;
+node class CentralBufferNode extends ObjectNode {
+	_inState:string;// redundant, taken from the inState link's end
+	_type:string;// redundant, taken from the smType link's end
+}
+
+edge class ownedElement connect Namespace [*] --> UML23NamedElement[0:1];
+edge class inState connect CentralBufferNode [1] --> State[*];
+edge class smType connect CentralBufferNode [1] --> Namespace[*];
+
+abstract edge class ActivityEdge connect ActivityNode[*] --> ActivityNode[*] { // from source to target
+  	name:string;
+	visibility: Visibility;
+}
+edge class ControlFlow extends ActivityEdge;
+edge class ObjectFlow extends ActivityEdge;
+
+node class Stereotype extends UML23NamedElement;
+edge class stereotype connect UML23NamedElement [0:1] --> Stereotype[*];
+

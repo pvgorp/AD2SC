@@ -1,0 +1,1 @@
+javac -d ..\bin -cp ..\lib\jdom.jar ad2grgen.java

@@ -1,0 +1,21 @@
+new :StateMachine($="_15_5_1_bc002fa_1288080213389_33260_369",name="Untitled1",visibility=Visibility::public)
+new :Region($="_15_5_1_bc002fa_1288080213389_423011_370",name="",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080213389_33260_369") - :ownedElement -> @("_15_5_1_bc002fa_1288080213389_423011_370")
+new :State($="_15_5_1_bc002fa_1288080216326_247721_390",name="bbb",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080213389_423011_370") - :ownedElement -> @("_15_5_1_bc002fa_1288080216326_247721_390")
+new :State($="_15_5_1_bc002fa_1288080227639_786170_404",name="aaa",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080213389_423011_370") - :ownedElement -> @("_15_5_1_bc002fa_1288080227639_786170_404")
+
+
+
+new :Activity($="_15_5_1_bc002fa_1288080242623_189248_419",name="Untitled1",visibility=Visibility::public)
+new :CallBehaviorAction($="_15_5_1_bc002fa_1288080248420_357727_439",name="x",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080242623_189248_419") - :ownedElement -> @("_15_5_1_bc002fa_1288080248420_357727_439")
+new :CallBehaviorAction($="_15_5_1_bc002fa_1288080253701_371997_454",name="y",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080242623_189248_419") - :ownedElement -> @("_15_5_1_bc002fa_1288080253701_371997_454")
+new :CentralBufferNode($="_15_5_1_bc002fa_1288080267966_292253_489",name="",visibility=Visibility::public)
+new @("_15_5_1_bc002fa_1288080267966_292253_489") - :inState -> @("_15_5_1_bc002fa_1288080227639_786170_404")
+new @("_15_5_1_bc002fa_1288080242623_189248_419") - :ownedElement -> @("_15_5_1_bc002fa_1288080267966_292253_489")
+new @("_15_5_1_bc002fa_1288080248420_357727_439") - :ControlFlow -> @("_15_5_1_bc002fa_1288080253701_371997_454")
+new @("_15_5_1_bc002fa_1288080267966_292253_489") - :ObjectFlow -> @("_15_5_1_bc002fa_1288080253701_371997_454")
+new @("_15_5_1_bc002fa_1288080248420_357727_439") - :ObjectFlow -> @("_15_5_1_bc002fa_1288080267966_292253_489")

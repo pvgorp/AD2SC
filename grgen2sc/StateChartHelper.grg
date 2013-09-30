@@ -1,0 +1,149 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/* utility stuff for the HSC domain */
+test noRootIsAnd {
+  negative {
+	root:HSCandState-firstEdge:HSCcontains->.; /* this forbids an outgoing AND edge for the root variable */
+	negative {
+		.-noPrevious:HSCcontains->root;/* this gives the root variable the root property */
+	}
+  }
+}
+
+rule insertImplicitHyperEdgesSRC {
+	s:HSCState-s2t:HSCsource->t:HSCState\HSCHyperEdge;
+	replace {
+		s-s2heNEW:HSCsource->heNEW:HSCHyperEdge;
+		heNEW-heNEW2t:HSCtarget->t;// remove s2t
+	}
+}
+rule insertImplicitHyperEdgesTRG {
+	s:HSCState\HSCHyperEdge-s2t:HSCtarget->t:HSCState;
+	replace {
+		s-s2heNEW:HSCsource->heNEW:HSCHyperEdge;
+		heNEW-heNEW2t:HSCtarget->t;// remove s2t
+	}
+}
+
+rule removeTrivialHyperEdge {
+	s:HSCState -s2e:HSCsource-> e:HSCHyperEdge -e2t:HSCtarget-> t:HSCState;
+	negative {
+		-s2e1:HSCsource-> e;
+		-s2e2:HSCsource-> e;
+	}
+	negative {
+		e -e2t1:HSCtarget->;
+		e -e2t2:HSCtarget->;
+	}
+	negative {
+		xor:HSCxorState -:HSCcontains-> or:HSCorState -:HSCcontains-> e;
+		negative {
+			<-:HSCcontains- or -:HSCcontains ->;
+		}
+	}
+	replace {
+		s -s2tNEW:HSCtarget-> t;
+		eval {
+			s2tNEW.trigger=e.trigger;
+			s2tNEW.guard=e.guard;
+			s2tNEW.effect=e.effect;
+		}
+	}
+} 
+
+rule flattenSingletonORregion { 
+	parent:HSCCompoundState -:HSCcontains-> or:HSCorState -:HSCcontains-> singleElement:HSCState;
+	negative {
+		<-:HSCcontains- or -:HSCcontains->;
+	}
+	negative { // but don't remove the region when it is contained in an AND
+		:HSCandState -:HSCcontains->or;
+	}
+	replace {
+		parent -:HSCcontains-> singleElement;
+	}	
+}
+
+rule cleanupS(or:HSCorState) {
+	//BEGIN new since revision 87: do not affect OR nodes that already are contained themselves in other AND/OR nodes 
+	negative {
+		or <-:HSCcontains-;
+	}
+	//END
+	modify {
+		delete(or);
+	}
+}
+
+rule moveORchildFromTo(or1:HSCorState, or2:HSCorState) {  
+	or1 -c1:HSCcontains-> s1:HSCState;
+	negative {
+		or2 -:HSCcontains-> s1;
+	}
+	//BEGIN new since revision 87: do not move children from OR nodes that already are contained themselves in other AND/OR nodes 
+	negative {
+		or1 <-:HSCcontains-;
+	}
+	//END
+	modify {
+		delete(c1);
+		or2 -:HSCcontains-> s1;
+	}
+}
+
+rule makeMergeNodesExplicit {
+	-t1:HSCtarget-> s:HSCState\HSCMergeNode <-t2:HSCtarget-;
+	negative { // at most one outgoing arc (UML Superstructure Specification, v2.2, PDF p. 403)
+		<-:HSCsource- s -:HSCsource->;
+	}
+	replace {
+		-t1-> retypedNode:HSCMergeNode<s> <-t2-;
+	}
+}
+
+/**
+*  to be used with '*' since [] leads to conflicts if >2 arcs
+*/
+rule makeDecisionNodesExplicit {
+	<-s1:HSCsource- s:HSCState\HSCDecisionNode -s2:HSCsource->;
+	// no need to restrict the number of incoming arcs according to the UML 2.2 spec
+	replace {
+		<-s1- retypedNode:HSCDecisionNode<s> -s2->;
+	}
+}
+
+rule makeEndStateExplicit {
+
+	s:HSCState\HSCFinalState <-:HSCcontains- parent:HSCorState;
+	negative {
+		s --> :HSCState; // no state successor of any kind
+	}
+	/** was:
+	replace {
+		retypedNode:HSCFinalState<s>;
+	} */
+	/** new approach keeps state preserved, because it may denote a waiting/working moment whereas a final state is immediately left in a HSC */
+	modify {
+		s -:HSCtarget-> :HSCFinalState <-:HSCcontains- parent;
+	}
+}

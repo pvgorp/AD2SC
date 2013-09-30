@@ -1,0 +1,48 @@
+new P0: Place(name="p1")
+new P1: Place(name="p10")
+new P2: Place(name="P7")
+new P3: Place(name="P3")
+new P4: Place(name="P8")
+new P5: Place(name="P2")
+new P6: Place(name="P4")
+new P7: Place(name="p11")
+new P8: Place(name="p5")
+new P9: Place(name="p6")
+new P10: Place(name="p9")
+new T0: Transition(name="t1")
+new T1: Transition(name="T8")
+new T2: Transition(name="t3")
+new T3: Transition(name="T6")
+new T4: Transition(name="t7")
+new T5: Transition(name="T2")
+new T6: Transition(name="T4")
+new T7: Transition(name="T5")
+new T8: Transition(name="T9")
+new P0-:outArc->T0
+new T0-:inArc->P5
+new T0-:inArc->P6
+new T0-:inArc->P7
+new T0-:inArc->P5
+new T0-:inArc->P9
+new P2-:outArc->T1
+new P8-:outArc->T1
+new T1-:inArc->P1
+new P6-:outArc->T2
+new P3-:outArc->T2
+new T2-:inArc->P8
+new P8-:outArc->T3
+new P4-:outArc->T3
+new T3-:inArc->P10
+new P10-:outArc->T4
+new T4-:inArc->P1
+new P5-:outArc->T5
+new T5-:inArc->P3
+new P9-:outArc->T6
+new T6-:inArc->P2
+new P2-:outArc->T7
+new T7-:inArc->P4
+new P4-:outArc->T8
+new T8-:inArc->P9
+
+
+

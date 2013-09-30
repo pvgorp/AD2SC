@@ -1,0 +1,124 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+#include PetriHelper2.grg
+
+/**
+* Helpers that are not related to the PN2HSC core challenge
+*/
+
+rule returnZero : (int) {
+  ne:NamedElement;
+	modify {
+		return (0);
+	}
+}
+
+rule setNewID(var visID: int, var idIn:int):(int) {
+  ne:NamedElement;
+	if { !ne.visited[visID]; }	
+	modify {
+		eval {
+      ne.visited[visID] = true; 
+      ne.name="E"+idIn;
+    }
+		return(idIn+1);
+  }
+}
+
+rule connectStartEnd {
+  pStart: Place;
+  pEnd: Place;
+  :isNetStart(pStart);
+  :isNetEnd(pEnd);
+  negative {
+    pStart-:Start2End->;
+  }
+  negative {
+    -:Start2End->pEnd;
+  }
+  modify {
+    pStart-:Start2End->pEnd;
+  }
+}
+
+rule glueNets {
+  pStart1:Place -se1:Start2End-> pEnd1:Place;
+  pStart2:Place -se2:Start2End-> pEnd2:Place;
+  pStart2 -:pre-> firstTrans:Transition;
+  modify {
+    delete(pStart2);//se2 removed too
+	pStart1 -:Start2End->pEnd2;
+	delete(se1);
+	pEnd1 -:pre-> firstTrans;
+  }
+}
+
+pattern isNetStart(p:Place) {
+  negative {
+	-:post->p;
+  }
+}
+
+pattern isNetEnd(p:Place) {
+  negative {
+	p-:pre->;
+  }
+}
+
+pattern connected(p1:Place, p2:Place) {
+	alternative {
+		directConn {
+		  p1 -:pre-> :Transition -:post-> p2;
+		}
+		transitiveConn {
+		  negative {
+		    p1 -:pre-> :Transition -:post-> p2;
+		  }
+		  p1 -:pre-> t2:Transition -:post-> p3:Place;	  
+		  :connected(p3,p2);
+		}
+	}
+}
+
+rule addSuffixToNamedElement {
+ e: NamedElement;
+ modify {
+	eval{ 
+		e.name= e.name+"i";
+	}
+ }
+}
+
+/**
+* Resolve a name conflict between two elements
+*/
+rule resolveNameConflict {
+ e1: NamedElement;
+ e2: NamedElement;
+ if {e1.name==e2.name;}
+ modify {
+	eval{ 
+		e1.name= "dup_"+e1.name;
+	}
+ }
+}

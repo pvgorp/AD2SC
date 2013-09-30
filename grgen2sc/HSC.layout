@@ -1,0 +1,65 @@
+# This file is part of AD2SC.
+#  
+# AD2SC: Activity Diagram to Statechart Translator
+# Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+# Copyright (C) 2010,2011 Rik Eshuis
+# 
+# AD2SC is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# AD2SC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with AD2SC; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+debug set layout Hierarchic
+dump add node HSCState shortinfotag name
+
+dump set node HSCHyperEdge color black
+dump set node HSCHyperEdge shape box
+
+dump set node HSCBasicState shape ellipse
+
+dump set node HSCStartState shape circle
+dump set node HSCStartState color green
+
+dump set node HSCFinalState shape circle
+dump set node HSCFinalState color red
+
+dump set node HSCMergeNode shape rhomb
+dump set node HSCMergeNode color red
+dump set node HSCMergeNode labels "M\n"
+
+dump set node HSCDecisionNode shape rhomb
+dump set node HSCDecisionNode color red
+dump set node HSCDecisionNode labels "D\n"
+
+dump set node HSCStartState labels off
+dump set node HSCFinalState labels off
+dump set node HSCBasicState labels off #"   \n" # otherwise it's a circle for short names
+dump set node HSCHyperEdge labels  "   " # otherwise it's a rectangle
+dump set node HSCorState labels off
+dump set node HSCandState labels "AND"
+dump set node HSCxorState labels "XOR"
+
+dump set node HSCandState color LightGrey
+dump set node HSCorState color White
+
+dump set edge HSCtarget color black 
+dump set edge HSCsource color black 
+dump set edge HSCtarget labels off
+dump set edge HSCsource labels off
+
+dump add node HSCandState group by hidden outgoing HSCcontains
+dump add node HSCorState group by hidden outgoing HSCcontains
+dump add node HSCxorState group by hidden outgoing HSCcontains
+
+#dump set node HSCxorState color pink
+#dump set node HSCandState shape LParallelogram
+#dump set node HSCorState shape RParallelogram

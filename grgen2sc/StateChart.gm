@@ -1,0 +1,55 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+node class HSCState {// not abstract because want to use as formal parameter in updateOriginatorIfAny
+	name:string;
+}
+
+node class HSCStartState extends HSCState;
+node class HSCFinalState extends HSCState;
+node class HSCBasicState extends HSCState;
+node class HSCMergeNode extends HSCState;// 'extends' enables retyping with arc preservation
+node class HSCDecisionNode extends HSCState;// 'extends' enables retyping with arc preservation
+
+abstract node class HSCCompoundState  extends HSCState; 
+node class HSCandState  extends HSCCompoundState;
+node class HSCorState  extends HSCCompoundState;
+node class HSCxorState  extends HSCCompoundState;
+
+node class HSCHyperEdge extends HSCState {
+	trigger:string;
+	effect:string;
+	guard:string;
+}
+
+/* source, target functions from paper */
+
+edge class HSCtransition connect HSCState[*] --> HSCState[*] { // do not force the modeler to use HSCHyperEdge as a target only, do that for free in GRG
+  trigger:string; // when using hyperedges, it is not yet clear to me whether perhaps these hyper-edges should get triggers and effects instead of their incoming/outgoing edges...
+  effect:string;
+  guard:string;
+}
+
+edge class HSCsource extends HSCtransition; 
+edge class HSCtarget extends HSCtransition;// note: when states are directly connected (skipping hyperedges) then use HSCtransition only (not HSCsource)
+  
+edge class HSCcontains connect HSCCompoundState [*] --> HSCState[0:1]; // a compound state has at least one state, and the elements are not in another CS 

@@ -1,0 +1,134 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+pattern NoOtherTransitionBefore(t:Transition) {
+	/*perf-hack: TODO: remove comment-constructs when 'before' concept is needed! 
+	negative {
+			-:before-> t;
+	}*/
+}
+
+// intended to be applied in parallel ([])
+rule clearBeforeLink {
+	-b:before->;
+	modify {
+		delete(b);
+	}
+}
+
+rule breakBeforeCycleLength1 {
+  t1:Transition -b1:before-> t2:Transition;
+  t2 -b2:before-> t1;
+  modify {
+	delete(b2);
+  }
+}
+
+rule removeOutgoingBeforeLinks(t:Transition) {
+	t -b:before->;
+	modify {
+		delete(b);
+	}
+}
+
+rule transT1beforeT2 {
+  t1:Transition;
+  t2: Transition;
+  alternative {
+    presetT1STRICTsubsetOfPostsetT2 {
+		// extra pvg: presetT1 not empty
+		-:pre-> t1;
+		// strictness constraint
+		t2 -:post-> pStrict:Place;
+		negative {
+			pStrict -:pre-> t1;
+		}
+		// ordinary subset constraint: no contained elements outside containing set
+		negative {
+			p1:Place -:pre-> t1;
+			negative {
+				t2 -:post-> p1;
+			}
+		}
+		modify {}
+	}
+	postsetT1SubsetOfPresetT2 {
+		// extra pvg: postsetT1 not empty
+		t1 -:post->;
+		// strictness constraint
+		pStrict:Place -:pre-> t2;
+		negative {
+			t1 -:post-> pStrict;
+		}
+		// ordinary subset constraint: no contained elements outside containing set
+		negative {
+			t1 -:post-> p1:Place;
+			negative {
+				p1 -:pre-> t2;
+			}
+		}
+		modify {}
+	}/*
+	// BEGIN EXTRA PVG, FOR xor2ext2.pnml.xml.grpn (see preset of T14: strict subset of preset of T12 and should indeed be processed afterwards)
+	presetOfT2SubsetOfPresetT1 {
+		// extra pvg: presetT2 not empty
+		t2 <-:pre-;
+		// strictness constraint
+		pStrict:Place -:pre-> t1;
+		negative {
+			t2 <-:pre- pStrict;
+		}
+		// ordinary subset constraint: no contained elements outside containing set
+		negative {
+			t2 <-:pre- p1:Place;
+			negative {
+				p1 -:pre-> t1;
+			}
+		}
+		modify {}
+	}
+	 THIS ONE IS INCORRECT THOUGH (see ... xor2ext3.pnml.xml
+		// extra pvg: postsetT2 not empty
+		t2 -:post->;
+		// strictness constraint
+		pStrict:Place <-:post- t1;
+		negative {
+			t2 -:post-> pStrict;
+		}
+		// ordinary subset constraint: no contained elements outside containing set
+		negative {
+			t2 -:post-> p1:Place;
+			negative {
+				p1 <-:post- t1;
+			}
+		}
+		modify {}
+	}*/
+	// END EXTRA
+  }
+  negative {
+	t1 -:before-> t2;
+  }
+  modify {
+	t1 -:before-> t2;
+  }
+}

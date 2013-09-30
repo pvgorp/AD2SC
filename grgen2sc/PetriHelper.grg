@@ -1,0 +1,125 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Helper for step 1a from paper
+*/
+rule handlePrePlace_AND_join(t:Transition,p:Place) {
+	q_i:Place -e2:pre-> t;	 // visit each place in the preset
+	q_i -tracelink:PN2HSC-> or:HSCorState; // take the OR node of that place
+	p -:PN2HSC-> :HSCorState -:HSCcontains-> parentAND:HSCandState; // take the AND node in which it should be contained
+	modify {
+		or <-:HSCcontains- parentAND; // put the OR node in the new AND node
+		exec([move_incoming_arcs(q_i,p)]|[move_outgoing_arcs(q_i,p)]|[cleanupP(q_i)]);
+	}
+}
+
+/**
+* Helper for step 1b from paper
+*/
+rule handlePrePlace_AND_split(t:Transition,p:Place) {
+	q_i:Place <-e:post- t;	
+	q_i -tracelink:PN2HSC-> or:HSCorState; // take the OR node of that place
+	p -:PN2HSC-> :HSCorState -:HSCcontains-> parentAND:HSCandState; // take the AND node in which it should be contained
+	modify {
+		or <-:HSCcontains- parentAND; // put the OR node in the new AND node
+		exec([move_incoming_arcs(q_i,p)]|[move_outgoing_arcs(q_i,p)]|[cleanupP(q_i)]);
+	}
+}
+
+rule connectPre(prePl:Place, t: Transition) {
+	negative {
+		prePl -:pre-> t;
+	}
+	modify {
+		prePl -:pre-> t;
+	}
+}
+
+rule connectPost(t: Transition, postPl:Place) {
+	negative {
+		t -:post-> postPl;
+	}
+	modify {
+		t -:post-> postPl;
+	}
+}
+
+
+rule cleanupP(p:Place) {
+	modify {
+		delete(p);
+	}
+}
+
+
+rule cleanupT(t:Transition) {
+	modify {
+		delete(t);
+	}
+}
+
+rule move_incoming_arcs(srcPlace:Place,trgPlace:Place ) {
+	otherTrans:Transition -e1:post-> srcPlace; 
+	alternative { 
+		NotYetPresent {
+			negative {
+				otherTrans -:post-> trgPlace;
+			}
+			modify {
+				otherTrans -:post-> trgPlace;
+			}
+		}
+		AlreadyPresent {
+			otherTrans -:post-> trgPlace;
+			modify {
+				// in this case: do not link otherTrans to trgPlace again!
+			}
+		}
+	}
+	modify {			
+		delete(e1);			
+	}
+}
+
+rule move_outgoing_arcs(srcPlace:Place,trgPlace:Place ) {
+	otherTrans:Transition <-e1:pre- srcPlace; 
+	alternative { 
+		NotYetPresent {
+			negative {
+				otherTrans <-:pre- trgPlace;
+			}
+			modify {
+				otherTrans <-:pre- trgPlace;
+			}
+		}
+		AlreadyPresent {
+			otherTrans <-:pre- trgPlace;
+			modify {
+				// in this case: do not link otherTrans to trgPlace again!
+			}
+		}
+	}
+	modify {			
+		delete(e1);			
+	}
+}

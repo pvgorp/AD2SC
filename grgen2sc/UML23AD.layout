@@ -1,0 +1,62 @@
+# This file is part of AD2SC.
+#  
+# AD2SC: Activity Diagram to Statechart Translator
+# Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+# Copyright (C) 2010,2011 Rik Eshuis
+# 
+# AD2SC is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# AD2SC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with AD2SC; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+debug set layout Hierarchic
+debug set layout option ORIENTATION LEFT_TO_RIGHT
+dump add node Namespace group by hidden outgoing ownedElement
+
+dump add node ActivityNode shortinfotag name
+dump set node ActivityNode shape Circle
+dump set node ActivityNode color White
+dump set node InitialNode color Black
+dump set node FinalNode color Red
+
+dump set node DecisionNode shape Rhomb
+
+dump set node CentralBufferNode shape Box
+dump add node CentralBufferNode infotag _inState
+dump add node CentralBufferNode infotag _type
+# dump set node CentralBufferNode labels ":Claim" 
+
+dump set node ForkNode shape Box
+dump set node ForkNode color Black
+dump set node ForkNode labels off
+
+dump set node JoinNode shape Box
+dump set node JoinNode color Black
+dump set node JoinNode labels off
+
+dump set node CallBehaviorAction labels off
+# dump set node CentralBufferNode labels off
+dump set node ActivityFinalNode labels off
+dump set node DecisionNode labels off
+dump set node InitialNode labels off
+
+dump set edge ControlFlow labels off
+dump set edge ObjectFlow labels off
+
+dump set edge ControlFlow color Black
+dump set edge ObjectFlow color Black 
+dump set edge ObjectFlow linestyle dashed 
+dump set edge ObjectFlow thickness 2
+
+dump add edge inState exclude
+
+dump add edge AN2SC exclude

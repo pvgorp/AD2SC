@@ -1,0 +1,133 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Some rules to transform a Karlsruhe Petri-Net to a TU/e net (=> introduce pre- and post- set concept for transitions)
+*/
+rule setPre {
+	t:Transition<-:outArc-p:Place;
+	negative {
+		p-:pre->t;
+	}
+	modify {
+		p-pNew:pre->t;
+	}
+}
+
+rule setPost {
+	t:Transition-:inArc->p:Place;
+	negative {
+		t-:post->p;
+	}
+	modify {
+		t-pNew:post->p;
+	}
+}
+
+rule delInArcs {
+	t:Transition-t2p:inArc->p:Place;
+	replace {
+		p;
+		t;
+	}
+}
+rule delOutArcs {
+	p:Place-p2t:outArc->t:Transition;
+	replace {
+		p;
+		t;
+	}
+}
+
+rule removeNetElement {
+	net:PetriNet;
+	modify {
+		delete(net);
+	}
+}
+
+rule addGlobalNetElementIfNoNetElementPresent {
+	negative {
+		:PetriNet;
+	}
+	modify {
+		pn:PetriNet;
+		exec([AddPlaceToNet(pn)]|[AddTransitionToNet(pn)]);
+	}
+}
+
+rule AddPlaceToNet(pn:PetriNet) {
+	p:Place;
+	negative {
+		-:places->p;
+	}
+	modify {
+		pn -:places-> p;
+	}
+}
+
+rule AddTransitionToNet(pn:PetriNet) {
+	t:Transition;
+	negative {
+		-:transitions->t;
+	}
+	modify {
+		pn -:transitions-> t;
+	}
+}
+
+/** eindhoven to karlsruhe */
+
+rule setOutArc {
+	t:Transition <-:pre- p:Place;
+	negative {
+		p-:outArc->t;
+	}
+	modify {
+		p-:outArc->t;
+	}
+}
+
+rule setInArc {
+	t:Transition-:post->p:Place;
+	negative {
+		t-:inArc->p;
+	}
+	modify {
+		t-:inArc->p;
+	}
+}
+
+rule delPost {
+	t:Transition-:post->p:Place;
+	replace {
+		p;
+		t;
+	}
+}
+rule delPre {
+	p:Place-:pre->t:Transition;
+	replace {
+		p;
+		t;
+	}
+}

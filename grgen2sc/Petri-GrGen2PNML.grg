@@ -1,0 +1,112 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Transform a set of Petri-Nets in a GrGen Model (graph) to PNML text
+*/
+rule pnModel2pnmlText {
+	// no LHS => do not iterate over this one!
+	modify {
+		exec([addIDsWhereNotYetSet]);
+		emit("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><pnml>\n");
+		exec(pnPetriNet2pnmlText*);
+		emit("</pnml>");		
+	}
+}
+
+/**
+* Transform a Petri-Net element to PNML text
+*/
+rule pnPetriNet2pnmlText {
+	pn:PetriNet;
+	if { !pn.visited[0]; }	
+	modify {
+		eval { pn.visited[0] = true; }
+		emit("<net id=\"n1\" type=\"BlackTokenNet\">\n");
+		exec(pnPlace2pnmlText(pn)*);
+		exec(pnTransition2pnmlText(pn)*);
+		emit("</net>");		
+	}
+}
+
+/**
+* Transform a Place element to PNML text
+*/
+rule pnPlace2pnmlText(pn:PetriNet) {
+	pn-:places->p:Place;
+	if { !p.visited[0]; }	
+	modify {
+		eval { p.visited[0] = true; }
+		emit("<place id=\""+nameof(p)+"\">\n"); // id=\"+p.id+"
+		emit("<name><value>"+p.name+"</value><text>"+p.name+"</text></name>\n");
+        emit("</place>\n");
+	}
+}
+
+/**
+* Transform a Transition element to PNML text
+*/
+rule pnTransition2pnmlText(pn:PetriNet) {
+	pn-:transitions->t:Transition;
+	if { !t.visited[0]; }	
+	modify {
+		eval { t.visited[0] = true; }
+		emit("<transition id=\""+nameof(t)+"\">\n"); // id=\"+t.id+"
+		emit("<name><value>"+t.name+"</value><text>"+t.name+"</text></name>\n");
+        emit("</transition>\n");
+		exec(pnPreArcs2pnmlText(t)*|pnPostArcs2pnmlText(t)*);
+	}
+}
+
+/**
+* Transform PN arcs (from Place to Transition) to PNML text
+*/
+rule pnPreArcs2pnmlText(t:Transition) {
+	p:Place -oa:pre-> t;
+	if { !oa.visited[0]; }	
+	modify {
+		eval { oa.visited[0] = true; }
+		emit("<arc source=\""+nameof(p)+"\" target=\""+nameof(t)+"\" id=\""+nameof(oa)+"\"></arc>\n"); 
+	}
+}
+
+/**
+* Transform PN arcs (from Transition to Place) to PNML text
+*/
+rule pnPostArcs2pnmlText(t:Transition) {
+	t -ia:post-> p:Place;
+	if { !ia.visited[0]; }	
+	modify {
+		eval { ia.visited[0] = true; }
+		emit("<arc source=\""+nameof(t)+"\" target=\""+nameof(p)+"\" id=\""+nameof(ia)+"\"></arc>");
+	}
+}
+
+rule addIDsWhereNotYetSet {
+	ne:NamedElement;
+	if { ne.name==null; }
+	modify {
+		eval {
+			ne.name=nameof(ne);
+		}
+	}
+}

@@ -1,0 +1,203 @@
+/*
+* This file is part of AD2SC.
+*  
+* AD2SC: Activity Diagram to Statechart Translator
+* Copyright (C) 2010,2011 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* Copyright (C) 2010,2011 Rik Eshuis
+* 
+* AD2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* AD2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with AD2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Transform a set of Hierarchical Statecharts in a GrGen Model (graph) to Eclipse UML2 XMI2 text
+*/
+rule hscModel2eclipseUMLtext {
+	// no LHS => do not iterate over this one!	
+	modify {
+		emit("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		// replace 2.0.0 to 3.0.0 if really needed, I propose to stick with 2.0.0 for MagicDraw 16.6 compatibility
+		emit("<uml:Package xmi:version=\"2.1\" xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1\" xmlns:uml=\"http://www.eclipse.org/uml2/2.0.0/UML\" xmi:id=\"_Vgg9AOmLEd6jYacdunetzwPVG\">");
+	/*	emit("<elementImport xmi:id=\"_Vhd_QOmLEd6jYacdunetzw\">");
+		emit("<importedElement xmi:type=\"uml:PrimitiveType\" href=\"pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean\"/>");
+		emit("</elementImport>");
+		emit("<elementImport xmi:id=\"_Vhd_QemLEd6jYacdunetzw\">");
+		emit("<importedElement xmi:type=\"uml:PrimitiveType\" href=\"pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String\"/>");
+		emit("</elementImport>");
+		emit("<elementImport xmi:id=\"_Vhd_QumLEd6jYacdunetzw\">");
+		emit("<importedElement xmi:type=\"uml:PrimitiveType\" href=\"pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural\"/>");
+		emit("</elementImport>");
+		emit("<elementImport xmi:id=\"_Vhd_Q-mLEd6jYacdunetzw\">");
+		emit("<importedElement xmi:type=\"uml:PrimitiveType\" href=\"pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer\"/>");
+		emit("</elementImport>");*/		
+		exec(hsc2eclipseUML);		
+		emit("</uml:Package>");
+	}
+}
+
+/**
+* Transform all states and transitions to UML2 XMI text
+*/
+rule hsc2eclipseUML {
+	orRoot:HSCorState;
+	negative {
+		orRoot <-:HSCcontains- .;
+	}
+	if { !orRoot.visited[0]; }	
+	modify {		
+		emit("<packagedElement xmi:type=\"uml:StateMachine\" xmi:id=\""+nameof(orRoot)+"\" name=\""+nameof(orRoot)+"\">");
+		emit("<region xmi:id=\""+nameof(orRoot)+"reg\" name=\""+nameof(orRoot)+"reg\">");
+		exec(hscORchildren2eclipseUML(orRoot));	
+		emit("</region>");
+		emit("</packagedElement>");
+		eval { orRoot.visited[0] = true; }
+	}
+}
+
+/**
+* Transform an OR node to UML XMI === Transform its OR children to UML XMI (no other text pre/post is needed)
+*/
+rule hscORchildren2eclipseUML(or:HSCorState) {				
+//	if { !visID2.visited(or, 0); }	
+	modify {
+		exec(HSCStartState2UMLtext(or)* | HSCfinalState2UMLtext(or)* | HSCandState2UMLtext(or)* | HSCHyperEdgeFJ2UMLtext(or)* | HSCHyperEdge2UMLtext(or)* | HSCmergeNode2UMLtext(or)* | HSCdecisionNode2UMLtext(or)* | HSCbasicState2UMLtext(or)* );
+//		eval { visID2.visited(or, 0) = true; }
+	}	
+}
+
+rule HSCStartState2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> sta:HSCStartState;
+	if { !sta.visited[0]; }	
+	modify {
+		emit("<subvertex xmi:type=\"uml:Pseudostate\" xmi:id=\""+nameof(sta)+"\" name=\""+sta.name+"\"/>");
+		eval { sta.visited[0] = true; }
+	}
+}
+	
+rule HSCandState2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> and:HSCandState;			
+	if { !and.visited[0]; }
+	modify {
+		emit("<subvertex xmi:type=\"uml:State\" xmi:id=\""+nameof(and)+"\" name=\""+nameof(and)+"\">");
+		exec(hscANDchildren2eclipseUML(and)*);// NEEDS REGION FOR EACH CONTAINED ELEMENT
+		emit("</subvertex>");
+		eval { and.visited[0] = true; }
+	}
+}
+
+rule HSCbasicState2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> basic:HSCBasicState;			
+	if { !basic.visited[0]; }
+	modify {
+		emit("<subvertex xmi:type=\"uml:State\" xmi:id=\""+nameof(basic)+"\" name=\""+basic.name+"\"/>");
+		eval { basic.visited[0] = true; }
+	}
+}
+
+rule HSCfinalState2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> final:HSCFinalState;			
+	if { !final.visited[0]; }
+	modify {
+		emit("<subvertex xmi:type=\"uml:FinalState\" xmi:id=\""+nameof(final)+"\" name=\""+final.name+"\"/>");
+		eval { final.visited[0] = true; }
+	}
+}
+
+rule HSCdecisionNode2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> choice:HSCDecisionNode;			
+	if { !choice.visited[0]; }
+	modify {
+		emit("<subvertex xmi:type=\"uml:Pseudostate\" kind=\"choice\" xmi:id=\""+nameof(choice)+"\" name=\""+choice.name+"\"/>");
+		eval { choice.visited[0] = true; }
+	}
+}
+
+rule HSCmergeNode2UMLtext(parent:HSCorState) {
+	parent -:HSCcontains-> junction:HSCMergeNode;			
+	if { !junction.visited[0]; }
+	modify {
+		emit("<subvertex xmi:type=\"uml:Pseudostate\" kind=\"junction\" xmi:id=\""+nameof(junction)+"\" name=\""+junction.name+"\"/>");
+		eval { junction.visited[0] = true; }
+	}
+}
+
+rule HSCHyperEdgeFJ2UMLtext(parent:HSCorState) { 
+	parent -:HSCcontains-> he:HSCHyperEdge;
+	if { !he.visited[0]; }
+	alternative {
+		Fork {
+			. <-:HSCtarget- he -:HSCtarget-> .;
+			modify {
+				emit("<subvertex xmi:type=\"uml:Pseudostate\" kind=\"fork\" xmi:id=\""+nameof(he)+"\" name=\""+he.name+"\"/>");
+			}
+		} 
+		Join {
+			. -:HSCsource-> he <-:HSCsource- .;
+			modify {
+				emit("<subvertex xmi:type=\"uml:Pseudostate\" kind=\"join\" xmi:id=\""+nameof(he)+"\" name=\""+he.name+"\"/>");
+			}
+		}
+	}
+	modify {		
+		// TODO: check whether this could be done with an 'iterated' (=> no 'modify' with loop) too...
+		exec(HSCsourceLinks2UMLtext(he)* | HSCtargetLinks2UMLtext(he)*);
+		// END TODO
+		eval { he.visited[0] = true; }
+	}
+}
+
+rule HSCsourceLinks2UMLtext(he:HSCHyperEdge) {
+	b:HSCState -s:HSCsource-> he;
+	if { !s.visited[0]; }
+	modify {
+		emit("<transition xmi:type=\"uml:Transition\" xmi:id=\""+nameof(s)+"\" source=\""+nameof(b)+"\" target=\""+nameof(he)+"\"/>");
+		eval { s.visited[0] = true; }
+	}
+}
+
+rule HSCtargetLinks2UMLtext(he:HSCHyperEdge) {
+	b:HSCState <- t:HSCtarget- he;
+	if { !t.visited[0]; }
+	modify {
+		emit("<transition  xmi:type=\"uml:Transition\" xmi:id=\""+nameof(t)+"\" source=\""+nameof(he)+"\" target=\""+nameof(b)+"\"/>");
+		eval { t.visited[0] = true; }
+	}
+}
+
+rule HSCHyperEdge2UMLtext(parent:HSCorState) { 
+	parent -:HSCcontains-> he:HSCHyperEdge;
+	b1:HSCState -s:HSCsource-> he - t:HSCtarget-> b2:HSCState;
+	negative {
+		. <-:HSCtarget- he -:HSCtarget-> .;// no fork
+	}
+	negative {
+		. -:HSCsource-> he <-:HSCsource- .;// no join
+	}
+	if { !he.visited[0]; }
+	modify {
+		emit("<transition xmi:type=\"uml:Transition\" xmi:id=\""+nameof(s)+"\" source=\""+nameof(b1)+"\" target=\""+nameof(b2)+"\"/>");// using ID of so, could also take ID of t into account but that is unnecessary for establishing uniquenes
+		eval { he.visited[0] = true; }
+	}
+}
+	
+rule hscANDchildren2eclipseUML(and:HSCandState) {
+	and -:HSCcontains-> or:HSCorState; // via iteration of hscORchildren2eclipseUML, we will visit each node that is further contained in the node "or"
+	if { !or.visited[0]; }	
+	modify {
+		emit("<region xmi:type='uml:Region' xmi:id=\""+nameof(or)+"region\" name=\""+nameof(or)+"region\">");
+		exec(hscORchildren2eclipseUML(or));	
+		emit("</region>");
+		eval { or.visited[0] = true; }
+	}
+}
