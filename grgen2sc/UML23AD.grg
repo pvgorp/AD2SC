@@ -908,3 +908,47 @@ rule MapClonedADtoPNelements {
 		exec(([ActivityNode2Place(adCLONE,pn)]$|[CentralBufferNode2Place(adCLONE,pn)]$|[ANDNode2Transition(adCLONE,pn)]) | [ActivityEdge2PNnext(adCLONE)] | [PNnext2prepost(pn)]);	
 	}
 }
+
+/** New for DAB */
+pattern Finalizes(a:Activity, n:Namespace) {
+	independent {		
+		a <-:ObjectFlow- cbn:CentralBufferNode -:smType-> n;
+		negative {
+			a -:ObjectFlow-> cbn2:CentralBufferNode -:smType-> n;
+		}
+	}
+}
+
+pattern Creates(a:Activity, n:Namespace) {
+	independent {		
+		a -:ObjectFlow-> cbn:CentralBufferNode -:smType-> n;
+		negative {
+			a <-:ObjectFlow- cbn -:smType-> n;
+		}
+	}
+}
+
+pattern Accesses(a:Activity, n:Namespace) { // patterns 'Reads' and 'Updates' refine this pattern
+	independent {
+		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
+		cbn -:smType-> n <-:smType- cbn2;
+		hom(cbn,cbn2);		
+	}
+}
+
+pattern Reads(a:Activity, n:Namespace) { // specializes 'Accesses'
+	independent {
+		:Accesses(a,n);
+		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
+		cbn -:inState-> s:State <-:inState- cbn2;
+	}
+}
+
+pattern Updates(a:Activity, n:Namespace) { // specializes 'Accesses'
+	independent {
+		:Accesses(a,n);
+		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
+		cbn -:inState-> s:State;
+		cbn2 -:inState-> s2:State; // so s <> s2 due to isomorphic matching
+	}
+}
