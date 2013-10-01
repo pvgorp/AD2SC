@@ -27,23 +27,23 @@ echo "|---> Generating composite traceability links..."
 xgrs [merge_tracelinks_AD_AD_PN_SC]
 # END NEW
 echo "|---> Introducing hierarchy (PN-destructive reduction rules)..."
-debug xgrs (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
-
-debug xgrs R2extra # NEW PVG for cross-sync
-
-# BEGIN AD specific
-# should become "xgrs  ((transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)*  || R3)*" but does not terminate yet
-debug xgrs  R3
-xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
-
-debug xgrs R2extra # NEW PVG for cross-sync
-
-debug xgrs  R3
-xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
+xgrs (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
 
 xgrs R2extra # NEW PVG for cross-sync
 
-xgrs  R3
+# BEGIN AD specific
+# should become "xgrs  ((transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)*  || R3)*" but does not terminate yet
+debug xgrs $%[%R3]
+xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
+
+debug xgrs R2extra # NEW PVG for cross-sync
+
+debug xgrs $%[%R3]
+xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
+
+debug xgrs R2extra # NEW PVG for cross-sync
+
+debug xgrs $%[%R3]
 xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
 # END AD specific
 
