@@ -465,19 +465,26 @@ rule RemoveSelfLoop(a:Activity) {
 }
 
 
-pattern differentOutput(x:XORNode,o:ObjectNode){
+pattern differentOutput(x:ActivityNode,o:ActivityNode){
 	independent{
-	x-:ActivityEdge->y:ActivityNode;
-		x;
-		y;
-		o-->y;
+		x -:ActivityEdge-> y:ActivityNode;
+		negative { 
+			o -:ActivityEdge-> y;
+		}
 	}
 }
 
 
-/*
-*
-* DISABLED FOR SOSYM UPDATE
+pattern differentInput(x:ActivityNode,o:ActivityNode){
+	independent{
+		x <-:ActivityEdge- y:ActivityNode;
+		negative { 
+			o <-:ActivityEdge- y;
+		}
+	}
+}
+
+
 rule RemoveDecision(a:Activity) {
 	a -:ownedElement-> n1:ANDNode-e1:ActivityEdge->n2:XORNode;
 	n2-e2:ActivityEdge->n3:ANDNode;
@@ -485,12 +492,8 @@ rule RemoveDecision(a:Activity) {
 	n1-:ActivityEdge->n5:ObjectNode-:ActivityEdge->n3;
 	n5-:ActivityEdge->n4;
 	negative{
-		n1;
-		n2;
-		n3;
-		n4;
-		n5;
 		:differentOutput(n2,n5);
+		:differentOutput(n5,n2);
 	}
 	modify{
 		delete(e1);
@@ -498,7 +501,25 @@ rule RemoveDecision(a:Activity) {
 		delete(e3);
 		delete(n2);
 	}
-}*/
+}
+
+rule RemoveMerge(a:Activity) {
+	a -:ownedElement-> n1:ANDNode-e1:ActivityEdge->n2:XORNode;
+	n2-e2:ActivityEdge->n3:ANDNode;
+	n2<-e3:ActivityEdge-n4:ANDNode;
+	n1-:ActivityEdge->n5:ObjectNode-:ActivityEdge->n3;
+	n5<-:ActivityEdge-n4;
+	negative{
+		:differentInput(n2,n5);
+		:differentInput(n5,n2);
+	}
+	modify{
+		delete(e1);
+		delete(e2);
+		delete(e3);
+		delete(n2);
+	}
+}
 
 /* 
 edge from n1->n2 deleted implicitly
@@ -885,7 +906,7 @@ rule FilterClonedADs {
 	. -:AN2AN-> adCLONE:Activity;
 	if { !adCLONE.visited[0]; }	
 	modify {
-		exec((OneInputOutput(adCLONE)|RemoveRedundantEdgeBetweenANDnodes(adCLONE)|RemoveParallelFinal(adCLONE)|RemoveDuplicateEdgeBetweenXORnodes(adCLONE)|removeXORsT2(adCLONE)|removeXORsT2inverse(adCLONE)|removeANDsT2(adCLONE)|removeANDsT2inverse(adCLONE)|RemoveSelfLoop(adCLONE))*);
+		exec((OneInputOutput(adCLONE)|RemoveRedundantEdgeBetweenANDnodes(adCLONE)|RemoveParallelFinal(adCLONE)|RemoveDuplicateEdgeBetweenXORnodes(adCLONE)|RemoveDecision(adCLONE)|RemoveMerge(adCLONE)|removeXORsT2(adCLONE)|removeXORsT2inverse(adCLONE)|removeANDsT2(adCLONE)|removeANDsT2inverse(adCLONE)|RemoveSelfLoop(adCLONE))*);
 		eval { adCLONE.visited[0] = true; }
 	}
 }
