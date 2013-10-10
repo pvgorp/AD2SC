@@ -910,7 +910,7 @@ rule MapClonedADtoPNelements {
 }
 
 /** New for DAB */
-pattern Finalizes(a:Activity, n:Namespace) {
+pattern Finalizes(a:ActivityNode, n:Namespace) {
 	independent {		
 		a <-:ObjectFlow- cbn:CentralBufferNode -:smType-> n;
 		negative {
@@ -919,7 +919,7 @@ pattern Finalizes(a:Activity, n:Namespace) {
 	}
 }
 
-pattern Creates(a:Activity, n:Namespace) {
+pattern Creates(a:ActivityNode, n:Namespace) {
 	independent {		
 		a -:ObjectFlow-> cbn:CentralBufferNode -:smType-> n;
 		negative {
@@ -928,7 +928,7 @@ pattern Creates(a:Activity, n:Namespace) {
 	}
 }
 
-pattern Accesses(a:Activity, n:Namespace) { // patterns 'Reads' and 'Updates' refine this pattern
+pattern Accesses(a:ActivityNode, n:Namespace) { // patterns 'Reads' and 'Updates' refine this pattern
 	independent {
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
 		cbn -:smType-> n <-:smType- cbn2;
@@ -936,7 +936,7 @@ pattern Accesses(a:Activity, n:Namespace) { // patterns 'Reads' and 'Updates' re
 	}
 }
 
-pattern Reads(a:Activity, n:Namespace) { // specializes 'Accesses'
+pattern Reads(a:ActivityNode, n:Namespace) { // specializes 'Accesses'
 	independent {
 		:Accesses(a,n);
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
@@ -944,11 +944,29 @@ pattern Reads(a:Activity, n:Namespace) { // specializes 'Accesses'
 	}
 }
 
-pattern Updates(a:Activity, n:Namespace) { // specializes 'Accesses'
+pattern Updates(a:ActivityNode, n:Namespace) { // specializes 'Accesses'
 	independent {
 		:Accesses(a,n);
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
 		cbn -:inState-> s:State;
 		cbn2 -:inState-> s2:State; // so s <> s2 due to isomorphic matching
 	}
+}
+
+rule EachActivityAtLeastOneCoordinator {	
+	negative {
+		:ActivityWithoutCoordinator();
+	}
+}
+
+pattern ActivityWithoutCoordinator() {
+	a:ActivityNode;
+	negative {
+		n:Namespace;
+		:Updates(a,n);
+	}
+}
+
+rule ActivityWithoutCoordinator_ {	
+	:ActivityWithoutCoordinator();
 }

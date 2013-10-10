@@ -1,0 +1,1 @@
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\claim7-DABstyle.uml.xml ..\..\grgen2sc\input\claim7.uml.gruml23

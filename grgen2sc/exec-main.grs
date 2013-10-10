@@ -41,6 +41,11 @@ xgrs vID = valloc() && FilterClonedADs* && vfree(vID)
 echo "|---> Evaluating additional cross-sync rule"
 xgrs vID = valloc() && MakeCrossSyncExplicitInClonedADs* && vfree(vID)
 
+debug xgrs ActivityWithoutCoordinator_
+
+# echo "|---> Checking DAB WFR"
+# validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
+
 include Petri-PaperDebugSequence.layout
 include HSC.layout
 echo "|---> Mapping AD to PN"
