@@ -8,7 +8,7 @@
 bin/
 tmp/
 *.tmp
-*.dll
+grgen2sc/*.dll
 *.bak
 *.swp
 *~.nib
