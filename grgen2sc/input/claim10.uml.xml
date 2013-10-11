@@ -76,7 +76,6 @@
 			<node xmi:type='uml:ForkNode' xmi:id='_16_6_2_931029f_1380616481734_524845_791' name='t3' visibility='public'>
 				<outgoing xmi:idref='_16_6_2_931029f_1380616481690_167861_763'/>
 				<outgoing xmi:idref='_16_6_2_931029f_1380616481691_577332_768'/>
-				<incoming xmi:idref='_16_6_2_931029f_1381419825438_980146_835'/>
 				<incoming xmi:idref='_16_6_2_931029f_1381420194130_285891_877'/>
 			</node>
 			<node xmi:type='uml:ForkNode' xmi:id='_16_6_2_931029f_1380616481734_658695_792' name='t2' visibility='public'>
@@ -91,7 +90,6 @@
 			</node>
 			<node xmi:type='uml:DecisionNode' xmi:id='_16_6_2_931029f_1380616481734_487843_794' visibility='public'>
 				<outgoing xmi:idref='_16_6_2_931029f_1380616481690_381710_760'/>
-				<outgoing xmi:idref='_16_6_2_931029f_1381419825432_72628_833'/>
 				<outgoing xmi:idref='_16_6_2_931029f_1381420194130_285891_877'/>
 				<incoming xmi:idref='_16_6_2_931029f_1380617963572_65860_1714'/>
 			</node>
@@ -191,10 +189,6 @@
 				<outgoing xmi:idref='_16_6_2_931029f_1381420184099_758120_872'/>
 				<incoming xmi:idref='_16_6_2_931029f_1381419167796_187119_439'/>
 				<inState xmi:idref='_16_6_2_931029f_1381419144409_664768_427'/>
-			</node>
-			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1381419820506_605479_823' name='mark accepted' visibility='public'>
-				<outgoing xmi:idref='_16_6_2_931029f_1381419825438_980146_835'/>
-				<incoming xmi:idref='_16_6_2_931029f_1381419825432_72628_833'/>
 			</node>
 			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1380616481689_609327_754' visibility='public' source='_16_6_2_931029f_1380616481733_462191_789' target='_16_6_2_931029f_1380616481733_978318_788'>
 				<weight xmi:type='uml:LiteralInteger' xmi:id='_16_6_2_931029f_1380616481766_32150_833' visibility='public' value='1'/>
@@ -303,12 +297,6 @@
 			</edge>
 			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1381419464571_502236_447' visibility='public' source='_16_6_2_931029f_1381419114925_390490_416' target='_16_6_2_931029f_1380616481735_711862_797'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1381419464572_217063_448' visibility='public' value='1'/>
-			</edge>
-			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1381419825432_72628_833' visibility='public' source='_16_6_2_931029f_1380616481734_487843_794' target='_16_6_2_931029f_1381419820506_605479_823'>
-				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1381419825433_979598_834' visibility='public' value='1'/>
-			</edge>
-			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1381419825438_980146_835' visibility='public' source='_16_6_2_931029f_1381419820506_605479_823' target='_16_6_2_931029f_1380616481734_524845_791'>
-				<weight xmi:type='uml:LiteralInteger' xmi:id='_16_6_2_931029f_1381419825438_867704_836' visibility='public' value='1'/>
 			</edge>
 			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1381420184099_758120_872' visibility='public' source='_16_6_2_931029f_1381419114925_390490_416' target='_16_6_2_931029f_1380616481735_440364_798'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1381420184099_370160_873' visibility='public' value='1'/>
@@ -1453,7 +1441,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 						<mdElement elementClass='StringProperty'>
 							<propertyID>INFO_PROPERTY</propertyID>
 							<propertyDescriptionID>INFO_PROPERTY_DESCRIPTION</propertyDescriptionID>
-							<value>1e 71 21 6 d 25 37 5b 15 d a9 4d 82 76 6 cc 59 83 e0 52 ba 1c ae f7 64 18 e6 53 b7 a2 88 de 31 50 da 1c 12 38 de be dd 86 c1 71 eb bc eb e6 1a 62 4f af ea a2 7d 11 c1 a 92 99 50 78 c 12 e8 79 e7 83 a3 87 2f 9f </value>
+							<value>1e 71 21 6 d 25 37 5b 15 d a9 4d 82 76 6 cc 59 83 e0 52 ba 1c ae f7 64 19 e6 53 b5 a9 88 de 31 50 da 1c 12 38 de be dd 86 c1 71 eb bc eb e6 1a 62 4f af ea a2 7d 11 c1 a 92 99 50 78 c 12 e8 79 e7 83 a3 87 2f 9f </value>
 						</mdElement>
 						<mdElement elementClass='LIST_PROPERTY'>
 							<propertyID>ADDITIONAL_CONTAINMENT_TREES</propertyID>
