@@ -1,0 +1,1 @@
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\claim5-brainstorm-withdecided3.uml.xml ..\..\grgen2sc\input\claim5rik3.uml.gruml23

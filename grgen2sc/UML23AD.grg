@@ -167,12 +167,6 @@ rule NoInputObjectNode(a:Activity) {
 	  c;
 	  n;
 	}
-	negative{
-	  c;
-	  n;
-	  o;
-	  o2:ObjectNode-:ObjectFlow->c;
-	}
 	modify{
 		delete(e);
 	    exec([connectFromTo(n,o)]);	
@@ -202,12 +196,6 @@ rule NoOutputObjectNode(a:Activity) {
 	  c;
 	  n;
 	  <-:ActivityEdge-o;
-	}
-	negative{
-	  c;
-	  n;
-	  o;
-	  o2:ObjectNode<-:ObjectFlow-c;
 	}
 	modify{
 		delete(e);
