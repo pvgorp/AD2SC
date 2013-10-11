@@ -3,6 +3,8 @@
 #################
 
 *.dll
+grgen2sc/lgsp-UML23ADActions.dll
+grgen2sc/lgsp-UML23ADModel.dll
 
 #################
 ## Eclipse
