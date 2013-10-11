@@ -33,7 +33,7 @@ xgrs R2extra # NEW PVG for cross-sync
 
 # BEGIN AD specific
 # should become "xgrs  ((transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)*  || R3)*" but does not terminate yet
-debug xgrs $%[%R3]
+xgrs $%[%R3]
 xgrs  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
 
 xgrs R2extra # NEW PVG for cross-sync
