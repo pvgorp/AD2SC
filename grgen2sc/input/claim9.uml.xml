@@ -2,7 +2,7 @@
 <!-- This xmi file is optimized for MagicDraw UML. Some references are not saved. -->
 <!-- Change MagicDraw UML environment options property General->.Save Rich XMI -->
 
-<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.2' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi' xmlns:UML_Standard_Profile='http://www.magicdraw.com/schemas/UML_Standard_Profile.xmi' xmlns:MagicDraw_Profile='http://www.magicdraw.com/schemas/MagicDraw_Profile.xmi' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi'>
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.2' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:Validation_Profile='http://www.magicdraw.com/schemas/Validation_Profile.xmi' xmlns:MagicDraw_Profile='http://www.magicdraw.com/schemas/MagicDraw_Profile.xmi' xmlns:UML_Standard_Profile='http://www.magicdraw.com/schemas/UML_Standard_Profile.xmi' xmlns:DSL_Customization='http://www.magicdraw.com/schemas/DSL_Customization.xmi'>
 	<xmi:Documentation exporter='MagicDraw UML' exporterVersion='16.6'/>
 	<xmi:Extension extender='MagicDraw UML 16.6'>
 		<shareTable shareVersion='-1' standardSystemProfile='false'/>
@@ -338,13 +338,8 @@
 					<type>State Machine Diagram</type>
 					<umlType>State Machine Diagram</umlType>
 					<zoomFactor xmi:value='1.0'/>
-					<diagramOpened xmi:value='true'/>
+					<diagramOpened xmi:value='false'/>
 					<diagramFrameInitialSizeSet xmi:value='true'/>
-					<diagramWindowBounds>2, 24, 1373, 680</diagramWindowBounds>
-					<diagramScrollPositionX xmi:value='0'/>
-					<diagramScrollPositionY xmi:value='0'/>
-					<maximized xmi:value='false'/>
-					<active xmi:value='false'/>
 					<mdOwnedViews>
 						<mdElement elementClass='DiagramFrame' xmi:id='_15_5_1_bc002fa_1291032905525_710826_360'>
 							<elementID xmi:idref='_15_5_1_bc002fa_1291032905478_857316_345'/>
@@ -395,13 +390,8 @@
 					<type>Class Diagram</type>
 					<umlType>Class Diagram</umlType>
 					<zoomFactor xmi:value='1.0'/>
-					<diagramOpened xmi:value='true'/>
+					<diagramOpened xmi:value='false'/>
 					<diagramFrameInitialSizeSet xmi:value='true'/>
-					<diagramWindowBounds>2, 24, 1373, 680</diagramWindowBounds>
-					<diagramScrollPositionX xmi:value='0'/>
-					<diagramScrollPositionY xmi:value='0'/>
-					<maximized xmi:value='false'/>
-					<active xmi:value='false'/>
 					<mdOwnedViews>
 						<mdElement elementClass='DiagramFrame' xmi:id='_16_6_2_931029f_1380619573964_429153_1762'>
 							<elementID xmi:idref='_16_6_2_931029f_1380619573963_60717_1749'/>
@@ -424,13 +414,8 @@
 					<type>State Machine Diagram</type>
 					<umlType>State Machine Diagram</umlType>
 					<zoomFactor xmi:value='1.0'/>
-					<diagramOpened xmi:value='true'/>
+					<diagramOpened xmi:value='false'/>
 					<diagramFrameInitialSizeSet xmi:value='true'/>
-					<diagramWindowBounds>2, 24, 1373, 680</diagramWindowBounds>
-					<diagramScrollPositionX xmi:value='0'/>
-					<diagramScrollPositionY xmi:value='0'/>
-					<maximized xmi:value='false'/>
-					<active xmi:value='false'/>
 					<mdOwnedViews>
 						<mdElement elementClass='DiagramFrame' xmi:id='_16_6_2_931029f_1380619980214_59519_1860'>
 							<elementID xmi:idref='_16_6_2_931029f_1380619980212_870040_1845'/>
@@ -461,13 +446,8 @@
 					<type>Activity Diagram</type>
 					<umlType>Activity Diagram</umlType>
 					<zoomFactor xmi:value='1.0'/>
-					<diagramOpened xmi:value='true'/>
+					<diagramOpened xmi:value='false'/>
 					<diagramFrameInitialSizeSet xmi:value='true'/>
-					<diagramWindowBounds>2, 24, 1373, 680</diagramWindowBounds>
-					<diagramScrollPositionX xmi:value='77'/>
-					<diagramScrollPositionY xmi:value='0'/>
-					<maximized xmi:value='false'/>
-					<active xmi:value='true'/>
 					<mdOwnedViews>
 						<mdElement elementClass='CallBehaviorAction' xmi:id='_16_6_2_931029f_1380616481831_267425_1065'>
 							<elementID xmi:idref='_16_6_2_931029f_1380616481713_481745_787'/>
@@ -1005,9 +985,8 @@
 							<nameVisible xmi:value='true'/>
 						</mdElement>
 						<mdElement elementClass='Note' xmi:id='_16_6_2_931029f_1381420057797_540730_858'>
-							<geometry>539, 258, 100, 119</geometry>
-							<text>Compared to Claim8, this one adds a Customer object update in the 2nd branch of the XOR,
-then I removed the &quot;satisfied&quot; branch</text>
+							<geometry>539, 258, 100, 69</geometry>
+							<text>other branch for customer (compared to Claim8)</text>
 						</mdElement>
 						<mdElement elementClass='ObjectNode' xmi:id='_16_6_2_931029f_1381504242749_802765_793'>
 							<elementID xmi:idref='_16_6_2_931029f_1381504243693_290238_794'/>
@@ -1210,7 +1189,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<default xmi:value='false'/>
 					<mdElement elementClass='PropertyManager'>
 						<name>PROJECT_GENERAL_PROPERTIES</name>
-						<propertyManagerID>_16_6_2_931029f_1381505731174_511392_414</propertyManagerID>
+						<propertyManagerID>_16_6_2_931029f_1381506074246_846499_414</propertyManagerID>
 						<mdElement elementClass='ClassPathListProperty'>
 							<propertyID>MODULES_DIRS</propertyID>
 							<propertyDescriptionID>MODULES_DIRS_DESCRIPTION</propertyDescriptionID>
@@ -1328,7 +1307,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 					</mdElement>
 					<mdElement elementClass='PropertyManager'>
 						<name>PROJECT_INVISIBLE_PROPERTIES</name>
-						<propertyManagerID>_16_6_2_931029f_1381505731175_607454_415</propertyManagerID>
+						<propertyManagerID>_16_6_2_931029f_1381506074247_133688_415</propertyManagerID>
 						<mdElement elementClass='NumberProperty'>
 							<propertyID>TOOL_TIP_STYLE</propertyID>
 							<propertyDescriptionID>TOOL_TIP_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -1462,7 +1441,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 						<mdElement elementClass='StringProperty'>
 							<propertyID>INFO_PROPERTY</propertyID>
 							<propertyDescriptionID>INFO_PROPERTY_DESCRIPTION</propertyDescriptionID>
-							<value>20 33 3c d 77 1e 1d 7d 3c 71 ea 51 40 2b 4e 4b d e5 6a 4c 11 c5 f2 85 a 2f d5 77 2 1e 79 aa 55 db 34 d3 8e 1d a6 10 5e 76 33 84 ac 42 c6 95 d5 30 4d 2 39 f7 fc da a6 76 86 8 85 24 58 7d d6 97 4e 9f 97 cb 8f b2 </value>
+							<value>6f 5e 5d 70 7e 2b 68 e 57 61 72 a4 71 cc 44 ec 20 7a e0 a9 3 eb f9 f5 f1 86 f8 2f 23 d 2c 6e db 4c 18 14 34 67 c4 8a 4a 3c 3f c4 d0 69 6a 6c 2c 1b b7 12 4 ba 3a b7 8c cf d2 f3 2d fb 37 75 2 ec 1e 3 67 6d b 85 </value>
 						</mdElement>
 						<mdElement elementClass='LIST_PROPERTY'>
 							<propertyID>ADDITIONAL_CONTAINMENT_TREES</propertyID>
@@ -1500,7 +1479,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 						<mdElement elementClass='ChoiceProperty'>
 							<propertyID>RECENT_DIAGRAMS</propertyID>
 							<propertyDescriptionID>RECENT_DIAGRAMS_DESCRIPTION</propertyDescriptionID>
-							<choice xmi:value=''/>
+							<choice xmi:value='_16_6_2_931029f_1380616481755_328925_813^_16_6_2_931029f_1380619980212_870040_1845^_16_6_2_931029f_1380619573963_60717_1749^_15_5_1_bc002fa_1291032905478_857316_345'/>
 							<index xmi:value='-1'/>
 						</mdElement>
 					</mdElement>
@@ -1519,8 +1498,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Abstraction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_543667_416</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_627013_416</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -1575,8 +1554,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>AcceptEventAction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_49280_418</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_516216_418</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -1605,8 +1584,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Action</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_313874_420</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_784342_420</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -1630,7 +1609,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Activity Diagram</name>
 					<propertyManagerID>_15_5_1_bc002fa_1291033139010_4994_743</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_516085_421</parentPropertyManager>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_100522_421</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -1653,7 +1632,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Activity Diagram</name>
 					<propertyManagerID>_15_5_1_bc002fa_1291033139010_803668_742</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_111600_422</parentPropertyManager>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_46229_422</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_GRID_FOR_SHAPES</propertyID>
 						<propertyDescriptionID>USE_GRID_FOR_SHAPES_DESCRIPTION</propertyDescriptionID>
@@ -1664,8 +1643,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ActivityParameterNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_322917_423</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_535738_423</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -1708,8 +1687,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Actor</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_791075_424</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_827569_424</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -1744,8 +1723,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Artifact</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_617445_425</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_150314_425</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -1961,8 +1940,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Association</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_983259_426</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_995433_426</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2021,8 +2000,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>AssociationClass</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_386596_427</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_916197_427</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2081,8 +2060,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CallBehaviorAction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_165603_428</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_437423_428</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -2111,8 +2090,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CallOperationAction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_480539_429</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_753348_429</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2139,8 +2118,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CentralBufferNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_460382_430</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_439978_430</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2178,8 +2157,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Class</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731195_656904_431</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_102369_431</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2548,8 +2527,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Collaboration</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_313853_432</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_10970_432</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2571,8 +2550,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CollaborationUse</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_101013_433</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_164860_433</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2598,8 +2577,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CombinedFragment</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_581945_434</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_556644_434</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2624,8 +2603,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Comment</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_952887_435</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_43076_435</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>OWNER_DISPLAY_MODE</propertyID>
 						<propertyDescriptionID>OWNER_DISPLAY_MODE_DESCRIPTION</propertyDescriptionID>
@@ -2653,8 +2632,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>CommunicationPath</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_38682_436</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_515187_436</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -2713,8 +2692,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Component</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731196_507232_437</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074267_395472_437</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3101,8 +3080,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_192006_438</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731195_656904_431</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_691746_438</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_102369_431</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
 						<propertyGroup>OPERATIONS</propertyGroup>
@@ -3126,8 +3105,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_233259_439</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_791075_424</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_42958_439</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_827569_424</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManagerByDiagram'>
 					<diagramType>Composite Structure Diagram</diagramType>
@@ -3135,8 +3114,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_320361_440</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731213_220972_441</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_570959_440</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074285_752087_441</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManagerByDiagram'>
 					<diagramType>Composite Structure Diagram</diagramType>
@@ -3144,8 +3123,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_880168_442</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731213_623772_443</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_7168_442</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074285_116693_443</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManagerByDiagram'>
 					<diagramType>Composite Structure Diagram</diagramType>
@@ -3153,8 +3132,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_442595_444</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_617445_425</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_629104_444</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_150314_425</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManagerByDiagram'>
 					<diagramType>Composite Structure Diagram</diagramType>
@@ -3162,8 +3141,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_798981_445</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731213_427022_446</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_629947_445</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074285_530441_446</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='PropertyManagerByDiagram'>
 					<diagramType>Composite Structure Diagram</diagramType>
@@ -3171,8 +3150,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_203812_447</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731196_507232_437</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_146288_447</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074267_395472_437</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STRUCTURE</propertyID>
 						<propertyDescriptionID>SUPPRESS_STRUCTURE_DESCRIPTION</propertyDescriptionID>
@@ -3184,8 +3163,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_452883_448</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731213_380729_449</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_351002_448</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074285_579851_449</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STRUCTURE</propertyID>
 						<propertyDescriptionID>SUPPRESS_STRUCTURE_DESCRIPTION</propertyDescriptionID>
@@ -3197,8 +3176,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Composite Structure Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_741650_450</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731196_313853_432</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_452419_450</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074267_10970_432</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_STRUCTURE</propertyID>
 						<propertyDescriptionID>SUPPRESS_STRUCTURE_DESCRIPTION</propertyDescriptionID>
@@ -3209,8 +3188,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ConditionalNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_149902_451</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_865901_451</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -3232,8 +3211,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ConnectionPointReference</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_792452_452</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_338638_452</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3275,8 +3254,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Connector</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_145205_453</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_558243_453</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3341,8 +3320,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ConnectorEnd</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_419895_454</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_813930_454</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_ROLE_MULTIPLICITY</propertyID>
 						<propertyDescriptionID>SHOW_ROLE_MULTIPLICITY_DESCRIPTION</propertyDescriptionID>
@@ -3359,8 +3338,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Constraint</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_201971_455</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_473044_455</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_NAME</propertyID>
 						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
@@ -3387,8 +3366,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Containment</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_88223_456</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_172339_456</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -3402,8 +3381,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ContentShape</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_588421_457</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_182974_457</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3414,8 +3393,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ControlFlow</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_474929_458</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_301890_458</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3475,8 +3454,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>DataStoreNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_317648_459</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_970684_459</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3507,8 +3486,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>DataType</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_37751_460</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_309214_460</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3724,8 +3703,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>DecisionNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_573307_461</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_763815_461</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3772,8 +3751,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Dependency</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_516085_421</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_100522_421</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3835,8 +3814,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Deployment</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_495770_462</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_735732_462</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -3891,8 +3870,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_111600_422</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731214_810516_463</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_46229_422</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074286_181692_463</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>DIAGRAM_BACKGROUND_COLOR</propertyID>
 						<propertyDescriptionID>DIAGRAM_BACKGROUND_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4055,8 +4034,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Diagram Shape</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_37798_464</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_771283_464</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4115,8 +4094,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>DiagramInfo</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_174977_465</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_854311_465</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4137,8 +4116,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>DurationConstraint</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_474746_466</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_966586_466</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4183,8 +4162,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ElementImport</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_230163_467</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_745232_467</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4239,8 +4218,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Enumeration</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_427022_446</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_530441_446</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4509,8 +4488,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ExceptionHandler</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_708193_468</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_709506_468</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4561,8 +4540,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ExpansionNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_446893_469</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_80403_469</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
@@ -4596,8 +4575,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ExpansionRegion</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_811507_470</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_334497_470</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -4619,8 +4598,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Extend</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_735040_471</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_304106_471</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4687,8 +4666,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Extension</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_744840_472</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_868408_472</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4752,8 +4731,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ExtensionRole</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_367223_473</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_41248_473</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_ROLE_NAME</propertyID>
 						<propertyDescriptionID>SHOW_ROLE_NAME_DESCRIPTION</propertyDescriptionID>
@@ -4778,8 +4757,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Final State</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_549028_474</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_533095_474</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4821,8 +4800,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>FinalNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731215_733541_475</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074287_522737_475</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_NAME</propertyID>
 						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
@@ -4859,8 +4838,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>FlowConnector</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731231_599210_476</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074303_695698_476</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4882,8 +4861,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>FlowFinalNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_389744_477</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074303_148958_477</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_NAME</propertyID>
 						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
@@ -4915,8 +4894,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ForkJoinPseudostate</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_726163_478</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074303_716443_478</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -4960,8 +4939,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ForkNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_124410_479</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074303_537381_479</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>SYNCH_BAR_ORIENTATION</propertyID>
 						<propertyDescriptionID>SYNCH_BAR_ORIENTATION_DESCRIPTION</propertyDescriptionID>
@@ -4995,8 +4974,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Generalization</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_326409_480</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074303_342298_480</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5051,8 +5030,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>GeneralizationSet</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_219938_481</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_376546_481</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5079,8 +5058,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ImageShape</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_841648_482</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_949432_482</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='FileProperty'>
 						<propertyID>IMAGE</propertyID>
 						<propertyDescriptionID>IMAGE_DESCRIPTION</propertyDescriptionID>
@@ -5097,8 +5076,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Implementation Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_554442_483</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731213_623772_443</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_933321_483</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074285_116693_443</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
 						<propertyGroup>OPERATIONS</propertyGroup>
@@ -5111,8 +5090,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Include</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_569850_484</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_80376_484</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5174,8 +5153,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InformationFlow</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_664429_485</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_17118_485</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5220,8 +5199,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InformationItem</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_816059_486</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_650904_486</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5265,8 +5244,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InitialNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_729676_487</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_368224_487</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_NAME</propertyID>
 						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
@@ -5298,8 +5277,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InputPin</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_57825_488</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_730499_488</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
@@ -5359,8 +5338,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InstanceSpecification</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_660761_489</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_722422_489</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -5406,8 +5385,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InteractionUse</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731232_511091_490</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_507822_490</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5433,8 +5412,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Interface</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_623772_443</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_116693_443</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5729,8 +5708,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InterfaceRealization</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_965627_491</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074304_516490_491</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5792,8 +5771,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>InterruptibleActivityRegion</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_175695_492</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_533709_492</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>OWNER_DISPLAY_MODE</propertyID>
 						<propertyDescriptionID>OWNER_DISPLAY_MODE_DESCRIPTION</propertyDescriptionID>
@@ -5822,8 +5801,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>JoinNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_884481_493</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_285128_493</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>SYNCH_BAR_ORIENTATION</propertyID>
 						<propertyDescriptionID>SYNCH_BAR_ORIENTATION_DESCRIPTION</propertyDescriptionID>
@@ -5857,8 +5836,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Lifeline</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_819597_494</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_449132_494</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>OWNER_DISPLAY_MODE</propertyID>
 						<propertyDescriptionID>OWNER_DISPLAY_MODE_DESCRIPTION</propertyDescriptionID>
@@ -5891,8 +5870,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Lifeline(in Sequence Diagram)</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_842822_495</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_96333_495</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5929,8 +5908,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Link</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_147222_496</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_530340_496</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -5997,16 +5976,16 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Link Attribute</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_651858_497</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_856781_497</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi:value='false'/>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>LoopNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_575213_498</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_659570_498</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -6028,8 +6007,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Manifestation</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_45782_499</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_359535_499</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6084,8 +6063,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>MergeNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_109448_500</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_914575_500</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6132,8 +6111,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Message</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731233_189034_501</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_552116_501</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6180,8 +6159,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Message(in Sequence Diagram)</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_46982_502</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_286530_502</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FILL_COLOR</propertyID>
 						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6223,8 +6202,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Model</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_206771_503</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_573163_503</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6259,8 +6238,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>N-ary Association</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_897846_504</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074305_22275_504</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
 						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
@@ -6272,8 +6251,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Node</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_380729_449</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_579851_449</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6661,8 +6640,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>NodeInstance</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_722257_505</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074306_680514_505</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -6713,8 +6692,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Note</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_582218_506</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074306_447187_506</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -6786,8 +6765,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Note Anchor</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731234_850052_507</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074306_703276_507</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -6801,8 +6780,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ObjectFlow</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731235_671862_508</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074306_579280_508</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6862,8 +6841,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>OpaqueAction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731235_258831_509</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074306_166625_509</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -6892,8 +6871,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>OutputPin</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731251_40008_510</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074322_378455_510</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
@@ -6953,8 +6932,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Package</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731251_338045_511</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074322_722500_511</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -6989,8 +6968,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>PackageImport</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731251_605767_512</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074322_588405_512</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7045,8 +7024,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>PackageMerge</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731251_374754_513</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_74745_513</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7101,8 +7080,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Part</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731251_18032_514</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_88915_514</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7154,8 +7133,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Paths</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_854661_417</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731214_810516_463</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_643013_417</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074286_181692_463</parentPropertyManager>
 					<mdElement elementClass='NumberProperty'>
 						<propertyID>LINE_WIDTH</propertyID>
 						<propertyDescriptionID>LINE_WIDTH_DESCRIPTION</propertyDescriptionID>
@@ -7191,8 +7170,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Port</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_57688_515</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_706559_515</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7245,8 +7224,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>PrimitiveType</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_745651_516</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_765547_516</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7462,8 +7441,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ProfileApplication</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_802509_517</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_535318_517</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7518,8 +7497,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Protocol Transition</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_517054_518</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_669755_518</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7574,8 +7553,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Protocol TransitionToSelf</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_953500_519</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_159234_519</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7638,8 +7617,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Pseudostate</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_790664_520</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_748831_520</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -7681,8 +7660,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Realization</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731252_121302_521</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_786964_521</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7744,8 +7723,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>RectangularShape</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_610222_522</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074323_500814_522</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7789,8 +7768,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Role</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_913208_523</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_810908_523</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_ROLE_NAME</propertyID>
 						<propertyDescriptionID>SHOW_ROLE_NAME_DESCRIPTION</propertyDescriptionID>
@@ -7822,8 +7801,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>RoleBinding</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_995059_524</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_399402_524</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7878,8 +7857,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>SendSignalAction</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_392059_525</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_493750_525</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7908,8 +7887,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Separator</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_888465_526</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_948201_526</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -7948,8 +7927,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>SequenceNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_442519_527</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_472748_527</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -7971,8 +7950,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Shapes</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731194_757575_419</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731214_810516_463</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074266_35572_419</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074286_181692_463</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
@@ -8039,8 +8018,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Signal</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731213_220972_441</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074285_752087_441</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>PEN_COLOR</propertyID>
 						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8180,8 +8159,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>State</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_607332_528</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_388501_528</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -8206,8 +8185,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>StateInvariant</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_150778_529</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_974920_529</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_CONSTRAINTS</propertyID>
 						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
@@ -8225,8 +8204,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Stereotype</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731253_938614_530</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_791571_530</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>SHOW_FULL_TYPE</propertyID>
 						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
@@ -8365,16 +8344,16 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='true'/>
 					<name>Stereotypes</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_527483_531</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731214_810516_463</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_396753_531</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074286_181692_463</parentPropertyManager>
 				</mdElement>
 				<mdElement elementClass='ExtendableManager'>
 					<removable xmi:value='false'/>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>StructuredActivityNode</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_263723_532</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_922640_532</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -8396,8 +8375,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Substitution</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_776388_533</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_493124_533</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8452,8 +8431,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Swimlane</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_877450_534</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_541954_534</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -8486,7 +8465,7 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Symbol</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731214_810516_463</propertyManagerID>
+					<propertyManagerID>_16_6_2_931029f_1381506074286_181692_463</propertyManagerID>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>FILL_COLOR</propertyID>
 						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8520,8 +8499,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>TemplateBinding</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_576092_535</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074324_991320_535</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8580,8 +8559,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>TextBox</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_535570_536</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_897203_536</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -8601,8 +8580,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>TimeConstraint</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_883049_537</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_287209_537</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8652,8 +8631,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Transition</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_12774_538</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_15176_538</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8713,8 +8692,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>TransitionToSelf</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_855159_539</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_672612_539</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8777,8 +8756,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Tree</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_393496_540</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_988511_540</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='NumberProperty'>
 						<propertyID>LINE_WIDTH</propertyID>
 						<propertyDescriptionID>LINE_WIDTH_DESCRIPTION</propertyDescriptionID>
@@ -8797,8 +8776,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Usage</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_51859_541</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_854661_417</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_606924_541</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_643013_417</parentPropertyManager>
 					<mdElement elementClass='ColorProperty'>
 						<propertyID>STEREOTYPE_COLOR</propertyID>
 						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
@@ -8861,8 +8840,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_31671_542</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731215_744840_472</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_11240_542</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074287_868408_472</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -8877,8 +8856,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_894178_543</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731232_326409_480</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_93958_543</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074303_342298_480</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -8893,8 +8872,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='false'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>Use Case Diagram</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_696108_544</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731214_495770_462</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_195360_544</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074286_735732_462</parentPropertyManager>
 					<mdElement elementClass='ChoiceProperty'>
 						<propertyID>LINK_LINE_STYLE</propertyID>
 						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
@@ -8908,8 +8887,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>UseCase</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731254_913232_545</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074325_609440_545</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>WRAP_WORDS</propertyID>
 						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
@@ -8945,8 +8924,8 @@ then I removed the &quot;satisfied&quot; branch</text>
 					<extendableByDiagram xmi:value='true'/>
 					<extendableByStereotype xmi:value='false'/>
 					<name>ValuePin</name>
-					<propertyManagerID>_16_6_2_931029f_1381505731273_726493_546</propertyManagerID>
-					<parentPropertyManager>_16_6_2_931029f_1381505731194_757575_419</parentPropertyManager>
+					<propertyManagerID>_16_6_2_931029f_1381506074344_716631_546</propertyManagerID>
+					<parentPropertyManager>_16_6_2_931029f_1381506074266_35572_419</parentPropertyManager>
 					<mdElement elementClass='BooleanProperty'>
 						<propertyID>AUTOSIZE</propertyID>
 						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
@@ -9004,9 +8983,9 @@ then I removed the &quot;satisfied&quot; branch</text>
 			</mdElement>
 		</mdElement>
 	</xmi:Extension>
-	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380619573964_595302_1761' base_Diagram='_16_6_2_931029f_1380619573963_60717_1749' Author='pvgorp' Creation_date='10/1/13 11:26 AM' Modification_date='10/1/13 11:26 AM'/>
-	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380616481793_532095_965' base_Diagram='_16_6_2_931029f_1380616481755_328925_813' Author='pvgorp' Creation_date='10/1/13 10:34 AM' Modification_date='10/1/13 10:34 AM'/>
-	<MagicDraw_Profile:DiagramInfo xmi:id='_15_5_1_bc002fa_1291032905525_677234_359' base_Diagram='_15_5_1_bc002fa_1291032905478_857316_345' Author='heshuis' Creation_date='11/29/10 1:15 PM' Modification_date='11/29/10 1:15 PM'/>
-	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380619980214_833455_1859' base_Diagram='_16_6_2_931029f_1380619980212_870040_1845' Author='pvgorp' Creation_date='10/1/13 11:33 AM' Modification_date='10/1/13 11:33 AM'/>
-	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380616481819_583515_1021' base_Diagram='_16_6_2_931029f_1380616481785_618765_944' Author='pvgorp' Creation_date='10/1/13 10:34 AM' Modification_date='10/1/13 10:34 AM'/>
+	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380619573964_595302_1761' base_Diagram='_16_6_2_931029f_1380619573963_60717_1749' Creation_date='10/1/13 11:26 AM' Modification_date='10/1/13 11:26 AM' Author='pvgorp'/>
+	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380619980214_833455_1859' base_Diagram='_16_6_2_931029f_1380619980212_870040_1845' Creation_date='10/1/13 11:33 AM' Modification_date='10/1/13 11:33 AM' Author='pvgorp'/>
+	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380616481819_583515_1021' base_Diagram='_16_6_2_931029f_1380616481785_618765_944' Creation_date='10/1/13 10:34 AM' Modification_date='10/1/13 10:34 AM' Author='pvgorp'/>
+	<MagicDraw_Profile:DiagramInfo xmi:id='_15_5_1_bc002fa_1291032905525_677234_359' base_Diagram='_15_5_1_bc002fa_1291032905478_857316_345' Creation_date='11/29/10 1:15 PM' Modification_date='11/29/10 1:15 PM' Author='heshuis'/>
+	<MagicDraw_Profile:DiagramInfo xmi:id='_16_6_2_931029f_1380616481793_532095_965' base_Diagram='_16_6_2_931029f_1380616481755_328925_813' Creation_date='10/1/13 10:34 AM' Modification_date='10/1/13 10:34 AM' Author='pvgorp'/>
 </xmi:XMI>
