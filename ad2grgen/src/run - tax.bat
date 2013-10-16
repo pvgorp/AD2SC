@@ -1,0 +1,1 @@
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\tax.uml.xml ..\..\grgen2sc\input\tax.uml.gruml23
