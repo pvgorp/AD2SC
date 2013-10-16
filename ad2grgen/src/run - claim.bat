@@ -1,0 +1,1 @@
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\claim.uml.xml ..\..\grgen2sc\input\claim.uml.gruml23
