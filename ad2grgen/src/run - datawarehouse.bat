@@ -1,1 +1,1 @@
-java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\datawarehouse-repaired.uml.xml ..\..\grgen2sc\input\datawarehouse.uml.gruml23
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\datawarehouse.uml.xml ..\..\grgen2sc\input\datawarehouse.uml.gruml23
