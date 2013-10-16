@@ -38,8 +38,27 @@ public class ad2grgen {
 	 }
     
 
+  public static String getNameWithoutNewlines(Element e) {
+	String n= e.getAttributeValue("name");
+	if (n==null) { 
+		return "";
+	} else {
+		return n.replaceAll("(\\r|\\n)", "").replace("&#10;","");
+	}
+  }
 
-
+  public static String mapNode(Element el, final String type, final String pid, Namespace ns) {
+	String id = el.getAttributeValue("id", ns);
+	String vis = el.getAttributeValue("visibility");	
+	StringBuffer out= new StringBuffer("new :"+type);
+	out.append("($=\""+id+"\"");
+	out.append(",name=\""+getNameWithoutNewlines(el)+"\"");
+	out.append(",visibility=Visibility::"+vis);
+	out.append(")\n");
+	out.append("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+	return out.toString();
+  }
+  
   public static void doc2ad(Document inFile, String outFile){
 	try{  	
 		FileWriter fw = new FileWriter(new File(outFile));
@@ -54,7 +73,7 @@ public class ad2grgen {
 			Namespace ns=Namespace.getNamespace("xmi","http://schema.omg.org/spec/XMI/2.1");
 			String ptype=theNetNode.getAttributeValue("type",ns);
 			String pid=theNetNode.getAttributeValue("id",ns);
-			String pname=theNetNode.getAttributeValue("name");			
+			String pname=getNameWithoutNewlines(theNetNode);
 			
 			//PVG: hack for also supporting statemachines embedded in a classifier (default click behavior in MD 16)
 			if ("uml:Class".equals(ptype)){
@@ -67,7 +86,7 @@ public class ad2grgen {
 					theNetNode = (Element)it_cls.next();
 					ptype=theNetNode.getAttributeValue("type",ns);
 					pid=theNetNode.getAttributeValue("id",ns);
-					pname=theNetNode.getAttributeValue("name");	
+					pname=getNameWithoutNewlines(theNetNode);
 				}
 			}// end PVG
 			
@@ -82,7 +101,7 @@ public class ad2grgen {
 					Element el1 = it.next();
 					String id = el1.getAttributeValue("id",ns);
 					String vis = el1.getAttributeValue("visibility");
-					String name = el1.getAttributeValue("name");
+					String name = getNameWithoutNewlines(el1);
 					if (name==null) name="";
 					strsm+=("new :Region");
 					strsm+=("($=\""+id+"\"");
@@ -96,7 +115,7 @@ public class ad2grgen {
 						Element el_vertex = it_region.next();
 						String vid = el_vertex.getAttributeValue("id",ns);
 						String vvis = el_vertex.getAttributeValue("visibility");
-						String vname = el_vertex.getAttributeValue("name");
+						String vname = getNameWithoutNewlines(el_vertex);
 						if (name==null) name="";
 						strsm+=("new :State");
 						strsm+=("($=\""+vid+"\"");
@@ -125,106 +144,45 @@ public class ad2grgen {
 					Element el = it.next();
 					System.out.println(el.getAttributeValue("type",ns));
 					if ("uml:InitialNode".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						if (name==null) name="";
-						System.out.println("Bingo!");
-						str+=("new :InitialNode");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+						str+= mapNode(el, "InitialNode", pid, ns);
 					}
 					if ("uml:CallBehaviorAction".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						if (name==null) name="";
-						System.out.println("Bingo!");
-						str+=("new :CallBehaviorAction");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+						str+= mapNode(el, "CallBehaviorAction", pid, ns);
 					}
 					if ("uml:CentralBufferNode".equals(el.getAttributeValue("type", ns))){
+						str+= mapNode(el, "CentralBufferNode", pid, ns);
+						//						if (name==null) name="this";// update PVG
 						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						String inState = el.getAttributeValue("inState"); 
-						String smType = el.getAttributeValue("type");
+						String inState = el.getAttributeValue("inState"); 						
 						if (inState==null){
 							Element child=el.getChild("inState");
 							inState=child.getAttributeValue("idref",ns);
 						}
-						if (smType==null){
-							Element child=el.getChild("type");
-							smType=child.getAttributeValue("idref",ns);
-						}
-						if (name==null) name="this";// update PVG
-						System.out.println("Bingo!");
-						str+=("new :CentralBufferNode");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						// new @("07") - :inState -> @("7")
 						str+=("new @");
 						str+=("(\""+id+"\")");
 						str+=(" - :inState -> @");
 						str+=("(\""+inState+"\"");
 						str+=(")\n");
 						
+						String smType = el.getAttributeValue("type");
+						if (smType==null){
+							Element child=el.getChild("type");
+							smType=child.getAttributeValue("idref",ns);
+						}
 						str+=("new @");
 						str+=("(\""+id+"\")");
 						str+=(" - :smType -> @");
 						str+=("(\""+smType+"\"");
-						str+=(")\n");
-						
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
-						
+						str+=(")\n");												
 					}
 					if ("uml:ForkNode".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						if (name==null) name="";
-						System.out.println("Bingo!");
-						str+=("new :ForkNode");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+						str+= mapNode(el, "ForkNode", pid, ns);
 					}
 					if ("uml:DecisionNode".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						if (name==null) name="";
-						System.out.println("Bingo!");
-						str+=("new :DecisionNode");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+						str+= mapNode(el, "DecisionNode", pid, ns);
 					}
-					if ("uml:ActivityFinalNode".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
-						String vis = el.getAttributeValue("visibility");
-						String name = el.getAttributeValue("name");
-						if (name==null) name="";
-						System.out.println("Bingo!");
-						str+=("new :ActivityFinalNode");
-						str+=("($=\""+id+"\"");
-						str+=(",name=\""+name+"\"");
-						str+=(",visibility=Visibility::"+vis);
-						str+=(")\n");
-						str+=("new @(\""+pid+"\")"+  " - :ownedElement -> @(\"" + id+ "\")\n" );
+					if ("uml:ActivityFinalNode".equals(el.getAttributeValue("type", ns))){						
+						str+= mapNode(el, "ActivityFinalNode", pid, ns);
 					}
 				}
 
