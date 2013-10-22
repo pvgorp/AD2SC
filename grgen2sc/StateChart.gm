@@ -53,3 +53,5 @@ edge class HSCsource extends HSCtransition;
 edge class HSCtarget extends HSCtransition;// note: when states are directly connected (skipping hyperedges) then use HSCtransition only (not HSCsource)
   
 edge class HSCcontains connect HSCCompoundState [*] --> HSCState[0:1]; // a compound state has at least one state, and the elements are not in another CS 
+
+
