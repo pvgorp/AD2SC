@@ -868,14 +868,14 @@ rule HandleCrossSync2(o:HSCorState, initO: HSCBasicState) {
 			delete(outgoing); 
 			
 			eval {
-				t_2.guard="[in("+b_2.name+ ")]";
-				t_2.effect=b_2.name+ "-done (2)"; // generate e_t
+				t_2.guard=t_2.guard + "\n[in("+(b_2.name+ ")]");
+				t_2.effect=t_2.effect+"\n"+b_2.name+ "-done (2)"; // generate e_t
 			}		
 			// Add an edge from b to init_O with trigger event e_t 
 			initO <-:HSCtarget- t_2_2:HSCHyperEdge <-:HSCsource- b_2;
 			o -:HSCcontains-> t_2_2;
 			eval {
-				t_2_2.trigger= b_2.name+ "-done (2)";
+				t_2_2.trigger= t_2_2.trigger+"\n"+b_2.name+ "-done (2)";
 			}
 		}
 	}

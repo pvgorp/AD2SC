@@ -26,3 +26,4 @@ edge class PNnext connect Place[0:1] --> Place[0:1];
 edge class AN2SC connect ActivityNode[0:1] --> NamedElement[0:1]; // from AD domain to SC domain (bridging PN domain)
 edge class AN2AN connect ActivityNode[0:1] --> ActivityNode[0:1]; // from AD domain to AD domain (for cloning)
 // END NEW
+
