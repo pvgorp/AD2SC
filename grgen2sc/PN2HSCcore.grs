@@ -56,7 +56,7 @@ xgrs [makeEndStateExplicit] | makeMergeNodesExplicit* | makeDecisionNodesExplici
 
 echo "|---> Serializing the output model to UML2 XMI"
 redirect emit "uml/out.uml"
-xgrs visID2 = valloc() && hscModel2eclipseUMLtext && vfree(visID2)
+xgrs {(::visID2) = valloc()} && hscModel2eclipseUMLtext && {vfree(::visID2)}
 
 # echo removing fork/join elements (redirecting arcs)
 xgrs (replace_HEfork_arc $| replace_HEjoin_arc)*
@@ -68,6 +68,6 @@ xgrs [removeTrivialHyperEdge] | [flattenSingletonORregion] | [makeEndStateExplic
 
 echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 redirect emit "uml/eugenia-sc-pngeneric.statechart" # is XMI2
-xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
+xgrs {(::visID2) = valloc()} && hscModel2eugeniaXMItext && {vfree(::visID2)}
 
 #xgrs cleanResultIfAllTransformed # almost empty if successful reduction

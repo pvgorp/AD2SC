@@ -28,18 +28,18 @@ xgrs [Init_inStateAttribute] ;> [Init_typeAttribute]
 # show graph ycomp
 
 echo "|---> Backup input AD..." 
-xgrs vID = valloc() && (adIN)=GetSrcActivity && ((tp)=GetSMTypeOnce && m=map<Node, Node>{} && CopyUML23AD(adIN,m) && (adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(adCLONE,tp))* && vfree(vID) && [RemoveAnyHSCelement]
+xgrs vID:int ;> {(vID)=valloc()} && (adIN:Activity)=GetSrcActivity && ((tp:Namespace)=GetSMTypeOnce && m:map<Node, Node>=map<Node, Node>{} && CopyUML23AD(adIN,m) && (::adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(::adCLONE,tp))* && {vfree(vID)} && [RemoveAnyHSCelement]
 
-# xgrs vID = valloc() && (adIN)=GetSrcActivity && ((tp)=GetSMTypeOnce && m=map<Node, Node>{} && CopyUML23AD(adIN,m) && (adCLONE)=CopyOf(adIN,m) ) && vfree(vID) && [RemoveAnyHSCelement]
+# xgrs {(::vID) = valloc()} && (::adIN)=GetSrcActivity && ((::tp)=GetSMTypeOnce && ::m=map<Node, Node>{} && CopyUML23AD(::adIN,::m) && (::adCLONE)=CopyOf(::adIN,::m) ) && {vfree(::vID)} && [RemoveAnyHSCelement]
 
 echo "|---> Preprocessing..."
-xgrs vID = valloc() && PreprocessClonedADs* && vfree(vID)
+xgrs {(::vID) = valloc()} && PreprocessClonedADs* && {vfree(::vID)}
 
 echo "|---> Filtering..."
-debug xgrs vID = valloc() && FilterClonedADs* && vfree(vID)
+debug xgrs {(::vID) = valloc()} && FilterClonedADs* && {vfree(::vID)}
 
 echo "|---> Evaluating additional cross-sync rule"
-xgrs vID = valloc() && MakeCrossSyncExplicitInClonedADs* && vfree(vID)
+xgrs {(::vID) = valloc()} && MakeCrossSyncExplicitInClonedADs* && {vfree(::vID)}
 
 debug xgrs ActivityWithoutCoordinator_
 
@@ -49,7 +49,7 @@ debug xgrs ActivityWithoutCoordinator_
 include Petri-PaperDebugSequence.layout
 include HSC.layout
 echo "|---> Mapping AD to PN"
-xgrs vID = valloc() & MapClonedADtoPNelements* && vfree(vID)
+xgrs {(::vID) = valloc()} & MapClonedADtoPNelements* && {vfree(::vID)}
 
 #echo "Outputting PNML" 
 #redirect emit out.pnml
@@ -65,7 +65,7 @@ xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState]
 	
 #echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 #redirect emit "uml/eugenia-sc-adspecific.statechart" # is XMI2
-#xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
+#xgrs {(::visID2) = valloc()} && hscModel2eugeniaXMItext && {vfree(::visID2)}
 
 debug enable
 

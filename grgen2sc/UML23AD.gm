@@ -25,7 +25,7 @@
 	par1: an existing guard (empty string or something like [.......])
 	par2: the guard to add (somthing like in(....))
 */
-extendGuardExpression(string, string) : string;
+external function extendGuardExpression(string, string) : string;
 
 enum Visibility {
 	public,private
