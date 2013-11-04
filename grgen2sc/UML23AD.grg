@@ -339,14 +339,12 @@ rule RemoveDuplicateEdgeBetweenXORnodes(a:Activity) {
 }
 
 
-/* rule T2 */ 
+/* rule T2: n2 must have unique predecessor */ 
 rule removeXORsT2(a:Activity) {
 	a -:ownedElement-> n1:XORNode-e1:ActivityEdge->n2:XORNode;
-	n1-e2:ActivityEdge->;
-	n2-e3:ActivityEdge->;
 	negative{
-		n1-:ActivityEdge->n2;
-		-:ActivityEdge->n2;
+		n1-e1->n2;
+		-e2:ActivityEdge->n2;
 	}
 	modify {	
 		exec(
@@ -357,14 +355,12 @@ rule removeXORsT2(a:Activity) {
 }
 
 
-/* inverse of rule T2 */
+/* inverse of rule T2: n1 must have unique succcessor */
 rule removeXORsT2inverse(a:Activity) {
 	a -:ownedElement-> n1:XORNode-e1:ActivityEdge->n2:XORNode;
-	n1<-e2:ActivityEdge-;
-	n2<-e3:ActivityEdge-;
 	negative{
-		n1-:ActivityEdge->n2;
-		<-:ActivityEdge-n1;
+		n1-e1->n2;
+		n1-e2:ActivityEdge->;
 	}
 	modify {	
 		exec(
