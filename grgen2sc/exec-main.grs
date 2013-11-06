@@ -36,12 +36,12 @@ echo "|---> Preprocessing..."
 xgrs {(::vID) = valloc()} && PreprocessClonedADs* && {vfree(::vID)}
 
 echo "|---> Filtering..."
-debug xgrs {(::vID) = valloc()} && FilterClonedADs* && {vfree(::vID)}
+xgrs {(::vID) = valloc()} && FilterClonedADs* && {vfree(::vID)}
 
 echo "|---> Evaluating additional cross-sync rule"
 xgrs {(::vID) = valloc()} && MakeCrossSyncExplicitInClonedADs* && {vfree(::vID)}
 
-debug xgrs ActivityWithoutCoordinator_
+xgrs ActivityWithoutCoordinator_
 
 # echo "|---> Checking DAB WFR"
 # validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
