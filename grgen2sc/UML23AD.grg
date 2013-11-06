@@ -834,20 +834,20 @@ rule R3 {
 rule HandleCrossSync1(o:HSCorState, initO: HSCBasicState) {
 /* NEW for cross-sync refactoring:  For every statechart transition t, visualized as bar, that leaves a BASIC state outside O and enters a BASIC state b inside O, remove the edge from t to b, and let the incoming edge of t generate event e_t. */
 	iterated {
-		external:HSCBasicState -:HSCsource-> t:HSCHyperEdge -incoming:HSCtarget-> b:HSCBasicState <-:HSCcontains- o;
+		extern:HSCBasicState -:HSCsource-> t:HSCHyperEdge -incoming:HSCtarget-> b:HSCBasicState <-:HSCcontains- o;
 		negative {
-			o -:HSCcontains-> external;
+			o -:HSCcontains-> extern;
 		}
 		modify {
 			delete(incoming); 			
 			eval {
-				t.effect=external.name+ "-done (1)";
+				t.effect=extern.name+ "-done (1)";
 			}
 			//  Next, add a statechart transition (PVG: t2) from init_O to b with trigger event e_t 
 			initO -:HSCsource-> t2:HSCHyperEdge -:HSCtarget-> b;
 			o -:HSCcontains-> t2;
 			eval {
-				t2.trigger= external.name+ "-done (1)";
+				t2.trigger= extern.name+ "-done (1)";
 			}			
 		}
 	}

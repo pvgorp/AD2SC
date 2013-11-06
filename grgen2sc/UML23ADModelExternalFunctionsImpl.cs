@@ -25,16 +25,9 @@ namespace de.unika.ipd.grGen.expression
 
 	public partial class ExternalFunctions
 	{
-        static GRGEN_MODEL.UML23ADGraph graph;
-
-        public static void setGraph(GRGEN_MODEL.UML23ADGraph graph_)
-        {
-            graph = graph_;
-        }
-
         ////////////////////////////////////////////////////////////////////
 
-		public static string foo(string existing, string newStr)
+		public static string foo(GRGEN_LIBGR.IActionExecutionEnvironment actionEnv, GRGEN_LIBGR.IGraph graph, string existing, string newStr)
         {
             return existing+newStr;
         }
