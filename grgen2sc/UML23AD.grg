@@ -936,23 +936,24 @@ pattern Creates(a:ActivityNode, n:Namespace) {
 pattern Accesses(a:ActivityNode, n:Namespace) { // patterns 'Reads' and 'Updates' refine this pattern
 	independent {
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
-		cbn -:smType-> n <-:smType- cbn2;
+		cbn -st1:smType-> n <-st2:smType- cbn2;
 		hom(cbn,cbn2);		
+		hom(st1,st2);
 	}
 }
 
 pattern Reads(a:ActivityNode, n:Namespace) { // specializes 'Accesses'
-	independent {
-		:Accesses(a,n);
+	independent {		
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
+		cbn -:smType-> n <-:smType- cbn2;
 		cbn -:inState-> s:State <-:inState- cbn2;
 	}
 }
 
 pattern Updates(a:ActivityNode, n:Namespace) { // specializes 'Accesses'
 	independent {
-		:Accesses(a,n);
 		cbn:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbn2:CentralBufferNode;
+		cbn -:smType-> n <-:smType- cbn2;
 		cbn -:inState-> s:State;
 		cbn2 -:inState-> s2:State; // so s <> s2 due to isomorphic matching
 	}
@@ -963,15 +964,40 @@ rule EachActivityAtLeastOneCoordinator {
 		:ActivityWithoutCoordinator();
 	}
 }
-
 pattern ActivityWithoutCoordinator() {
-	a:ActivityNode;
+	a:CallBehaviorAction;
+	negative {
+		a -:Coordinator->;
+	}
+}
+/*
+pattern ActivityWithoutCoordinator() {
+	a:CallBehaviorAction;
 	negative {
 		n:Namespace;
-		:Updates(a,n);
+		:Accesses(a,n); // Initially, I had interpreted from the DAB paper that an Update was needed here but in fact an Access is sufficient.
+	}	
+	modify {
+		a -:ActWithoutCoordinator-> a;
 	}
 }
 
 rule ActivityWithoutCoordinator_ {	
-	:ActivityWithoutCoordinator();
+	awc:ActivityWithoutCoordinator();
+	modify {
+		awc();
+	}
+}*/
+
+rule MarkCoordinator {
+	a:CallBehaviorAction;
+	negative {
+		a -:Coordinator->;
+	}
+	n:Namespace;
+	:Accesses(a,n); 		
+	
+	modify {
+		a -:Coordinator-> n;
+	}
 }

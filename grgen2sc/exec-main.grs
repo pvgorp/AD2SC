@@ -28,7 +28,7 @@ xgrs [Init_inStateAttribute] ;> [Init_typeAttribute]
 # show graph ycomp
 
 echo "|---> Backup input AD..." 
-xgrs vID:int ;> {(vID)=valloc()} && (adIN:Activity)=GetSrcActivity && ((tp:Namespace)=GetSMTypeOnce && m:map<Node, Node>=map<Node, Node>{} && CopyUML23AD(adIN,m) && (::adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(::adCLONE,tp))* && {vfree(vID)} && [RemoveAnyHSCelement]
+xgrs vID:int ;> {(vID)=valloc()} && (adIN:Activity)=GetSrcActivity && ((tp:Namespace)=GetSMTypeOnce && m:map<Node, Node>=map<Node, Node>{} && CopyUML23AD(adIN,m) && (::adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(::adCLONE,tp))* && {vfree(vID)} # && [RemoveAnyHSCelement]
 
 # xgrs {(::vID) = valloc()} && (::adIN)=GetSrcActivity && ((::tp)=GetSMTypeOnce && ::m=map<Node, Node>{} && CopyUML23AD(::adIN,::m) && (::adCLONE)=CopyOf(::adIN,::m) ) && {vfree(::vID)} && [RemoveAnyHSCelement]
 
@@ -41,10 +41,11 @@ xgrs {(::vID) = valloc()} && FilterClonedADs* && {vfree(::vID)}
 echo "|---> Evaluating additional cross-sync rule"
 xgrs {(::vID) = valloc()} && MakeCrossSyncExplicitInClonedADs* && {vfree(::vID)}
 
-xgrs ActivityWithoutCoordinator_
+debug xgrs MarkCoordinator* # NOTE: can be made interactive easily using $%{...}
 
-# echo "|---> Checking DAB WFR"
-# validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
+echo "|---> Checking DAB WFR"
+validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
+
 
 include Petri-PaperDebugSequence.layout
 include HSC.layout

@@ -76,3 +76,7 @@ edge class ObjectFlow extends ActivityEdge;
 node class Stereotype extends UML23NamedElement;
 edge class stereotype connect UML23NamedElement [0:1] --> Stereotype[*];
 
+edge class ErrorEdge connect UML23NamedElement [0:*] --> UML23NamedElement [0:*];
+edge class ActWithoutCoordinator extends ErrorEdge;
+
+edge class Coordinator connect CallBehaviorAction [0:1] --> Namespace [0:*];
