@@ -80,3 +80,5 @@ edge class ErrorEdge connect UML23NamedElement [0:*] --> UML23NamedElement [0:*]
 edge class ActWithoutCoordinator extends ErrorEdge;
 
 edge class Coordinator connect CallBehaviorAction [0:1] --> Namespace [0:*];
+
+edge class VisitedEdge connect Node [0:*] --> Node [0:*];

@@ -67,11 +67,11 @@ rule GetSrcActivity : (Activity) {
 	modify { return (a); }
 }
 
-rule GetSMTypeOnce : (Namespace) {
-	. -:smType-> c:Namespace;
-	if { !c.visited[0]; }	
+rule GetSMTypeOnce:(UmlClass) {
+	. -:smType-> c:UmlClass;
+	negative { c -:VisitedEdge-> c; }	
 	modify { 
-		eval { c.visited[0] = true; }
+		c -:VisitedEdge-> c;
 		return (c);
 	}	
 }
@@ -524,7 +524,7 @@ rule deleteNode(n1:ActivityNode){
 /* BEGIN REUSABLE FOR ANY MM */
 pattern CopySubgraph(root:Node, ref oldToNew:map<Node, Node>) {
 	iterated { // match spanning tree of graph from root on
-		root <-:Edge\(AN2AN+smType+inState)-> ch:Node; 
+		root <-:Edge\(AN2AN+smType+inState+VisitedEdge)-> ch:Node\(UmlClass); 
 		cs:CopySubgraph(ch, oldToNew);
 		modify {
 			cs();
@@ -533,11 +533,11 @@ pattern CopySubgraph(root:Node, ref oldToNew:map<Node, Node>) {
 	modify {
 		newroot:copy<root>; // copy nodes
 		eval { oldToNew.add(root, newroot); }
-		exec( [CopyOutgoingEdge(root, oldToNew)] ); // deferred copy edges
+		exec( [CopyInternalEdge(root, oldToNew)]  ); // deferred copy edges (not doing ;> [CopyExternalEdge(root, oldToNew)])
 	}
 }
 
-rule CopyOutgoingEdge(n:Node, ref oldToNew:map<Node, Node>) {
+rule CopyInternalEdge(n:Node, ref oldToNew:map<Node, Node>) {
   n -e:Edge\(AN2AN)-> m:Node; // note: prohitibing deep re-cloning of previous clones when cloning one graph multiple times
   hom(n,m); // reflexive edges
   nn:Node{oldToNew[n]}; nm:Node{oldToNew[m]};
@@ -545,6 +545,18 @@ rule CopyOutgoingEdge(n:Node, ref oldToNew:map<Node, Node>) {
     
   modify {
     nn -ee:copy<e>-> nm;
+  }
+}
+
+rule CopyExternalEdge(n:Node, ref oldToNew:map<Node, Node>) {
+  n -e:Edge\(AN2AN+ownedElement)-> m:Node; // note: prohitibing deep re-cloning of previous clones when cloning one graph multiple times
+  nn:Node{oldToNew[n]};   
+  negative { 
+	m -:AN2AN->;
+  }
+    
+  modify {
+    nn -ee:copy<e>-> m;
   }
 }
 /* END REUSABLE FOR ANY MM */
