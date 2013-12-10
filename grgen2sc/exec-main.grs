@@ -30,8 +30,11 @@ xgrs [Init_inStateAttribute] ;> [Init_typeAttribute]
 echo "|---> Marking Coordinators..."
 xgrs MarkCoordinator* # NOTE: can be made interactive easily using $%{...}
 
+# Debugger help to locate violating lacks of Coordinators
+xgrs [ActivityWithoutCoordinator_]
+
 echo "|---> Checking DAB WFR..."
-validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
+#validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
 
 echo "|---> Backup input AD once per classifier..." 
 xgrs (adIN:Activity)=GetSrcActivity && ((tp:Namespace)=GetSMTypeOnce && m:map<Node, Node>=map<Node, Node>{} && CopyUML23AD(adIN,m) && (::adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(::adCLONE,tp))* # && [RemoveAnyHSCelement]
@@ -65,6 +68,8 @@ xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState]
 #echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 #redirect emit "uml/eugenia-sc-adspecific.statechart" # is XMI2
 #xgrs {(::visID2) = valloc()} && hscModel2eugeniaXMItext && {vfree(::visID2)}
+
+xgrs [RemoveAnyHSCelement]
 
 debug enable
 

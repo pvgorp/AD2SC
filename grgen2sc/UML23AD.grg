@@ -981,6 +981,9 @@ pattern ActivityWithoutCoordinator() {
 	negative {
 		a -:Coordinator->;
 	}
+	modify {
+		a -:ActWithoutCoordinator-> a;
+	}
 }
 /*
 pattern ActivityWithoutCoordinator() {
@@ -993,13 +996,13 @@ pattern ActivityWithoutCoordinator() {
 		a -:ActWithoutCoordinator-> a;
 	}
 }
-
+*/
 rule ActivityWithoutCoordinator_ {	
 	awc:ActivityWithoutCoordinator();
 	modify {
 		awc();
 	}
-}*/
+}
 
 rule MarkCoordinator {
 	a:CallBehaviorAction;
@@ -1008,6 +1011,7 @@ rule MarkCoordinator {
 	}
 	n:Namespace;
 	:Accesses(a,n); 		
+	//:Updates(a,n);
 	
 	modify {
 		a -:Coordinator-> n;

@@ -16,15 +16,10 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with AD2SC; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. 
 
-dump add node State shortinfotag name
-dump set node State shape Circle
-dump set node Region color White
-dump set node StateMachine color Grey
+new graph UML23AD "UML 2.3 Activity Diagram"
 
-dump add edge HSCtransition infotag trigger
-dump add edge HSCtransition infotag guard
-dump add edge HSCtransition infotag effect
+include "input\shipping-DAB-bugfixing.gruml23"
 
-
+include exec-main.grs
