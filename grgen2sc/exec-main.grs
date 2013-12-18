@@ -28,7 +28,7 @@ xgrs [Init_inStateAttribute] ;> [Init_typeAttribute]
 # show graph ycomp
 
 echo "|---> Marking Coordinators..."
-xgrs MarkCoordinator* # NOTE: can be made interactive easily using $%{...}
+debug xgrs MarkCoordinator* && RemoveReadEdgesForCoordinator* # NOTE: can be made interactive easily using $%{...}
 
 # Debugger help to locate violating lacks of Coordinators
 xgrs [ActivityWithoutCoordinator_]

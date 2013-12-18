@@ -1017,3 +1017,17 @@ rule MarkCoordinator {
 		a -:Coordinator-> n;
 	}
 }
+
+rule RemoveReadEdgesForCoordinator {	
+	cbn:CentralBufferNode -of1:ObjectFlow-> a:ActivityNode -of2:ObjectFlow-> cbn2:CentralBufferNode;
+	cbn -st1:smType-> n:Namespace <-st2:smType- cbn2;
+	cbn -is1:inState-> s:State <-is2:inState- cbn2;	
+	hom(cbn,cbn2);
+	hom(st1,st2);
+	hom(is1,is2);
+	a -:Coordinator-> n;
+	modify {
+		delete(of1);
+		delete(of2);
+	}
+}
