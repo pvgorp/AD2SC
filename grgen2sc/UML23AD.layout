@@ -33,7 +33,6 @@ dump set node DecisionNode shape Rhomb
 dump set node CentralBufferNode shape Box
 dump add node CentralBufferNode infotag _inState
 dump add node CentralBufferNode infotag _type
-# dump set node CentralBufferNode labels ":Claim" 
 
 dump set node ForkNode shape Box
 dump set node ForkNode color Black
@@ -59,7 +58,7 @@ dump set edge ObjectFlow thickness 2
 
 # dump add edge inState exclude
 
-dump add edge AN2SC exclude
+# dump add edge AN2SC exclude
 
 dump set edge ErrorEdge color Red
 

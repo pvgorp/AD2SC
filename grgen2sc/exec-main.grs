@@ -28,7 +28,7 @@ xgrs [Init_inStateAttribute] ;> [Init_typeAttribute]
 # show graph ycomp
 
 echo "|---> Marking Coordinators..."
-debug xgrs MarkCoordinator* && RemoveReadEdgesForCoordinator* # NOTE: can be made interactive easily using $%{...}
+xgrs MarkCoordinator* && RemoveReadEdgesForCoordinator* # NOTE: coordinator selection can be made interactive easily using $%{...}
 
 # Debugger help to locate violating lacks of Coordinators
 xgrs [ActivityWithoutCoordinator_]
@@ -61,6 +61,9 @@ include PN2HSCcore.grs
 
 #echo "|---> Deleting intermediate AD clone"
 #xgrs DeleteTargetsOfAN2AN
+
+echo "|---> Annotating SC Edges based on lifecycle interactions"
+debug xgrs AnnotateForCreatePattern*
 
 echo "|---> AD specific beautification"
 xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState]

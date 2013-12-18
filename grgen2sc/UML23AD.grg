@@ -936,11 +936,12 @@ pattern Finalizes(a:ActivityNode, n:Namespace) {
 	}
 }
 
+// code of this pattern is copy-pasted for the actual create rule (AnnotateForCreatePattern)
 pattern Creates(a:ActivityNode, n:Namespace) {
 	independent {		
 		a -:ObjectFlow-> cbn:CentralBufferNode -:smType-> n;
 		negative {
-			a <-:ObjectFlow- cbn -:smType-> n;
+			a <-:ObjectFlow- cbn2:CentralBufferNode -:smType-> n;
 		}
 	}
 }
@@ -1030,4 +1031,33 @@ rule RemoveReadEdgesForCoordinator {
 		delete(of1);
 		delete(of2);
 	}
+}
+
+// based on "Fig. 3: Creation Pattern"
+// note: does not apply to create behavior within a composite SC state (i.e., when the CBN is doing a "read" data access)
+rule AnnotateForCreatePattern {
+	o:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> o;
+	cbnS1 -:inState-> s1:State;
+	cbnS2 -:inState-> s2:State;
+	a -:ObjectFlow-> cbnInit:CentralBufferNode -:smType-> p:UmlClass;
+	negative {
+		a <-:ObjectFlow- :CentralBufferNode -:smType-> p;
+	}
+	cbnS1 -:AN2SC-> st1:HSCState;
+	cbnS2 -:AN2SC-> st2:HSCState;
+	
+	st1 -trans:HSCtransition-> st2;
+	
+	if { trans.trigger==null || trans.trigger.length()<1; }
+	
+	modify {
+		eval {
+			trans.trigger="cpl("+a.name+")";
+			trans.effect=cbnInit.name+":= create("+cbnInit._type+")";
+		}
+	}
+}
+
+rule ProduceNestedStatesForTasksDuringReadAccess {
+	
 }
