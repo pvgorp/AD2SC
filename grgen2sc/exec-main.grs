@@ -63,7 +63,7 @@ include PN2HSCcore.grs
 #xgrs DeleteTargetsOfAN2AN
 
 echo "|---> Annotating SC Edges based on lifecycle interactions"
-debug xgrs AnnotateForCreatePattern*
+debug xgrs AnnotateForCreatePattern* ;> AnnotateForFinalizationPattern* ;> Add_in_GuardsAndEffectsForCoordinator*
 
 echo "|---> AD specific beautification"
 xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState]

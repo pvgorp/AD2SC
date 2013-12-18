@@ -167,7 +167,8 @@
 				<inState xmi:idref='_16_6_2_931029f_1379339289969_507053_1267'/>
 			</node>
 			<node xmi:type='uml:ActivityFinalNode' xmi:id='_16_6_2_931029f_1379340376817_641383_1751' visibility='public'>
-				<incoming xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375870791_112514_1174'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375873496_867496_1179'/>
 			</node>
 			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1379340388000_407857_1761' name='o' visibility='public' type='_16_6_2_931029f_1379338223947_497232_578'>
 				<incoming xmi:idref='_16_6_2_931029f_1379340812299_922960_1774'/>
@@ -186,14 +187,41 @@
 				<inState xmi:idref='_16_6_2_931029f_1387371538574_306364_905'/>
 			</node>
 			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1387371695317_252900_959' name='q' visibility='public' type='_16_6_2_931029f_1387371520591_980137_863'>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375701057_723567_1098'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375706976_362004_1103'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387371796374_749649_991'/>
 				<inState xmi:idref='_16_6_2_931029f_1387371543230_17685_919'/>
 			</node>
 			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1387371781012_351271_976' name='Perform Double-Check' visibility='public'>
 				<outgoing xmi:idref='_16_6_2_931029f_1387371796374_749649_991'/>
-				<outgoing xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375571839_548232_1061'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387371800198_671014_993'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387373603629_338664_1039'/>
+			</node>
+			<node xmi:type='uml:DecisionNode' xmi:id='_16_6_2_931029f_1387375569458_757567_1056' visibility='public'>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375690082_256953_1088'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375694424_357972_1093'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375571839_548232_1061'/>
+			</node>
+			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1387375677376_922201_1066' name='Log OK' visibility='public'>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375785736_617225_1162'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375870791_112514_1174'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375690082_256953_1088'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375701057_723567_1098'/>
+			</node>
+			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1387375683017_64501_1078' name='Log NOK' visibility='public'>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375873496_867496_1179'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1387375921799_238800_1196'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375694424_357972_1093'/>
+				<incoming xmi:idref='_16_6_2_931029f_1387375706976_362004_1103'/>
+			</node>
+			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1387375754008_969375_1135' name='q' visibility='public' type='_16_6_2_931029f_1387371520591_980137_863'>
+				<incoming xmi:idref='_16_6_2_931029f_1387375785736_617225_1162'/>
+				<inState xmi:idref='_16_6_2_931029f_1387375741152_964278_1107'/>
+			</node>
+			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1387375898551_98957_1183' name='q' visibility='public' type='_16_6_2_931029f_1387371520591_980137_863'>
+				<incoming xmi:idref='_16_6_2_931029f_1387375921799_238800_1196'/>
+				<inState xmi:idref='_16_6_2_931029f_1387375744344_224766_1121'/>
 			</node>
 			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1379338274905_153478_661' visibility='public' source='_16_6_2_931029f_1379338152241_868287_505' target='_16_6_2_931029f_1379338159367_69466_511'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1379338274905_587754_662' visibility='public' value='1'/>
@@ -345,8 +373,32 @@
 			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387373653921_699719_1048' visibility='public' source='_16_6_2_931029f_1379340178560_832585_1666' target='_16_6_2_931029f_1379340273971_645527_1710'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387373653921_724131_1049' visibility='public' value='1'/>
 			</edge>
-			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387378536154_170354_1200' visibility='public' source='_16_6_2_931029f_1387371781012_351271_976' target='_16_6_2_931029f_1379340376817_641383_1751'>
-				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387378536154_431293_1201' visibility='public' value='1'/>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387375571839_548232_1061' visibility='public' source='_16_6_2_931029f_1387371781012_351271_976' target='_16_6_2_931029f_1387375569458_757567_1056'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375571839_22738_1062' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387375690082_256953_1088' visibility='public' source='_16_6_2_931029f_1387375569458_757567_1056' target='_16_6_2_931029f_1387375677376_922201_1066'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375690082_630651_1089' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387375694424_357972_1093' visibility='public' source='_16_6_2_931029f_1387375569458_757567_1056' target='_16_6_2_931029f_1387375683017_64501_1078'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375694424_542221_1094' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1387375701057_723567_1098' visibility='public' source='_16_6_2_931029f_1387371695317_252900_959' target='_16_6_2_931029f_1387375677376_922201_1066'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375701057_318071_1099' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1387375706976_362004_1103' visibility='public' source='_16_6_2_931029f_1387371695317_252900_959' target='_16_6_2_931029f_1387375683017_64501_1078'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375706976_124822_1104' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1387375785736_617225_1162' visibility='public' source='_16_6_2_931029f_1387375677376_922201_1066' target='_16_6_2_931029f_1387375754008_969375_1135'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375785736_154920_1163' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387375870791_112514_1174' visibility='public' source='_16_6_2_931029f_1387375677376_922201_1066' target='_16_6_2_931029f_1379340376817_641383_1751'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375870791_333036_1175' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387375873496_867496_1179' visibility='public' source='_16_6_2_931029f_1387375683017_64501_1078' target='_16_6_2_931029f_1379340376817_641383_1751'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375873496_916673_1180' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1387375921799_238800_1196' visibility='public' source='_16_6_2_931029f_1387375683017_64501_1078' target='_16_6_2_931029f_1387375898551_98957_1183'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387375921799_719534_1197' visibility='public' value='1'/>
 			</edge>
 		</packagedElement>
 		<packagedElement xmi:type='uml:Class' xmi:id='_16_6_2_931029f_1379338172710_343767_535' name='Customer' visibility='public'>
@@ -628,7 +680,7 @@
 					<diagramFrameInitialSizeSet xmi:value='true'/>
 					<diagramWindowBounds>2, 24, 809, 800</diagramWindowBounds>
 					<diagramScrollPositionX xmi:value='0'/>
-					<diagramScrollPositionY xmi:value='300'/>
+					<diagramScrollPositionY xmi:value='390'/>
 					<maximized xmi:value='false'/>
 					<active xmi:value='true'/>
 					<mdOwnedViews>
@@ -1155,8 +1207,8 @@
 						</mdElement>
 						<mdElement elementClass='PseudoNode' xmi:id='_16_6_2_931029f_1379340375571_919570_1750'>
 							<elementID xmi:idref='_16_6_2_931029f_1379340376817_641383_1751'/>
-							<geometry>242, 1092, 18, 18</geometry>
-							<verticalCenterline>_16_6_2_931029f_1379338661388_738214_688</verticalCenterline>
+							<geometry>253, 1092, 18, 18</geometry>
+							<verticalCenterline>_16_6_2_931029f_1387375866502_673778_1170</verticalCenterline>
 							<horizontalCenterline>_16_6_2_931029f_1379340376817_581698_1752</horizontalCenterline>
 						</mdElement>
 						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1379340378527_75807_1756'>
@@ -1274,11 +1326,111 @@
 							<nameVisible xmi:value='true'/>
 						</mdElement>
 						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387373603632_506567_1041'>
-							<elementID xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
-							<linkFirstEndID xmi:idref='_16_6_2_931029f_1379340375571_919570_1750'/>
+							<elementID xmi:idref='_16_6_2_931029f_1387375571839_548232_1061'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375568171_819923_1055'/>
 							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371779660_10810_975'/>
-							<geometry>251, 1092; 251, 909; </geometry>
+							<geometry>251, 936; 251, 909; </geometry>
 							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='Decision' xmi:id='_16_6_2_931029f_1387375568171_819923_1055'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375569458_757567_1056'/>
+							<geometry>239, 936, 24, 12</geometry>
+							<verticalCenterline>_16_6_2_931029f_1379338661388_738214_688</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1387375571836_195661_1057</horizontalCenterline>
+						</mdElement>
+						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387375571842_963987_1063'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375690082_256953_1088'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375675905_499128_1065'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375568171_819923_1055'/>
+							<geometry>196, 992; 196, 942; 239, 942; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='CallBehaviorAction' xmi:id='_16_6_2_931029f_1387375675905_499128_1065'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375677376_922201_1066'/>
+							<properties>
+								<mdElement elementClass='ColorProperty'>
+									<propertyID>FILL_COLOR</propertyID>
+									<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+									<value xmi:value='-16711936'/>
+								</mdElement>
+							</properties>
+							<geometry>145, 992, 100, 22</geometry>
+							<verticalCenterline>_16_6_2_931029f_1387375790961_274829_1165</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1387375677377_63544_1067</horizontalCenterline>
+						</mdElement>
+						<mdElement elementClass='CallBehaviorAction' xmi:id='_16_6_2_931029f_1387375681882_66378_1077'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375683017_64501_1078'/>
+							<properties>
+								<mdElement elementClass='ColorProperty'>
+									<propertyID>FILL_COLOR</propertyID>
+									<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+									<value xmi:value='-16711936'/>
+								</mdElement>
+							</properties>
+							<geometry>283, 992, 100, 22</geometry>
+							<verticalCenterline>_16_6_2_931029f_1387375963322_534833_1198</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1387375677377_63544_1067</horizontalCenterline>
+						</mdElement>
+						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387375693153_559665_1092'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375694424_357972_1093'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375681882_66378_1077'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375568171_819923_1055'/>
+							<geometry>332, 992; 332, 942; 263, 942; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1387375699217_341877_1097'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375701057_723567_1098'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375675905_499128_1065'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371693357_850287_958'/>
+							<geometry>145, 998; 63, 998; 63, 967; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1387375703769_34277_1102'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375706976_362004_1103'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375681882_66378_1077'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371693357_850287_958'/>
+							<geometry>283, 992; 283, 973; 165, 973; 165, 956; 123, 956; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387375869880_486646_1173'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375870791_112514_1174'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1379340375571_919570_1750'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375675905_499128_1065'/>
+							<geometry>262, 1092; 262, 1054; 195, 1054; 195, 1014; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387375872327_309873_1178'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375873496_867496_1179'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1379340375571_919570_1750'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375681882_66378_1077'/>
+							<geometry>262, 1092; 262, 1053; 333, 1053; 333, 1014; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1387375920088_166083_1195'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375921799_238800_1196'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375896945_62153_1182'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375681882_66378_1077'/>
+							<geometry>511, 1042; 511, 1001; 383, 1001; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectNode' xmi:id='_16_6_2_931029f_1387375896945_62153_1182'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375898551_98957_1183'/>
+							<geometry>453, 1042, 107, 36</geometry>
+							<verticalCenterline>_16_6_2_931029f_1379339552221_564172_1367</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1387375792651_230881_1167</horizontalCenterline>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1387375783808_156156_1161'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375785736_617225_1162'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387375752625_3174_1134'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387375675905_499128_1065'/>
+							<geometry>63, 1042; 63, 1005; 145, 1005; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectNode' xmi:id='_16_6_2_931029f_1387375752625_3174_1134'>
+							<elementID xmi:idref='_16_6_2_931029f_1387375754008_969375_1135'/>
+							<geometry>16, 1042, 107, 36</geometry>
+							<verticalCenterline>_16_6_2_931029f_1387375789575_737948_1164</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1387375792651_230881_1167</horizontalCenterline>
 						</mdElement>
 					</mdOwnedViews>
 				</mdElement>
@@ -1705,7 +1857,7 @@
 						<mdElement elementClass='StringProperty'>
 							<propertyID>INFO_PROPERTY</propertyID>
 							<propertyDescriptionID>INFO_PROPERTY_DESCRIPTION</propertyDescriptionID>
-							<value>16 11 46 28 47 6e 5 6a 6e 1b 82 ed 52 92 37 71 c0 ff e5 95 5f 73 50 4c c8 2f 7 ef 1f 66 c9 ba a3 b3 4c 89 fc 0 71 a6 6e b2 e8 95 b9 9 11 f9 92 ab a0 47 60 4e 37 62 5b 24 ce b4 e8 c dc 1e 1f a5 f0 68 f8 a2 76 </value>
+							<value>16 11 46 28 47 6e 5 6a 6e 1b 82 ed 52 92 37 71 c0 ff e5 95 5f 73 50 4f c8 2f b ef 1c 60 c9 ba a3 b3 4c 89 fc 0 71 a6 6e b2 e8 95 b9 9 11 f9 92 ab a0 47 60 4e 37 62 5b 24 ce b4 e8 c dc 1e 1f a5 f0 68 f8 a2 76 </value>
 						</mdElement>
 						<mdElement elementClass='LIST_PROPERTY'>
 							<propertyID>ADDITIONAL_CONTAINMENT_TREES</propertyID>
@@ -1756,7 +1908,7 @@
 		</options>
 		<favoriteElements xmi:value=''/>
 		<dataTypes xmi:idref='_9_0_2_be00301_1111670217596_336168_627'/>
-		<moduleID>Project shipping-DAB-Computing</moduleID>
+		<moduleID>Project shipping-DAB-Computing-todo-XOR</moduleID>
 		<mdElement elementClass='StyleManager'>
 			<mdElement elementClass='SimpleStyle'>
 				<name>Default</name>

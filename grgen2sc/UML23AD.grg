@@ -448,7 +448,6 @@ rule RemoveSelfLoop(a:Activity) {
 	}
 }
 
-
 pattern differentOutput(x:ActivityNode,o:ActivityNode){
 	independent{
 		x -:ActivityEdge-> y:ActivityNode;
@@ -1058,6 +1057,76 @@ rule AnnotateForCreatePattern {
 	}
 }
 
+// to be executed as *
+rule Add_in_GuardsAndEffectsForCoordinator {
+	c:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> c;
+	a -:Coordinator-> c;
+	negative { a -:VisitedEdge-> c; }
+	cbnS1 -:AN2SC-> st1:HSCState;
+	cbnS2 -:AN2SC-> st2:HSCState;
+	st1 -trans:HSCtransition-> st2;
+	iterated {
+		pre:CentralBufferNode -of:ObjectFlow-> a;
+		pre -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
+		pre -:inState-> s:State;
+		negative {
+			pre -:VisitedEdge-> a;
+		}
+		modify {
+			pre -:VisitedEdge-> a;
+			eval {
+				trans.guard="["+pre.name+".in("+s.name+")] "+trans.guard;
+			}
+		}
+	}
+	modify {
+		a -:VisitedEdge-> c;
+	}
+}
+
+// TODO: finish this one
 rule ProduceNestedStatesForTasksDuringReadAccess {
+	cbn:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbn;
+	negative { // a is the root of a local sequence for which cbn is the read access (in the shipment example, 'send bill' is root while 'initiate double-check' is not)
+		pre:ActivityNode -:ControlFlow-> a;
+		cbn -:ObjectFlow-> pre -:ObjectFlow-> cbn;		
+	}
+	cbn -:AN2SC-> st1:HSCState;
+	modify {
+		stN1:HSCState -trans:HSCtransition-> stN2:HSCState;
+		st1 -:ownedElement->stN1;
+		st1 -:ownedElement->stN2;		
+		eval { 
+			trans.effect="invoke("+a.name+")";
+			stN1.name= "before invoke '"+a.name+"'";
+			stN2.name= "after invoke '"+a.name+"'";
+		}
+		// todo stuff for successors
+	}
+}
+
+rule AnnotateForFinalizationPattern {
+	o:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> o;
+	cbnS1 -:inState-> s1:State;
+	cbnS2 -:inState-> s2:State;
+	a <-:ObjectFlow- cbnT:CentralBufferNode -:smType-> p:UmlClass;
+	negative {
+		a -:ObjectFlow-> :CentralBufferNode -:smType-> p;
+	}
+	cbnS1 -:AN2SC-> st1:HSCState;
+	cbnS2 -:AN2SC-> st2:HSCState;	
+	st1 -trans:HSCtransition-> st2;
 	
+	cbnT -:AN2SC-> t:HSCState <-:ownedElement- owner:Namespace;
+	
+	if { trans.trigger==null || trans.trigger.length()<1; }
+	
+	modify {
+		t -trans2:HSCtransition-> f:ActivityFinalNode;
+		owner -:ownedElement-> f;
+		eval {
+			trans.guard="[in("+cbnT.name+")]";
+			trans.effect=cbnT.name+".finalize";
+		}
+	}
 }
