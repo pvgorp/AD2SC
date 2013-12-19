@@ -1098,6 +1098,7 @@ rule ProduceNestedStatesForTasksDuringReadAccess {
 		st1 -:ownedElement->stN2;		
 		eval { 
 			trans.effect="invoke("+a.name+")";
+			// note: the in(...) is realized by moving the guard of the outer state
 			stN1.name= "before invoke '"+a.name+"'";
 			stN2.name= "after invoke '"+a.name+"'";
 		}
