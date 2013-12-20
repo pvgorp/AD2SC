@@ -1084,7 +1084,7 @@ rule Add_in_GuardsAndEffectsForCoordinator {
 	}
 }
 
-// TODO: finish this one
+// NOTE: we no longer have read access (that is handled fully by Add_in_GuardsAndEffectsForCoordinator)
 rule ProduceNestedStatesForTasksDuringReadAccess {
 	cbn:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbn;
 	negative { // a is the root of a local sequence for which cbn is the read access (in the shipment example, 'send bill' is root while 'initiate double-check' is not)
@@ -1103,6 +1103,39 @@ rule ProduceNestedStatesForTasksDuringReadAccess {
 			stN2.name= "after invoke '"+a.name+"'";
 		}
 		// todo stuff for successors
+	}
+}
+
+rule ProduceNestedStatesForTasksDuringUpdateAccess {
+	c:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> c;
+	a -:Coordinator-> c;
+
+	cbnS1 -:AN2SC-> st1:HSCBasicState;
+	cbnS2 -:AN2SC-> st2:HSCState;// note: st2 can already be an OR state
+	st1 -trans:HSCtransition-> st2;
+	
+	// p:UmlClass <-:smType- cbnT1:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbnT2:CentralBufferNode -:smType-> p;
+	negative { st1 -:HSCcontains-> .; }
+	modify {
+		sta:HSCStartState -transNest1:HSCtransition-> stN1:HSCState -transNest2:HSCtransition-> stN2:HSCState;
+		
+		st1_retyped:HSCorState<st1>;
+		// st2_retyped:HSCorState<st2>;
+		
+		st1 -:HSCcontains->sta;
+		st1 -:HSCcontains->stN1;
+		st1 -:HSCcontains->stN2;		
+		eval { 
+			trans.trigger="cpl("+a.name+")";			
+			transNest2.effect="invoke("+a.name+")";
+			
+			// note: the in(...) on transNest2.guard is realized by moving the guard of the outer state (after Add_in_GuardsAndEffectsForCoordinator)
+			transNest2.guard=trans.guard; 
+			trans.guard="";
+			// note2: the toT2 on trans.effect is already realized by Add_in_GuardsAndEffectsForCoordinator
+			stN1.name= "before invoke '"+a.name+"'";
+			stN2.name= "after invoke '"+a.name+"'";				
+		}		
 	}
 }
 

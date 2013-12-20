@@ -56,11 +56,11 @@ dump set edge ObjectFlow color Black
 dump set edge ObjectFlow linestyle dashed 
 dump set edge ObjectFlow thickness 2
 
-# dump add edge inState exclude
+dump add edge inState exclude
 
-# dump add edge AN2SC exclude
+dump add edge AN2SC exclude
 
 dump set edge ErrorEdge color Red
 
-# dump add edge Coordinator exclude
+dump add edge Coordinator exclude
 dump add edge AN2AN exclude
