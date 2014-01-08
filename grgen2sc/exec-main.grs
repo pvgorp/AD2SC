@@ -59,14 +59,17 @@ xgrs {(::vID) = valloc()} & MapClonedADtoPNelements* && {vfree(::vID)}
 echo "|---> Mapping PN to Statechart"
 include PN2HSCcore.grs
 
+xgrs [normalizeDoubleFinalState] # merge empty dummy basic state followed by a final state
+
 #echo "|---> Deleting intermediate AD clone"
 #xgrs DeleteTargetsOfAN2AN
 
 echo "|---> Annotating SC Edges based on lifecycle interactions"
-xgrs AnnotateForCreatePattern* ;> AnnotateForFinalizationPattern* ;> Add_in_GuardsAndEffectsForCoordinator* ;> ProduceNestedStatesForTasksDuringReadAccess*  ;> ProduceNestedStatesForTasksDuringUpdateAccess*
+# xgrs AnnotateForCreatePattern* ;> AnnotateForFinalizationPattern* ;>
+xgrs Add_in_GuardsAndEffectsForCoordinator* ;> ProduceNestedStatesForTasksDuringReadAccess*  ;> ProduceNestedStatesForTasksDuringUpdateAccess*
 
 echo "|---> AD specific beautification"
-xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState] ;> [makeEndStateExplicit] # note: [makeEndStateExplicit] was also called in PN2SCHcore but is needed here too for newly inserted nested flows
+xgrs [AnyStateWithoutInflow2InitialState] ;> [makeEndStateExplicit] # note: [makeEndStateExplicit] was also called in PN2SCHcore but is needed here too for newly inserted nested flows
 	
 #echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 #redirect emit "uml/eugenia-sc-adspecific.statechart" # is XMI2

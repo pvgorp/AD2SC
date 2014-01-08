@@ -161,9 +161,10 @@
 				<inState xmi:idref='_16_6_2_931029f_1379339289969_507053_1267'/>
 			</node>
 			<node xmi:type='uml:ActivityFinalNode' xmi:id='_16_6_2_931029f_1379340376817_641383_1751' visibility='public'>
-				<incoming xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
+				<incoming xmi:idref='_16_6_2_931029f_1389209682444_348717_909'/>
 			</node>
 			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1379340388000_407857_1761' name='o' visibility='public' type='_16_6_2_931029f_1379338223947_497232_578'>
+				<outgoing xmi:idref='_16_6_2_931029f_1389209730952_923077_941'/>
 				<incoming xmi:idref='_16_6_2_931029f_1379340812299_922960_1774'/>
 				<inState xmi:idref='_16_6_2_931029f_1379339209606_920944_1145'/>
 			</node>
@@ -180,12 +181,14 @@
 				<inState xmi:idref='_16_6_2_931029f_1387371538574_306364_905'/>
 			</node>
 			<node xmi:type='uml:CentralBufferNode' xmi:id='_16_6_2_931029f_1387371695317_252900_959' name='q' visibility='public' type='_16_6_2_931029f_1387371520591_980137_863'>
+				<outgoing xmi:idref='_16_6_2_931029f_1389209698953_648436_924'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387371796374_749649_991'/>
+				<incoming xmi:idref='_16_6_2_931029f_1389209708872_776374_936'/>
 				<inState xmi:idref='_16_6_2_931029f_1387371543230_17685_919'/>
 			</node>
 			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1387371781012_351271_976' name='Perform Double-Check' visibility='public'>
 				<outgoing xmi:idref='_16_6_2_931029f_1387371796374_749649_991'/>
-				<outgoing xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1389209682443_592309_907'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387371800198_671014_993'/>
 				<incoming xmi:idref='_16_6_2_931029f_1387373603629_338664_1039'/>
 			</node>
@@ -193,6 +196,13 @@
 				<outgoing xmi:idref='_16_6_2_931029f_1389188750864_475334_877'/>
 				<incoming xmi:idref='_16_6_2_931029f_1389188609713_485245_859'/>
 				<inState xmi:idref='_16_6_2_931029f_1389188723143_674758_865'/>
+			</node>
+			<node xmi:type='uml:CallBehaviorAction' xmi:id='_16_6_2_931029f_1389209680482_941243_897' name='EOB' visibility='public'>
+				<outgoing xmi:idref='_16_6_2_931029f_1389209682444_348717_909'/>
+				<outgoing xmi:idref='_16_6_2_931029f_1389209708872_776374_936'/>
+				<incoming xmi:idref='_16_6_2_931029f_1389209682443_592309_907'/>
+				<incoming xmi:idref='_16_6_2_931029f_1389209698953_648436_924'/>
+				<incoming xmi:idref='_16_6_2_931029f_1389209730952_923077_941'/>
 			</node>
 			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1379338274905_153478_661' visibility='public' source='_16_6_2_931029f_1379338152241_868287_505' target='_16_6_2_931029f_1379338159367_69466_511'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1379338274905_587754_662' visibility='public' value='1'/>
@@ -326,9 +336,6 @@
 			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387373653921_699719_1048' visibility='public' source='_16_6_2_931029f_1379340178560_832585_1666' target='_16_6_2_931029f_1379340273971_645527_1710'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387373653921_724131_1049' visibility='public' value='1'/>
 			</edge>
-			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1387378536154_170354_1200' visibility='public' source='_16_6_2_931029f_1387371781012_351271_976' target='_16_6_2_931029f_1379340376817_641383_1751'>
-				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1387378536154_431293_1201' visibility='public' value='1'/>
-			</edge>
 			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1389188609713_485245_859' visibility='public' source='_16_6_2_931029f_1387371158418_294211_846' target='_16_6_2_931029f_1389188557728_818793_845'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389188609713_600961_860' visibility='public' value='1'/>
 			</edge>
@@ -340,6 +347,21 @@
 			</edge>
 			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1389189529785_135433_891' visibility='public' source='_16_6_2_931029f_1379339358995_360350_1281' target='_16_6_2_931029f_1379339552220_978957_1366'>
 				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389189529785_131184_892' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1389209682443_592309_907' visibility='public' source='_16_6_2_931029f_1387371781012_351271_976' target='_16_6_2_931029f_1389209680482_941243_897'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389209682443_96312_908' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ControlFlow' xmi:id='_16_6_2_931029f_1389209682444_348717_909' visibility='public' source='_16_6_2_931029f_1389209680482_941243_897' target='_16_6_2_931029f_1379340376817_641383_1751'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389209682444_234262_910' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1389209698953_648436_924' visibility='public' source='_16_6_2_931029f_1387371695317_252900_959' target='_16_6_2_931029f_1389209680482_941243_897'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389209698953_683324_925' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1389209708872_776374_936' visibility='public' source='_16_6_2_931029f_1389209680482_941243_897' target='_16_6_2_931029f_1387371695317_252900_959'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389209708873_17221_937' visibility='public' value='1'/>
+			</edge>
+			<edge xmi:type='uml:ObjectFlow' xmi:id='_16_6_2_931029f_1389209730952_923077_941' visibility='public' source='_16_6_2_931029f_1379340388000_407857_1761' target='_16_6_2_931029f_1389209680482_941243_897'>
+				<weight xmi:type='uml:LiteralUnlimitedNatural' xmi:id='_16_6_2_931029f_1389209730953_193546_942' visibility='public' value='1'/>
 			</edge>
 		</packagedElement>
 		<packagedElement xmi:type='uml:Class' xmi:id='_16_6_2_931029f_1379338172710_343767_535' name='Customer' visibility='public'>
@@ -662,8 +684,8 @@
 					<diagramOpened xmi:value='true'/>
 					<diagramFrameInitialSizeSet xmi:value='true'/>
 					<diagramWindowBounds>2, 24, 809, 800</diagramWindowBounds>
-					<diagramScrollPositionX xmi:value='0'/>
-					<diagramScrollPositionY xmi:value='30'/>
+					<diagramScrollPositionX xmi:value='64'/>
+					<diagramScrollPositionY xmi:value='346'/>
 					<maximized xmi:value='false'/>
 					<active xmi:value='true'/>
 					<mdOwnedViews>
@@ -1281,10 +1303,10 @@
 							<nameVisible xmi:value='true'/>
 						</mdElement>
 						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1387373603632_506567_1041'>
-							<elementID xmi:idref='_16_6_2_931029f_1387378536154_170354_1200'/>
+							<elementID xmi:idref='_16_6_2_931029f_1389209682444_348717_909'/>
 							<linkFirstEndID xmi:idref='_16_6_2_931029f_1379340375571_919570_1750'/>
-							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371779660_10810_975'/>
-							<geometry>341, 1099; 341, 916; </geometry>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1389209679269_650142_896'/>
+							<geometry>341, 1099; 341, 995; </geometry>
 							<nameVisible xmi:value='true'/>
 						</mdElement>
 						<mdElement elementClass='ObjectNode' xmi:id='_16_6_2_931029f_1389188556800_403109_844'>
@@ -1305,6 +1327,40 @@
 							<linkFirstEndID xmi:idref='_16_6_2_931029f_1379339550877_516771_1365'/>
 							<linkSecondEndID xmi:idref='_16_6_2_931029f_1379339358284_840154_1280'/>
 							<geometry>554, 259; 526, 259; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='CallBehaviorAction' xmi:id='_16_6_2_931029f_1389209679269_650142_896'>
+							<elementID xmi:idref='_16_6_2_931029f_1389209680482_941243_897'/>
+							<geometry>291, 973, 100, 22</geometry>
+							<verticalCenterline>_16_6_2_931029f_1379338661388_738214_688</verticalCenterline>
+							<horizontalCenterline>_16_6_2_931029f_1389209682421_664420_898</horizontalCenterline>
+						</mdElement>
+						<mdElement elementClass='ControlFlow' xmi:id='_16_6_2_931029f_1389209682448_579091_911'>
+							<elementID xmi:idref='_16_6_2_931029f_1389209682443_592309_907'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1389209679269_650142_896'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371779660_10810_975'/>
+							<geometry>341, 973; 341, 916; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1389209697898_699807_923'>
+							<elementID xmi:idref='_16_6_2_931029f_1389209698953_648436_924'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1389209679269_650142_896'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1387371693357_850287_958'/>
+							<geometry>291, 987; 168, 987; 168, 974; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1389209708418_354494_935'>
+							<elementID xmi:idref='_16_6_2_931029f_1389209708872_776374_936'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1387371693357_850287_958'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1389209679269_650142_896'/>
+							<geometry>168, 974; 168, 987; 291, 987; </geometry>
+							<nameVisible xmi:value='true'/>
+						</mdElement>
+						<mdElement elementClass='ObjectFlow' xmi:id='_16_6_2_931029f_1389209730108_377186_940'>
+							<elementID xmi:idref='_16_6_2_931029f_1389209730952_923077_941'/>
+							<linkFirstEndID xmi:idref='_16_6_2_931029f_1389209679269_650142_896'/>
+							<linkSecondEndID xmi:idref='_16_6_2_931029f_1379340383672_188755_1760'/>
+							<geometry>391, 984; 596, 984; 596, 882; </geometry>
 							<nameVisible xmi:value='true'/>
 						</mdElement>
 					</mdOwnedViews>
@@ -1695,7 +1751,7 @@
 						<mdElement elementClass='StringProperty'>
 							<propertyID>INFO_PROPERTY</propertyID>
 							<propertyDescriptionID>INFO_PROPERTY_DESCRIPTION</propertyDescriptionID>
-							<value>2c 4b 68 21 39 5a 29 54 39 5b 60 6f da b5 a5 54 c0 84 73 7b a4 f5 d6 be 75 f5 4 14 4c e7 e6 64 33 de d6 6e 8e ee d3 e5 30 cc d 1a 49 be 8 c5 e2 8a ba 3c 66 5 11 d 27 a3 a2 2d cd 90 b ef 5d 7e 99 3d 23 d8 d3 </value>
+							<value>2c 4b 68 21 39 5a 29 54 39 5b 60 6f da b5 a5 54 c0 84 73 7b a4 f5 d5 ba 75 f3 9 14 4a e8 e6 64 33 de d6 6e 8e ee d3 e5 30 cc d 1a 49 be 8 c5 e2 8a ba 3c 66 5 11 d 27 a3 a2 2d cd 90 b ef 5d 7e 99 3d 23 d8 d3 </value>
 						</mdElement>
 						<mdElement elementClass='LIST_PROPERTY'>
 							<propertyID>ADDITIONAL_CONTAINMENT_TREES</propertyID>

@@ -1031,10 +1031,11 @@ rule RemoveReadEdgesForCoordinator {
 		cbn -hidden1:HiddenObjectFlow<of1>-> a -hidden2:HiddenObjectFlow<of2>-> cbn2;
 	}
 }
-
+/**
+ DEPRECATED, replaced by subrule of Add_in_GuardsAndEffectsForCoordinator
 // based on "Fig. 3: Creation Pattern"
 // note: does not apply to create behavior within a composite SC state (i.e., when the CBN is doing a "read" data access)
-rule AnnotateForCreatePattern {
+rule AnnotateForCreatePattern {Add_in_GuardsAndEffectsForCoordinator
 	o:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> o;
 	cbnS1 -:inState-> s1:State;
 	cbnS2 -:inState-> s2:State;
@@ -1055,7 +1056,36 @@ rule AnnotateForCreatePattern {
 			trans.effect=cbnInit.name+":= create("+cbnInit._type+")";
 		}
 	}
+}*/
+/**
+ DEPRECATED, replaced by subrule of Add_in_GuardsAndEffectsForCoordinator
+// TODO: add equivalent for the case where there is only a Read coordinator (e.g., by means of subrule in rule for read-based operation call)
+rule AnnotateForFinalizationPattern {
+	o:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> o;
+	cbnS1 -:inState-> s1:State;
+	cbnS2 -:inState-> s2:State;
+	a <-:ObjectFlow- cbnT:CentralBufferNode -:smType-> p:UmlClass;
+	negative {
+		a -:ObjectFlow-> :CentralBufferNode -:smType-> p;
+	}
+	cbnS1 -:AN2SC-> st1:HSCState;
+	cbnS2 -:AN2SC-> st2:HSCState;	
+	st1 -trans:HSCtransition-> st2;
+	
+	cbnT -:AN2SC-> t:HSCState <-:ownedElement- owner:Namespace;
+	
+	if { trans.trigger==null || trans.trigger.length()<1; }
+	
+	modify {
+		t -trans2:HSCtransition-> f:ActivityFinalNode;
+		owner -:ownedElement-> f;
+		eval {
+			trans.guard="[in("+cbnT.name+")]";
+			trans.effect=cbnT.name+".finalize";
+		}
+	}
 }
+*/
 
 // to be executed as *
 rule Add_in_GuardsAndEffectsForCoordinator {
@@ -1065,28 +1095,97 @@ rule Add_in_GuardsAndEffectsForCoordinator {
 	cbnS1 -:AN2SC-> s1:HSCState;
 	cbnS2 -:AN2SC-> s2:HSCState;
 	s1 -trans:HSCtransition-> s2;
-	iterated {
-		cbnT1:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbnT2:CentralBufferNode;
-		cbnT1 -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
-		cbnT2 -:smType-> c2;
-		cbnT1 -:inState-> scbnT1:State;
-		cbnT2 -:inState-> scbnT2:State;
-		
-		cbnT1 -:AN2SC-> t1:HSCState;
-		cbnT2 -:AN2SC-> t2:HSCState;
-		t1 -trans2:HSCtransition-> t2;
-		negative {
-			cbnT1 -:VisitedEdge-> a;
-		}
-		modify {
-			cbnT1 -:VisitedEdge-> a;
-			eval {
-				trans.guard="["+cbnT1.name+".in("+scbnT1.name+")] "+trans.guard;
-				trans.effect= cbnT2.name+".to"+scbnT2.name+" "+trans.effect;
-				trans2.trigger= "to"+scbnT2.name+" "+trans.trigger;
+	 iterated { 
+		alternative {
+			RUF { // Generic for Read/Update/Finalize
+				cbnT1:CentralBufferNode -:ObjectFlow-> a;
+				cbnT1 -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
+				cbnT1 -:inState-> scbnT1:State;
+				cbnT1 -:AN2SC-> t1:HSCState;
+						
+				negative {
+					cbnT1 -:VisitedEdge-> a;
+				}
+				
+				alternative { 
+					Update { // Update Pattern
+						a -:ObjectFlow-> cbnT2:CentralBufferNode -:smType-> c2;
+						cbnT2 -:inState-> scbnT2:State;		
+						cbnT2 -:AN2SC-> t2:HSCState;
+						t1 -trans2:HSCtransition-> t2;
+						modify {
+							eval {
+								trans.effect= cbnT2.name+".to"+scbnT2.name+" "+trans.effect;
+								trans2.trigger= "to"+scbnT2.name+" "+trans.trigger;
+							}
+						}
+					}
+					Finalize { // Finalize Pattern					
+						negative { // no update on T (so no outgoing arc from a)
+							a -:ObjectFlow-> :CentralBufferNode -:smType-> c2;
+						}
+						parent:HSCCompoundState -:HSCcontains-> t1;
+						alternative {
+							NoFinal {
+								negative {
+									t1 -:HSCtransition-> :HSCFinalState;
+								}
+								modify {
+									t1 -trans2:HSCtransition-> fin:HSCFinalState;
+									parent -:HSCcontains-> fin;
+									eval {
+										trans2.trigger= "finalize";
+										fin.name="F-end";
+									}
+								}
+							}
+							Final {
+								t1 -trans2:HSCtransition-> fin2:HSCFinalState;
+								modify {
+									eval {
+										trans2.trigger= "finalize";
+										fin2.name="F2-end";
+									}
+								}
+							}
+						}
+						modify {							
+							eval {
+								trans.effect= cbnT1.name+".finalize "+trans.effect;
+							}
+						}
+					}
+					Read { // Read Pattern
+						a -:ObjectFlow-> cbnT1;
+						modify {}
+					}
+				}
+					
+				modify {
+					cbnT1 -:VisitedEdge-> a;
+					eval {
+						trans.guard="["+cbnT1.name+".in("+scbnT1.name+")] "+trans.guard;
+					}
+				}
+			}
+			Create { // Create Pattern
+				a -:ObjectFlow-> cbnInit:CentralBufferNode;
+				cbnInit -:smType-> typeOf_cbnInit:UmlClass;
+				negative {
+					cbnOther:CentralBufferNode -:ObjectFlow-> a;
+					cbnOther -:smType-> typeOf_cbnInit;
+				} 
+				modify {
+					// trans.trigger="cpl("+a.name+")";
+					eval {
+						trans.effect=cbnInit.name+":= create("+cbnInit._type+")";
+					}
+				}
 			}
 		}
+		modify {}
 	}
+
 	modify {
 		a -:VisitedEdge-> c;
 	}
@@ -1123,7 +1222,14 @@ rule ProduceNestedStatesForTasksDuringReadAccess {
 			fin.name= "R-end";
 		}
 		// TO BE HANDLED LATER: exec(HandleSuccessorsForTasksDuringReadAccess(a,trans2,cbn));
-		exec(AddCreateEffectIfNeeded(stN1, stN2, a, c));
+		
+		
+		
+		
+		
+		// TODO: consider adding a similar exec for the finalize case (since Add_in_GuardsAndEffectsForCoordinator assumes an update at the Coordinator side).
+		// Note that it is naturally missing there, since the 'trans' is nowhere to be found before creating the nested states for the read update!
+		exec(AddCreateEffectIfNeeded(stN1, stN2, a, c) ;> AddFinalizeEffectIfNeeded(stN2, fin, a, c));
 	}		
 }
 
@@ -1132,13 +1238,53 @@ rule HandleSuccessorsForTasksDuringReadAccess(a:ActivityNode, transToInsertAfter
 }*/
 
 rule AddCreateEffectIfNeeded(stN1:HSCBasicState, stN2:HSCBasicState, a:ActivityNode, c:UmlClass) {
-	stN1 -trans:HSCtarget-> stN2;
+	stN1 -trans:HSCtarget-> stN2;// re-match (needed since edges cannot be rule param)
 	a -:ObjectFlow-> cbnInit:CentralBufferNode -:smType-> typeOfCreatedObject:UmlClass;// typeOfCreatedObject<>c
 	negative {
 		a <-:ObjectFlow- :CentralBufferNode -:smType-> typeOfCreatedObject;
 	}
 	modify {
 		eval { trans.effect=cbnInit.name+":= create("+cbnInit._type+")"; }
+	}
+}
+
+rule AddFinalizeEffectIfNeeded(stN1:HSCState, stN2:HSCState, a:ActivityNode, c:UmlClass) {
+	stN1 -trans:HSCtarget-> stN2;// re-match (needed since edges cannot be rule param)
+	cbnFinal:CentralBufferNode -:ObjectFlow-> a;
+	cbnFinal -:smType-> typeOfFinalizedObject:UmlClass;// typeOfFinalizedObject<>c
+	negative {
+		a -:ObjectFlow-> :CentralBufferNode -:smType-> typeOfFinalizedObject;
+	}	
+	cbnFinal -:AN2SC-> t1:HSCState <-:HSCcontains- parent:HSCCompoundState;
+	
+	alternative {
+		NoFinal {
+			negative {
+				t1 -:HSCtransition-> :HSCFinalState;
+			}
+			modify {
+				t1 -trans2:HSCtransition-> fin:HSCFinalState;
+				parent -:HSCcontains-> fin;
+				eval {
+					trans2.trigger= "finalize";
+					fin.name="F3-end";
+				}
+			}
+		}
+		Final {
+			t1 -trans2:HSCtransition-> fin2:HSCFinalState;
+			modify {
+				eval {
+					trans2.trigger= "finalize";
+					fin2.name="F4-end";
+				}
+			}
+		}
+	}
+	modify {							
+		eval {
+			trans.effect= cbnFinal.name+".finalize "+trans.effect;
+		}
 	}
 }
 
@@ -1191,7 +1337,7 @@ rule ProduceNestedStatesForTasksDuringUpdateAccess {
 				st1 -:HSCcontains->stN2;
 				st1 -:HSCcontains-> fin;				
 				eval { 
-					trans.trigger="cpl("+a.name+")";			
+					trans.trigger="cpl("+a.name+") "+trans.trigger;			
 					transNest2.effect="invoke("+a.name+")";
 					
 					// note: the in(...) on transNest2.guard is realized by moving the guard of the outer state (after Add_in_GuardsAndEffectsForCoordinator)
@@ -1207,31 +1353,4 @@ rule ProduceNestedStatesForTasksDuringUpdateAccess {
 		}
 	}
 	modify {}
-}
-
-// TODO: add equivalent for the case where there is only a Read coordinator (e.g., by means of subrule in rule for read-based operation call)
-rule AnnotateForFinalizationPattern {
-	o:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> o;
-	cbnS1 -:inState-> s1:State;
-	cbnS2 -:inState-> s2:State;
-	a <-:ObjectFlow- cbnT:CentralBufferNode -:smType-> p:UmlClass;
-	negative {
-		a -:ObjectFlow-> :CentralBufferNode -:smType-> p;
-	}
-	cbnS1 -:AN2SC-> st1:HSCState;
-	cbnS2 -:AN2SC-> st2:HSCState;	
-	st1 -trans:HSCtransition-> st2;
-	
-	cbnT -:AN2SC-> t:HSCState <-:ownedElement- owner:Namespace;
-	
-	if { trans.trigger==null || trans.trigger.length()<1; }
-	
-	modify {
-		t -trans2:HSCtransition-> f:ActivityFinalNode;
-		owner -:ownedElement-> f;
-		eval {
-			trans.guard="[in("+cbnT.name+")]";
-			trans.effect=cbnT.name+".finalize";
-		}
-	}
 }
