@@ -1062,24 +1062,28 @@ rule Add_in_GuardsAndEffectsForCoordinator {
 	c:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> c;
 	a -:Coordinator-> c;
 	negative { a -:VisitedEdge-> c; }
-	cbnS1 -:AN2SC-> st1:HSCState;
-	cbnS2 -:AN2SC-> st2:HSCState;
-	st1 -trans:HSCtransition-> st2;
+	cbnS1 -:AN2SC-> s1:HSCState;
+	cbnS2 -:AN2SC-> s2:HSCState;
+	s1 -trans:HSCtransition-> s2;
 	iterated {
-		pre:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> post:CentralBufferNode;
-		pre -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
-		post -:smType-> c2;
-		pre -:inState-> sPre:State;
-		post -:inState-> sPost:State;
-		// sPre -pre2post:HSCtransition-> sPost;
+		cbnT1:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> cbnT2:CentralBufferNode;
+		cbnT1 -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
+		cbnT2 -:smType-> c2;
+		cbnT1 -:inState-> scbnT1:State;
+		cbnT2 -:inState-> scbnT2:State;
+		
+		cbnT1 -:AN2SC-> t1:HSCState;
+		cbnT2 -:AN2SC-> t2:HSCState;
+		t1 -trans2:HSCtransition-> t2;
 		negative {
-			pre -:VisitedEdge-> a;
+			cbnT1 -:VisitedEdge-> a;
 		}
 		modify {
-			pre -:VisitedEdge-> a;
+			cbnT1 -:VisitedEdge-> a;
 			eval {
-				trans.guard="["+pre.name+".in("+sPre.name+")] "+trans.guard;
-				trans.effect= post.name+".to"+sPost.name+" "+trans.effect;
+				trans.guard="["+cbnT1.name+".in("+scbnT1.name+")] "+trans.guard;
+				trans.effect= cbnT2.name+".to"+scbnT2.name+" "+trans.effect;
+				trans2.trigger= "to"+scbnT2.name+" "+trans.trigger;
 			}
 		}
 	}
