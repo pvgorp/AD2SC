@@ -1066,16 +1066,20 @@ rule Add_in_GuardsAndEffectsForCoordinator {
 	cbnS2 -:AN2SC-> st2:HSCState;
 	st1 -trans:HSCtransition-> st2;
 	iterated {
-		pre:CentralBufferNode -of:ObjectFlow-> a;
+		pre:CentralBufferNode -:ObjectFlow-> a -:ObjectFlow-> post:CentralBufferNode;
 		pre -:smType-> c2:UmlClass; // c <> c2, so c2 is *not* the coordinator, it is a class with its own lifecycle
-		pre -:inState-> s:State;
+		post -:smType-> c2;
+		pre -:inState-> sPre:State;
+		post -:inState-> sPost:State;
+		// sPre -pre2post:HSCtransition-> sPost;
 		negative {
 			pre -:VisitedEdge-> a;
 		}
 		modify {
 			pre -:VisitedEdge-> a;
 			eval {
-				trans.guard="["+pre.name+".in("+s.name+")] "+trans.guard;
+				trans.guard="["+pre.name+".in("+sPre.name+")] "+trans.guard;
+				trans.effect= post.name+".to"+sPost.name+" "+trans.effect;
 			}
 		}
 	}
@@ -1111,22 +1115,34 @@ rule ProduceNestedStatesForTasksDuringReadAccess {
 			// note: the in(...) is realized by moving the guard of the outer state
 			stN1.name= "before invoke '"+a.name+"'";
 			stN2.name= "after invoke '"+a.name+"'";
-			trans2.trigger="cpl("+a.name+")";
+			trans2.trigger="cpl("+a.name+")";			
 			fin.name= "R-end";
 		}
 		// TO BE HANDLED LATER: exec(HandleSuccessorsForTasksDuringReadAccess(a,trans2,cbn));
+		exec(AddCreateEffectIfNeeded(stN1, stN2, a, c));
 	}		
 }
+
 /*
-rule HandleSuccessorsForTasksDuringReadAccess(a:ActivityNode, transToInsertAfter:HSCtarget, cbn:CentralBufferNode) {
-	
+rule HandleSuccessorsForTasksDuringReadAccess(a:ActivityNode, transToInsertAfter:HSCtarget, cbn:CentralBufferNode) {	
 }*/
+
+rule AddCreateEffectIfNeeded(stN1:HSCBasicState, stN2:HSCBasicState, a:ActivityNode, c:UmlClass) {
+	stN1 -trans:HSCtarget-> stN2;
+	a -:ObjectFlow-> cbnInit:CentralBufferNode -:smType-> typeOfCreatedObject:UmlClass;// typeOfCreatedObject<>c
+	negative {
+		a <-:ObjectFlow- :CentralBufferNode -:smType-> typeOfCreatedObject;
+	}
+	modify {
+		eval { trans.effect=cbnInit.name+":= create("+cbnInit._type+")"; }
+	}
+}
 
 rule ProduceNestedStatesForTasksDuringUpdateAccess {
 	c:UmlClass <-:smType- cbnS1:CentralBufferNode -:ObjectFlow-> a:ActivityNode -:ObjectFlow-> cbnS2:CentralBufferNode -:smType-> c;
 	a -:Coordinator-> c;
 
-	cbnS1 -:AN2SC-> st1:HSCState; 
+	cbnS1 -:AN2SC-> st1:HSCState; // note: via an alternative clause, we consider 2 subtypes of st1 (compound and primitive)
 	cbnS2 -:AN2SC-> st2:HSCState;// note: st2 can already be an OR state
 	st1 -trans:HSCtransition-> st2;
 	
