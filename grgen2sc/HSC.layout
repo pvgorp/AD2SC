@@ -25,6 +25,7 @@ dump set node HSCHyperEdge color black
 dump set node HSCHyperEdge shape box
 
 dump set node HSCBasicState shape ellipse
+dump set node HSCBasicState color yellow
 
 dump set node HSCStartState shape circle
 dump set node HSCStartState color green

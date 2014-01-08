@@ -33,8 +33,8 @@ xgrs MarkCoordinator* && RemoveReadEdgesForCoordinator* # NOTE: coordinator sele
 # Debugger help to locate violating lacks of Coordinators
 xgrs [ActivityWithoutCoordinator_]
 
-echo "|---> Checking DAB WFR..."
-#validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
+# echo "|---> Checking DAB WFR..."
+# validate exitonfailure xgrs EachActivityAtLeastOneCoordinator
 
 echo "|---> Backup input AD once per classifier..." 
 xgrs (adIN:Activity)=GetSrcActivity && ((tp:Namespace)=GetSMTypeOnce && m:map<Node, Node>=map<Node, Node>{} && CopyUML23AD(adIN,m) && (::adCLONE)=CopyOf(adIN,m) && RMOtherCentralBuffNodes(::adCLONE,tp))* # && [RemoveAnyHSCelement]
@@ -63,10 +63,10 @@ include PN2HSCcore.grs
 #xgrs DeleteTargetsOfAN2AN
 
 echo "|---> Annotating SC Edges based on lifecycle interactions"
-xgrs AnnotateForCreatePattern* ;> AnnotateForFinalizationPattern* ;> Add_in_GuardsAndEffectsForCoordinator* ;> ProduceNestedStatesForTasksDuringUpdateAccess*
+xgrs AnnotateForCreatePattern* ;> AnnotateForFinalizationPattern* ;> Add_in_GuardsAndEffectsForCoordinator* ;> ProduceNestedStatesForTasksDuringReadAccess*  ;> ProduceNestedStatesForTasksDuringUpdateAccess*
 
 echo "|---> AD specific beautification"
-xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState]
+xgrs [AnyStateWithoutInflow2InitialState] $| [normalizeDoubleFinalState] ;> [makeEndStateExplicit] # note: [makeEndStateExplicit] was also called in PN2SCHcore but is needed here too for newly inserted nested flows
 	
 #echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 #redirect emit "uml/eugenia-sc-adspecific.statechart" # is XMI2

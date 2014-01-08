@@ -72,6 +72,7 @@ abstract edge class ActivityEdge connect ActivityNode[*] --> ActivityNode[*] { /
 }
 edge class ControlFlow extends ActivityEdge;
 edge class ObjectFlow extends ActivityEdge;
+edge class HiddenObjectFlow extends Edge; // Proprietary, for AD2SC
 
 node class Stereotype extends UML23NamedElement;
 edge class stereotype connect UML23NamedElement [0:1] --> Stereotype[*];
