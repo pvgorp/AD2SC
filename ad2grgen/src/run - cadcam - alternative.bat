@@ -1,0 +1,1 @@
+java -cp ..\lib\jdom.jar;..\bin ad2grgen ..\..\grgen2sc\input\cadcam-alternative.uml.xml ..\..\grgen2sc\input\cadcam-alternative.uml.gruml23
