@@ -69,6 +69,7 @@ edge class smType connect CentralBufferNode [1] --> Namespace[*];
 abstract edge class ActivityEdge connect ActivityNode[*] --> ActivityNode[*] { // from source to target
   	name:string;
 	visibility: Visibility;
+	guard:string;
 }
 edge class ControlFlow extends ActivityEdge;
 edge class ObjectFlow extends ActivityEdge;

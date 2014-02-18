@@ -25,6 +25,7 @@ xgrs [trans_place]&&[trans_transition] &&[trans_post]&&[trans_pre]&& [trans_toke
 # BEGIN NEW
 echo "|---> Generating composite traceability links..."
 xgrs [merge_tracelinks_AD_AD_PN_SC]
+
 # END NEW
 echo "|---> Introducing hierarchy (PN-destructive reduction rules)..."
 xgrs (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
@@ -65,6 +66,9 @@ xgrs (replace_HEfork_arc $| replace_HEjoin_arc)*
 echo "|---> some more syntactical sugar related change that has been designed with yComp in mind, and not with the transformation to UML 2 XMI..."
 # PVG: can be disabled for debugging cross-sync: 
 xgrs [removeTrivialHyperEdge] | [flattenSingletonORregion] | [makeEndStateExplicit]
+
+# For AD2SC: copy guards across cloned structures (without polluting the intermediate PN inscriptions etc.)
+xgrs [copyGuardLabels]
 
 echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 redirect emit "uml/eugenia-sc-pngeneric.statechart" # is XMI2

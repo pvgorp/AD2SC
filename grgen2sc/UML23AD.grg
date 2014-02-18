@@ -722,6 +722,38 @@ rule merge_tracelinks_AD_AD_PN_SC {
 	}
 }
 
+/* To be applied as [copyGuardLabels] to ensure that for each XORNode the outgoing edges have their labels copied */
+rule copyGuardLabels {
+	src:XORNode -:AN2AN-> srcClone:XORNode;
+	srcClone -sC2tC:ActivityEdge-> trgClone:CentralBufferNode;
+	trgCBN:CentralBufferNode -:AN2AN-> trgClone;
+	trgDirect:ActivityNode;
+	src -s2tDirect:ActivityEdge-> trgDirect;
+	:OnANorCFlowSuccessorOf(trgCBN,trgDirect);
+	trgCBN -:AN2SC-> trgSC:HSCState;
+	src -:AN2SC-> srcSC:HSCState;
+	srcSC -s2t_copy:HSCtransition-> trgSC;	
+	modify {
+		eval {
+			s2t_copy.guard=s2tDirect.guard;
+			sC2tC.guard=s2tDirect.guard;
+		}
+	}
+}
+
+pattern OnANorCFlowSuccessorOf(trgCBN:CentralBufferNode,an:ActivityNode) {
+	alternative {
+		DirectOn {
+			an -:ObjectFlow-> trgCBN;
+		}
+		OnSuccessor {
+			negative { an -:ObjectFlow-> trgCBN; } // strict alternative
+			an -:ControlFlow-> next:ActivityNode;
+			:OnANorCFlowSuccessorOf(trgCBN,next);
+		}
+	}
+}
+
 rule AddTokenToInitialPlace(a:Activity) {
 	a -:ownedElement-> :InitialNode -:AN2PNE-> p:Place;
 

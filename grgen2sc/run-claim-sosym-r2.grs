@@ -18,31 +18,8 @@
 # along with AD2SC; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-# dump add node PetriNet exclude
-dump add node PetriNet group by hidden outgoing places
-dump add node PetriNet group by hidden outgoing transitions
+new graph UML23AD "UML 2.3 Activity Diagram"
 
-debug set layout Hierarchic
-dump set node NamedElement labels off
+include "input/claim-sosym-r2.uml.gruml23"
 
-dump set node Token color Black
-dump set node Token labels off
-dump set node Token shape Circle
-
-dump set node Place shape ellipse
-dump set node Place color White
-dump set node Transition shape Box
-dump set node Transition color Black
-dump set edge before color Red
-dump add node Place group by hidden outgoing tokens
-dump set node Place labels off
-
-dump set edge pre labels off
-dump set edge post labels off
-dump set edge pre color Black
-dump set edge post color Black
-dump set node Transition labels off
-
-# dump set edge PN2HSC labels off
-dump add edge PN2HSC exclude # useful for debugging cross-sync
-dump add edge AN2PNE exclude
+include exec-main.grs

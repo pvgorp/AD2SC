@@ -191,7 +191,7 @@ public class ad2grgen {
 					Element el = it2.next();
 					System.out.println(el.getAttributeValue("type",ns));
 					if ("uml:ControlFlow".equals(el.getAttributeValue("type", ns))||"uml:ObjectFlow".equals(el.getAttributeValue("type", ns))){
-						String id = el.getAttributeValue("id",ns);
+						String edgeID = el.getAttributeValue("id",ns);
 						String vis = el.getAttributeValue("visibility");
 						String name = el.getAttributeValue("name");
 						if (name==null) name="";
@@ -207,9 +207,25 @@ public class ad2grgen {
 						else {
 							ctype=new String("ObjectFlow");
 						}
-						str+=("new @(\""+source+"\")"+  " - :"+ctype+" -> @(\"" + target+ "\")\n" );
+						// lookup guard
+						String bGuard= null;
+						Iterator<Element> it3=el.getDescendants(new ElementFilter("guard"));
+						while (it3.hasNext()){
+							Element guard = it3.next();
+							bGuard= guard.getAttributeValue("body"); // note: the body attribute is not in the XMI namespace
+							System.out.println("id: "+guard.getAttributeValue("id",ns));
+							System.out.println("guard: "+bGuard);
+							if (bGuard!=null && !"".equals(bGuard)){
+								break;
+							}
+						}
+						// output .grs for edge create (with or without guard init)
+						if (bGuard!=null && !"".equals(bGuard)){
+							str+=("new @(\""+source+"\")"+  " - "+edgeID+":"+ctype+"(guard='"+bGuard+"') -> @(\"" + target+ "\")\n" );
+						} else {
+							str+=("new @(\""+source+"\")"+  " - "+edgeID+":"+ctype+" -> @(\"" + target+ "\")\n" );
+						}						
 					}
-
 				}
 			}
 
